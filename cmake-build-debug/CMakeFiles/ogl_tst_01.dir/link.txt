@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/ogl_tst_01.dir/main.cpp.o -o ogl_tst_01  /usr/lib/libglfw.so.3.3 /usr/lib/libGLX.so /usr/lib/libOpenGL.so 

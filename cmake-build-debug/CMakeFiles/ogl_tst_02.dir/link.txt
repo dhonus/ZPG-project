@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/ogl_tst_02.dir/main.cpp.o CMakeFiles/ogl_tst_02.dir/src/Window.cpp.o CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o CMakeFiles/ogl_tst_02.dir/src/ShaderObject.cpp.o CMakeFiles/ogl_tst_02.dir/src/App.cpp.o -o ogl_tst_02  /usr/lib/libglfw.so.3.3 /usr/lib/libGLEW.so /usr/lib/libGLX.so /usr/lib/libOpenGL.so 
