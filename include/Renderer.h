@@ -13,7 +13,7 @@ private:
     GLuint shaderProgram;
     GLuint VAO;
 public:
-    Renderer(Window* t_window, GLuint shaderProgram, GLuint VAO);
+    Renderer(Window* t_window, GLuint shaderProgram);
     int render();
 };
 

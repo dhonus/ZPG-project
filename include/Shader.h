@@ -2,8 +2,8 @@
 // Created by daniel on 26.9.22.
 //
 
-#ifndef OGL_TST_02_SHADEROBJECT_H
-#define OGL_TST_02_SHADEROBJECT_H
+#ifndef OGL_TST_02_SHADER_H
+#define OGL_TST_02_SHADER_H
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -12,12 +12,19 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Vbo.h"
+#include "Vao.h"
 
-class ShaderObject {
+class Shader {
 public:
-    ShaderObject();
+    Shader();
     GLuint shaderProgram;
-    GLuint VAO;
+    Vbo* VBO;
+    Vao* VAO;
+    void compile();
+
+    void use_program();
+
 private:
     const char* vertex_shader =
             "#version 330\n"
@@ -37,4 +44,4 @@ private:
 };
 
 
-#endif //OGL_TST_02_SHADEROBJECT_H
+#endif //OGL_TST_02_SHADER_H
