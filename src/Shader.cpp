@@ -10,13 +10,14 @@ Shader::Shader() {
             -0.5f, -0.5f, 0.0f
     };
 
-    std::vector<std::vector<glm::vec4>> points2 {
-            { { -.5f, -.5f, .5f, 1 }, { 1, 1, 0, 1 } },
-            { { -.5f, .5f, .5f, 1 }, { 1, 0, 0, 1 } },
-            { { .5f, .5f, .5f, 1 }, { 0, 0, 0, 1 } },
+    std::vector<float> b{
+            -.5f, -.5f, .5f, 1, 1, 1, 0, 1,
+            -.5f, .5f, .5f, 1, 1, 0, 0, 1,
+            .5f, .5f, .5f, 1, 0, 0, 0, 1,
+            .5f, -.5f, .5f, 1, 0, 1, 0, 1
     };
 
-    this->VBO = new Vbo(points);
+    this->VBO = new Vbo(b);
     this->VAO = new Vao(VBO);
 
     this->compile();

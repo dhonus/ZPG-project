@@ -9,7 +9,7 @@ int Renderer::render() {
         // clear color and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // draw triangles
-        glDrawArrays(GL_TRIANGLES, 0, 3); //mode,first,count
+        glDrawArrays(GL_POLYGON, 0, 4); //mode,first,count
         // update other events like input handling
         glfwPollEvents();
 

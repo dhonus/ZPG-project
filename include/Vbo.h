@@ -14,9 +14,10 @@
 class Vbo {
 private:
     GLuint VBO;
+    std::vector<float> points;
 public:
     Vbo(std::vector<float> t_points);
-    Vbo(std::vector<std::vector<glm::vec4>> t_points);
+    Vbo();
     void bind_buffer();
 };
 
