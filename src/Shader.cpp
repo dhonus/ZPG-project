@@ -4,12 +4,6 @@
 
 Shader::Shader() {
 
-    std::vector<float> points = {
-            0.0f, 0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f
-    };
-
     std::vector<float> b{
             -.5f, -.5f, .5f, 1, 1, 1, 0, 1,
             -.5f, .5f, .5f, 1, 1, 0, 0, 1,
