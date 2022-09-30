@@ -18,14 +18,16 @@
 class Shader {
 public:
     Shader();
+    ~Shader();
     GLuint shaderProgram;
     Vbo* VBO;
     Vao* VAO;
     void compile();
-
     void use_program();
 
 private:
+    GLuint vertexShader;
+    GLuint fragmentShader;
     const char* vertex_shader =
             "#version 330\n"
             "layout(location=0) in vec3 vp;"
@@ -41,6 +43,24 @@ private:
             "void main () {"
             "     frag_colour = vec4 (colors, 1.0);"
             "}";
+    /*
+    const char* vertex_shader =
+            "#version 330\n"
+            "layout(location=0) in vec3 vp;"
+            "layout(location=1) in vec3 color;"
+            "out vec3 colors;"
+            "void main () {"
+            "     gl_Position = vec4 (vp, 1.0);"
+            "     colors = color;"
+            "}";
+    const char* fragment_shader =
+            "#version 330\n"
+            "out vec4 frag_colour;"
+            "in vec3 colors;"
+            "void main () {"
+            "     frag_colour = vec4 (colors, 1.0);"
+            "}";
+     * */
 };
 
 

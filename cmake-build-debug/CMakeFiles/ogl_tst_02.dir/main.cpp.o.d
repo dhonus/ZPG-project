@@ -1,7 +1,8 @@
 CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/main.cpp \
- /usr/include/stdc-predef.h /usr/include/GL/glew.h \
- /usr/include/c++/12.2.0/cstddef \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/main.cpp \
+ /usr/include/stdc-predef.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Window.h \
+ /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -18,7 +19,6 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h /usr/include/GLFW/glfw3.h \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/Window.h \
  /usr/include/c++/12.2.0/stdlib.h /usr/include/c++/12.2.0/cstdlib \
  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
  /usr/include/bits/waitstatus.h /usr/include/bits/floatn.h \
@@ -45,9 +45,9 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/Renderer.h \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/Window.h \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/ShaderObject.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Renderer.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Window.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Shader.h \
  /usr/include/glm/vec3.hpp /usr/include/glm/ext/vector_bool3.hpp \
  /usr/include/glm/detail/type_vec3.hpp \
  /usr/include/glm/detail/qualifier.hpp /usr/include/glm/detail/setup.hpp \
@@ -239,4 +239,26 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/glm/ext/vector_uint1_sized.hpp \
  /usr/include/c++/12.2.0/cstring /usr/include/string.h \
  /usr/include/strings.h /usr/include/glm/gtc/type_ptr.inl \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/App.h
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Vbo.h \
+ /usr/include/c++/12.2.0/vector /usr/include/c++/12.2.0/bits/allocator.h \
+ /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/include/c++/12.2.0/bits/new_allocator.h /usr/include/c++/12.2.0/new \
+ /usr/include/c++/12.2.0/bits/exception.h \
+ /usr/include/c++/12.2.0/bits/memoryfwd.h \
+ /usr/include/c++/12.2.0/bits/stl_construct.h \
+ /usr/include/c++/12.2.0/bits/stl_uninitialized.h \
+ /usr/include/c++/12.2.0/ext/alloc_traits.h \
+ /usr/include/c++/12.2.0/bits/alloc_traits.h \
+ /usr/include/c++/12.2.0/bits/stl_vector.h \
+ /usr/include/c++/12.2.0/initializer_list \
+ /usr/include/c++/12.2.0/bits/stl_bvector.h \
+ /usr/include/c++/12.2.0/bits/functional_hash.h \
+ /usr/include/c++/12.2.0/bits/hash_bytes.h \
+ /usr/include/c++/12.2.0/bits/refwrap.h \
+ /usr/include/c++/12.2.0/bits/invoke.h \
+ /usr/include/c++/12.2.0/bits/stl_function.h \
+ /usr/include/c++/12.2.0/backward/binders.h \
+ /usr/include/c++/12.2.0/bits/range_access.h \
+ /usr/include/c++/12.2.0/bits/vector.tcc \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/Vao.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/include/App.h

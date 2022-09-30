@@ -1,4 +1,4 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "CodeBlocks - Unix Makefiles" -S /home/daniel/CLionProjects/ZPG/ogl_tst_02 -B /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "CodeBlocks - Unix Makefiles" -S /home/daniel/CLionProjects/ZPG/ZPG-project -B /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug
+-- Build files have been written to: /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug

@@ -3,7 +3,7 @@ project(ogl_tst_02)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ogl_tst_02 main.cpp src/Window.cpp src/Window.h src/Renderer.cpp src/Renderer.h src/ShaderObject.cpp src/ShaderObject.h src/App.cpp src/App.h)
+add_executable(ogl_tst_02 main.cpp src/Window.cpp include/Window.h src/Renderer.cpp include/Renderer.h src/Shader.cpp include/Shader.h src/App.cpp include/App.h src/Vbo.cpp include/Vbo.h src/Vao.cpp include/Vao.h)
 
 find_package(glfw3 3.3 REQUIRED)
 target_link_libraries(ogl_tst_02 glfw)

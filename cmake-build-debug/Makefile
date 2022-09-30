@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/daniel/CLionProjects/ZPG/ogl_tst_02
+CMAKE_SOURCE_DIR = /home/daniel/CLionProjects/ZPG/ZPG-project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug
+CMAKE_BINARY_DIR = /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug/CMakeFiles /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug/CMakeFiles /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/CLionProjects/ZPG/ogl_tst_02/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/CLionProjects/ZPG/ZPG-project/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -201,29 +201,77 @@ src/Renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.s
 .PHONY : src/Renderer.cpp.s
 
-src/ShaderObject.o: src/ShaderObject.cpp.o
-.PHONY : src/ShaderObject.o
+src/Shader.o: src/Shader.cpp.o
+.PHONY : src/Shader.o
 
 # target to build an object file
-src/ShaderObject.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/ShaderObject.cpp.o
-.PHONY : src/ShaderObject.cpp.o
+src/Shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o
+.PHONY : src/Shader.cpp.o
 
-src/ShaderObject.i: src/ShaderObject.cpp.i
-.PHONY : src/ShaderObject.i
+src/Shader.i: src/Shader.cpp.i
+.PHONY : src/Shader.i
 
 # target to preprocess a source file
-src/ShaderObject.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/ShaderObject.cpp.i
-.PHONY : src/ShaderObject.cpp.i
+src/Shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.i
+.PHONY : src/Shader.cpp.i
 
-src/ShaderObject.s: src/ShaderObject.cpp.s
-.PHONY : src/ShaderObject.s
+src/Shader.s: src/Shader.cpp.s
+.PHONY : src/Shader.s
 
 # target to generate assembly for a file
-src/ShaderObject.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/ShaderObject.cpp.s
-.PHONY : src/ShaderObject.cpp.s
+src/Shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.s
+.PHONY : src/Shader.cpp.s
+
+src/Vao.o: src/Vao.cpp.o
+.PHONY : src/Vao.o
+
+# target to build an object file
+src/Vao.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o
+.PHONY : src/Vao.cpp.o
+
+src/Vao.i: src/Vao.cpp.i
+.PHONY : src/Vao.i
+
+# target to preprocess a source file
+src/Vao.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.i
+.PHONY : src/Vao.cpp.i
+
+src/Vao.s: src/Vao.cpp.s
+.PHONY : src/Vao.s
+
+# target to generate assembly for a file
+src/Vao.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.s
+.PHONY : src/Vao.cpp.s
+
+src/Vbo.o: src/Vbo.cpp.o
+.PHONY : src/Vbo.o
+
+# target to build an object file
+src/Vbo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.o
+.PHONY : src/Vbo.cpp.o
+
+src/Vbo.i: src/Vbo.cpp.i
+.PHONY : src/Vbo.i
+
+# target to preprocess a source file
+src/Vbo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.i
+.PHONY : src/Vbo.cpp.i
+
+src/Vbo.s: src/Vbo.cpp.s
+.PHONY : src/Vbo.s
+
+# target to generate assembly for a file
+src/Vbo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.s
+.PHONY : src/Vbo.cpp.s
 
 src/Window.o: src/Window.cpp.o
 .PHONY : src/Window.o
@@ -267,9 +315,15 @@ help:
 	@echo "... src/Renderer.o"
 	@echo "... src/Renderer.i"
 	@echo "... src/Renderer.s"
-	@echo "... src/ShaderObject.o"
-	@echo "... src/ShaderObject.i"
-	@echo "... src/ShaderObject.s"
+	@echo "... src/Shader.o"
+	@echo "... src/Shader.i"
+	@echo "... src/Shader.s"
+	@echo "... src/Vao.o"
+	@echo "... src/Vao.i"
+	@echo "... src/Vao.s"
+	@echo "... src/Vbo.o"
+	@echo "... src/Vbo.i"
+	@echo "... src/Vbo.s"
 	@echo "... src/Window.o"
 	@echo "... src/Window.i"
 	@echo "... src/Window.s"

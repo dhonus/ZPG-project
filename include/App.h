@@ -9,12 +9,13 @@
 class App {
 public:
     App();
+    ~App();
     int init();
-    int close();
 private:
-    Renderer* renderer;
-    Window* window;
-    Shader* shader;
+    Renderer *renderer;
+    Window *window;
+    Shader *shader;
+
     void error_check();
 
     void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);

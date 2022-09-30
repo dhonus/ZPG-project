@@ -1,7 +1,7 @@
 CMakeFiles/ogl_tst_02.dir/src/ShaderObject.cpp.o: \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/ShaderObject.cpp \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/src/ShaderObject.cpp \
  /usr/include/stdc-predef.h \
- /home/daniel/CLionProjects/ZPG/ogl_tst_02/src/ShaderObject.h \
+ /home/daniel/CLionProjects/ZPG/ZPG-project/src/ShaderObject.h \
  /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \

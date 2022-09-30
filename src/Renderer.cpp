@@ -2,10 +2,10 @@
 // Created by daniel on 26.9.22.
 //
 
-#include "Renderer.h"
+#include "../include/Renderer.h"
 
-int Renderer::render(){
-    while (!glfwWindowShouldClose(window->getWindow())){
+int Renderer::render() {
+    while (!glfwWindowShouldClose(window->getWindow())) {
         // clear color and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // draw triangles
@@ -16,10 +16,9 @@ int Renderer::render(){
         // put the stuff we’ve been drawing onto the display
         glfwSwapBuffers(window->getWindow());
     }
+    return 0;
 }
 
-Renderer::Renderer(Window* t_window, GLuint shaderProgram, GLuint VAO) {
+Renderer::Renderer(Window *t_window) {
     this->window = t_window;
-    this->VAO = VAO;
-    this->shaderProgram = shaderProgram;
 }

@@ -4,17 +4,16 @@
 
 #ifndef OGL_TST_02_RENDERER_H
 #define OGL_TST_02_RENDERER_H
+
 #include "Window.h"
 
 
 class Renderer {
-private:
-    Window* window;
-    GLuint shaderProgram;
-    GLuint VAO;
 public:
-    Renderer(Window* t_window, GLuint shaderProgram);
+    Renderer(Window *t_window);
     int render();
+private:
+    Window *window;
 };
 
 

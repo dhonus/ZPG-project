@@ -1,7 +1,3 @@
-//
-// Created by daniel on 26.9.22.
-//
-
 //Include GLFW
 //Include GLEW
 #include <GL/glew.h>
@@ -19,12 +15,38 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "Window.h"
-#include "Renderer.h"
-#include "ShaderObject.h"
-#include "App.h"
+#include "../include/Window.h"
+#include "../include/Renderer.h"
+#include "../include/Shader.h"
+#include "../include/App.h"
 
-static void error_callback(int error, const char* description){ fputs(description, stderr); }
+static void error_callback(int error, const char *description) {
+    fputs(description, stderr);
+}
+
+void App::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
+
+    if (key == GLFW_KEY_A && action == GLFW_PRESS) {
+    }
+}
+
+void App::window_focus_callback(GLFWwindow *window, int focused) { printf("window_focus_callback \n"); }
+
+void App::window_iconify_callback(GLFWwindow *window, int iconified) { printf("window_iconify_callback \n"); }
+
+void App::window_size_callback(GLFWwindow *window, int width, int height) {
+    printf("resize %d, %d \n", width, height);
+    glViewport(0, 0, width, height);
+}
+
+void App::cursor_callback(GLFWwindow *window, double x, double y) { printf("cursor_callback \n"); }
+
+void App::button_callback(GLFWwindow *window, int button, int action, int mode) {
+    if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+}
 
 App::App() {
     window = new Window();
@@ -34,7 +56,7 @@ App::App() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    shaderObject = new ShaderObject();
+    shader = new Shader();
 }
 
 int App::init() {
@@ -44,32 +66,34 @@ int App::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE,
-    GLFW_OPENGL_CORE_PROFILE);
+                   GLFW_OPENGL_CORE_PROFILE);
 
-    GLint status;
-    glGetProgramiv(shaderObject->shaderProgram, GL_LINK_STATUS, &status);
-    if (status == GL_FALSE)
-    {
-        GLint infoLogLength;
-        glGetProgramiv(shaderObject->shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-        GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-        glGetProgramInfoLog(shaderObject->shaderProgram, infoLogLength, NULL, strInfoLog);
-        fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-        delete[] strInfoLog;
-    }
+    error_check();
 
-    renderer = new Renderer(window, shaderObject->shaderProgram, shaderObject->VAO);
+    this->renderer = new Renderer(window);
 
-    glUseProgram(shaderObject->shaderProgram);
-    glBindVertexArray(shaderObject->VAO);
+    shader->use_program();
+    shader->VAO->bind_vertex_array();
     renderer->render();
 
-    exit(EXIT_SUCCESS);
     return 0;
 }
 
-int App::close() {
+void App::error_check() {
+    GLint status;
+    glGetProgramiv(shader->shaderProgram, GL_LINK_STATUS, &status);
+    if (status == GL_FALSE) {
+        GLint infoLogLength;
+        glGetProgramiv(shader->shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+        GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+        glGetProgramInfoLog(shader->shaderProgram, infoLogLength, NULL, strInfoLog);
+        fprintf(stderr, "Linker failure: %s\n", strInfoLog);
+        delete[] strInfoLog;
+    }
+}
+
+App::~App() {
     delete renderer;
     delete window;
-    return 0;
+    delete shader;
 }
