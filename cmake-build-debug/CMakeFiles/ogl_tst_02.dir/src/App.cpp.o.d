@@ -1,7 +1,6 @@
 CMakeFiles/ogl_tst_02.dir/src/App.cpp.o: \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/App.cpp \
- /usr/include/stdc-predef.h /usr/include/GL/glew.h \
- /usr/include/c++/12.2.0/cstddef \
+ /home/daniel/ZPG-project/src/App.cpp /usr/include/stdc-predef.h \
+ /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -235,11 +234,11 @@ CMakeFiles/ogl_tst_02.dir/src/App.cpp.o: \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Window.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Renderer.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Window.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Shader.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vbo.h \
+ /home/daniel/ZPG-project/src/../include/Window.h \
+ /home/daniel/ZPG-project/src/../include/Renderer.h \
+ /home/daniel/ZPG-project/src/../include/Window.h \
+ /home/daniel/ZPG-project/src/../include/Shader.h \
+ /home/daniel/ZPG-project/src/../include/Vbo.h \
  /usr/include/c++/12.2.0/vector /usr/include/c++/12.2.0/bits/allocator.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
  /usr/include/c++/12.2.0/bits/new_allocator.h /usr/include/c++/12.2.0/new \
@@ -260,5 +259,5 @@ CMakeFiles/ogl_tst_02.dir/src/App.cpp.o: \
  /usr/include/c++/12.2.0/backward/binders.h \
  /usr/include/c++/12.2.0/bits/range_access.h \
  /usr/include/c++/12.2.0/bits/vector.tcc \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vao.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/App.h
+ /home/daniel/ZPG-project/src/../include/Vao.h \
+ /home/daniel/ZPG-project/src/../include/App.h

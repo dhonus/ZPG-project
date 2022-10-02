@@ -1,8 +1,7 @@
 CMakeFiles/ogl_tst_02.dir/src/Window.cpp.o: \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/Window.cpp \
- /usr/include/stdc-predef.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Window.h \
- /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
+ /home/daniel/ZPG-project/src/Window.cpp /usr/include/stdc-predef.h \
+ /home/daniel/ZPG-project/src/../include/Window.h /usr/include/GL/glew.h \
+ /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

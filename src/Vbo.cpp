@@ -1,7 +1,4 @@
 #include "../include/Vbo.h"
-#include "iostream"
-#include <array>
-#include <list>
 
 Vbo::Vbo(std::vector<float> t_points) {
     this->points = t_points;

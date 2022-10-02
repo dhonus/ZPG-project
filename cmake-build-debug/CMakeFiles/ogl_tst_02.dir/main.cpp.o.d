@@ -1,7 +1,5 @@
-CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/main.cpp \
- /usr/include/stdc-predef.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Window.h \
+CMakeFiles/ogl_tst_02.dir/main.cpp.o: /home/daniel/ZPG-project/main.cpp \
+ /usr/include/stdc-predef.h /home/daniel/ZPG-project/include/Window.h \
  /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -45,10 +43,10 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
  /usr/include/bits/stdio_lim.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Renderer.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Window.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Shader.h \
- /usr/include/glm/vec3.hpp /usr/include/glm/ext/vector_bool3.hpp \
+ /home/daniel/ZPG-project/include/Renderer.h \
+ /home/daniel/ZPG-project/include/Window.h \
+ /home/daniel/ZPG-project/include/Shader.h /usr/include/glm/vec3.hpp \
+ /usr/include/glm/ext/vector_bool3.hpp \
  /usr/include/glm/detail/type_vec3.hpp \
  /usr/include/glm/detail/qualifier.hpp /usr/include/glm/detail/setup.hpp \
  /usr/include/c++/12.2.0/cassert /usr/include/assert.h \
@@ -239,8 +237,8 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/glm/ext/vector_uint1_sized.hpp \
  /usr/include/c++/12.2.0/cstring /usr/include/string.h \
  /usr/include/strings.h /usr/include/glm/gtc/type_ptr.inl \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Vbo.h \
- /usr/include/c++/12.2.0/vector /usr/include/c++/12.2.0/bits/allocator.h \
+ /home/daniel/ZPG-project/include/Vbo.h /usr/include/c++/12.2.0/vector \
+ /usr/include/c++/12.2.0/bits/allocator.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
  /usr/include/c++/12.2.0/bits/new_allocator.h /usr/include/c++/12.2.0/new \
  /usr/include/c++/12.2.0/bits/exception.h \
@@ -260,5 +258,5 @@ CMakeFiles/ogl_tst_02.dir/main.cpp.o: \
  /usr/include/c++/12.2.0/backward/binders.h \
  /usr/include/c++/12.2.0/bits/range_access.h \
  /usr/include/c++/12.2.0/bits/vector.tcc \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/Vao.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/include/App.h
+ /home/daniel/ZPG-project/include/Vao.h \
+ /home/daniel/ZPG-project/include/App.h

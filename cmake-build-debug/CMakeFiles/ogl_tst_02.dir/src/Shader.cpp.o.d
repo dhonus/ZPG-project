@@ -1,8 +1,7 @@
 CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o: \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/Shader.cpp \
- /usr/include/stdc-predef.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Shader.h \
- /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
+ /home/daniel/ZPG-project/src/Shader.cpp /usr/include/stdc-predef.h \
+ /home/daniel/ZPG-project/src/../include/Shader.h /usr/include/GL/glew.h \
+ /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -228,7 +227,7 @@ CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o: \
  /usr/include/glm/ext/vector_uint1_sized.hpp \
  /usr/include/c++/12.2.0/cstring /usr/include/string.h \
  /usr/include/strings.h /usr/include/glm/gtc/type_ptr.inl \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vbo.h \
+ /home/daniel/ZPG-project/src/../include/Vbo.h \
  /usr/include/c++/12.2.0/vector /usr/include/c++/12.2.0/bits/allocator.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
  /usr/include/c++/12.2.0/bits/new_allocator.h /usr/include/c++/12.2.0/new \
@@ -249,4 +248,4 @@ CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o: \
  /usr/include/c++/12.2.0/backward/binders.h \
  /usr/include/c++/12.2.0/bits/range_access.h \
  /usr/include/c++/12.2.0/bits/vector.tcc \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vao.h
+ /home/daniel/ZPG-project/src/../include/Vao.h

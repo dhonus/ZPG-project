@@ -1,8 +1,7 @@
 CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o: \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/Vao.cpp \
- /usr/include/stdc-predef.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vao.h \
- /usr/include/GL/glew.h /usr/include/c++/12.2.0/cstddef \
+ /home/daniel/ZPG-project/src/Vao.cpp /usr/include/stdc-predef.h \
+ /home/daniel/ZPG-project/src/../include/Vao.h /usr/include/GL/glew.h \
+ /usr/include/c++/12.2.0/cstddef \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -19,8 +18,8 @@ CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o: \
  /usr/include/bits/time64.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/GL/glu.h /usr/include/GL/gl.h \
- /home/daniel/Documents/workspace/school/ZPG/ZPG-project/src/../include/Vbo.h \
- /usr/include/GLFW/glfw3.h /usr/include/c++/12.2.0/vector \
+ /home/daniel/ZPG-project/src/../include/Vbo.h /usr/include/GLFW/glfw3.h \
+ /usr/include/c++/12.2.0/vector \
  /usr/include/c++/12.2.0/bits/stl_algobase.h \
  /usr/include/c++/12.2.0/bits/functexcept.h \
  /usr/include/c++/12.2.0/bits/exception_defines.h \

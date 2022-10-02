@@ -1,4 +1,4 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "CodeBlocks - Unix Makefiles" -S /home/daniel/Documents/workspace/school/ZPG/ZPG-project -B /home/daniel/Documents/workspace/school/ZPG/ZPG-project/cmake-build-debug
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -G "CodeBlocks - Unix Makefiles" -S /home/daniel/ZPG-project -B /home/daniel/ZPG-project/cmake-build-debug
 -- The C compiler identification is GNU 12.2.0
 -- The CXX compiler identification is GNU 12.2.0
 -- Detecting C compiler ABI info
@@ -15,4 +15,4 @@
 -- Found OpenGL: /usr/lib/libOpenGL.so   
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/daniel/Documents/workspace/school/ZPG/ZPG-project/cmake-build-debug
+-- Build files have been written to: /home/daniel/ZPG-project/cmake-build-debug
