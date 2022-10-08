@@ -16,7 +16,7 @@ public:
     glm::mat4 getMatrix();
     void scale();
     void move();
-    void rotate(float deg);
+    void rotate(float deg, float quantifier);
 };
 
 

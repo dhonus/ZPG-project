@@ -8,9 +8,10 @@ int Scene::render() {
     while (!glfwWindowShouldClose(window->getWindow())) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        this->objects.at(0)->trans->rotate(1);
+        this->objects.at(0)->trans->rotate(.7, 1);
         this->objects.at(1)->trans->scale();
-        this->objects.at(1)->trans->rotate(-1);
+        this->objects.at(1)->trans->rotate(1.3, -1);
+
         for (auto & o : this->objects){
             o->draw();
         }
@@ -26,6 +27,6 @@ int Scene::render() {
 
 Scene::Scene(std::shared_ptr<Window> t_window) {
     this->window = t_window;
-    this->objects.push_back(std::make_unique<Object>(b));
-    this->objects.push_back(std::make_unique<Object>(b2));
+    this->objects.push_back(std::make_unique<Object>(b, "box_wild.vs"));
+    this->objects.push_back(std::make_unique<Object>(b2, "box_regular.vs"));
 }

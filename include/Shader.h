@@ -15,16 +15,16 @@
 #include "Vbo.h"
 #include "Vao.h"
 #include "Object.h"
+#include "string"
+
 class Object;
 
 class Shader {
 public:
-    Shader();
+    Shader(const std::string &vertexShader);
     ~Shader();
-    void bind_vertex_array();
     void compile();
     void draw(glm::mat4 t_matrix);
-    void setShader();
     void error_check();
 
 private:
@@ -32,34 +32,11 @@ private:
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
-    /*
-  const char* vertex_shader =
-          "#version 330\n"
-          "layout(location=0) in vec3 vp;"
-          "out vec3 colors;"
-          "void main () {"
-          "     gl_Position = vec4 (vp, 1.0);"
-          "     colors = vp;"
-          "}";
-  const char* fragment_shader =
-          "#version 330\n"
-          "out vec4 frag_colour;"
-          "in vec3 colors;"
-          "void main () {"
-          "     frag_colour = vec4 (colors, 1.0);"
-          "}";   * */
+    int load(const std::string &vertexShader);
+    std::string output;
 
-  const char* vertex_shader =
-          "#version 330\n"
-          "layout(location=0) in vec4 vp;"
-          "layout(location=1) in vec4 color;"
-          "out vec4 colors;"
-          "uniform mat4 modelMatrix;"
-          "void main () {"
-          "     gl_Position = modelMatrix*vp;"
-          "     colors = color;"
-          "}";
-  const char* fragment_shader =
+    const char* vertex_shader;
+    const char* fragment_shader =
           "#version 330\n"
           "out vec4 frag_colour;"
           "in vec4 colors;"
@@ -68,6 +45,5 @@ private:
           "}";
 
 };
-
 
 #endif //OGL_TST_02_SHADER_H

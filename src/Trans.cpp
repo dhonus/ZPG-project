@@ -4,6 +4,7 @@
 
 #include <glm/ext/matrix_transform.hpp>
 #include "../include/Trans.h"
+#include "iostream"
 
 Trans::Trans() {
     this->current = glm::mat4(1.0f);
@@ -24,6 +25,6 @@ void Trans::move(){
     this->current = glm :: scale ( this->current , glm :: vec3 (1.001f ));
 }
 
-void Trans::rotate(float deg){
-    this->current = glm ::rotate(this->current,glm::radians(deg), glm::vec3(0.0f, 0.0f, 1.0f));
+void Trans::rotate(float deg, float quantifier){
+    this->current = glm::rotate(this->current,glm::radians(deg), glm::vec3(0.0f, 0.0f, quantifier*1.0f));
 }

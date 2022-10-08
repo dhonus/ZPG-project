@@ -1,9 +1,30 @@
 #include "../include/Shader.h"
 #include "vector"
 #include <iostream>
-
-Shader::Shader() {
+#include <fstream>
+Shader::Shader(const std::string &vertexShader) {
+    this->load(vertexShader);
     this->compile();
+    this->vertex_shader = vertexShader.c_str();
+}
+
+int Shader::load(const std::string &vertexShader){
+    std::string filepath = "../shaders/" + vertexShader;
+    std::string temp;
+
+    std::ifstream theFile(filepath);
+
+    if(!theFile){
+        std::cout << "could not find shader " << filepath << "\n";
+        exit(-1);
+    }
+
+    while (getline (theFile, temp))
+        output += temp + "\n";
+
+    this->vertex_shader = output.c_str();
+
+    theFile.close();
 }
 
 void Shader::compile() {

@@ -12,6 +12,7 @@ Model::Model(std::vector<float> b) {
 }
 
 int Model::draw(){
+    this->VAO->bind_vertex_array();
     glDrawArrays(GL_POLYGON, 0, 4);
     return 0;
 }

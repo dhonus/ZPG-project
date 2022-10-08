@@ -5,8 +5,9 @@
 #include <iostream>
 #include "../include/Object.h"
 
-Object::Object(std::vector<float> b) {
-    this->shader = std::make_shared<Shader>();
+Object::Object(std::vector<float> b, const std::string& vertex_shader) {
+    this->vertexShader = vertex_shader;
+    this->shader = std::make_shared<Shader>(this->vertexShader);
     this->model = std::make_shared<Model>(b);
     this->trans = std::make_shared<Trans>();
 }
