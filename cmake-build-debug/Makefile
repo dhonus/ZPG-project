@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ogl_tst_02
+# Target rules for targets named ZPG
 
 # Build rule for target.
-ogl_tst_02: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ogl_tst_02
-.PHONY : ogl_tst_02
+ZPG: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ZPG
+.PHONY : ZPG
 
 # fast build rule for target.
-ogl_tst_02/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/build
-.PHONY : ogl_tst_02/fast
+ZPG/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/build
+.PHONY : ZPG/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -142,7 +142,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -150,7 +150,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 src/App.o: src/App.cpp.o
@@ -158,7 +158,7 @@ src/App.o: src/App.cpp.o
 
 # target to build an object file
 src/App.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/App.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/App.cpp.o
 .PHONY : src/App.cpp.o
 
 src/App.i: src/App.cpp.i
@@ -166,7 +166,7 @@ src/App.i: src/App.cpp.i
 
 # target to preprocess a source file
 src/App.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/App.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/App.cpp.i
 .PHONY : src/App.cpp.i
 
 src/App.s: src/App.cpp.s
@@ -174,39 +174,111 @@ src/App.s: src/App.cpp.s
 
 # target to generate assembly for a file
 src/App.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/App.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/App.cpp.s
 .PHONY : src/App.cpp.s
 
-src/Renderer.o: src/Renderer.cpp.o
-.PHONY : src/Renderer.o
+src/Model.o: src/Model.cpp.o
+.PHONY : src/Model.o
 
 # target to build an object file
-src/Renderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o
-.PHONY : src/Renderer.cpp.o
+src/Model.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Model.cpp.o
+.PHONY : src/Model.cpp.o
 
-src/Renderer.i: src/Renderer.cpp.i
-.PHONY : src/Renderer.i
+src/Model.i: src/Model.cpp.i
+.PHONY : src/Model.i
 
 # target to preprocess a source file
-src/Renderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.i
-.PHONY : src/Renderer.cpp.i
+src/Model.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Model.cpp.i
+.PHONY : src/Model.cpp.i
 
-src/Renderer.s: src/Renderer.cpp.s
-.PHONY : src/Renderer.s
+src/Model.s: src/Model.cpp.s
+.PHONY : src/Model.s
 
 # target to generate assembly for a file
-src/Renderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.s
-.PHONY : src/Renderer.cpp.s
+src/Model.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Model.cpp.s
+.PHONY : src/Model.cpp.s
+
+src/Object.o: src/Object.cpp.o
+.PHONY : src/Object.o
+
+# target to build an object file
+src/Object.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Object.cpp.o
+.PHONY : src/Object.cpp.o
+
+src/Object.i: src/Object.cpp.i
+.PHONY : src/Object.i
+
+# target to preprocess a source file
+src/Object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Object.cpp.i
+.PHONY : src/Object.cpp.i
+
+src/Object.s: src/Object.cpp.s
+.PHONY : src/Object.s
+
+# target to generate assembly for a file
+src/Object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Object.cpp.s
+.PHONY : src/Object.cpp.s
+
+src/Scene.o: src/Scene.cpp.o
+.PHONY : src/Scene.o
+
+# target to build an object file
+src/Scene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Scene.cpp.o
+.PHONY : src/Scene.cpp.o
+
+src/Scene.i: src/Scene.cpp.i
+.PHONY : src/Scene.i
+
+# target to preprocess a source file
+src/Scene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Scene.cpp.i
+.PHONY : src/Scene.cpp.i
+
+src/Scene.s: src/Scene.cpp.s
+.PHONY : src/Scene.s
+
+# target to generate assembly for a file
+src/Scene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Scene.cpp.s
+.PHONY : src/Scene.cpp.s
+
+src/SceneManager.o: src/SceneManager.cpp.o
+.PHONY : src/SceneManager.o
+
+# target to build an object file
+src/SceneManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.o
+.PHONY : src/SceneManager.cpp.o
+
+src/SceneManager.i: src/SceneManager.cpp.i
+.PHONY : src/SceneManager.i
+
+# target to preprocess a source file
+src/SceneManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.i
+.PHONY : src/SceneManager.cpp.i
+
+src/SceneManager.s: src/SceneManager.cpp.s
+.PHONY : src/SceneManager.s
+
+# target to generate assembly for a file
+src/SceneManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.s
+.PHONY : src/SceneManager.cpp.s
 
 src/Shader.o: src/Shader.cpp.o
 .PHONY : src/Shader.o
 
 # target to build an object file
 src/Shader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Shader.cpp.o
 .PHONY : src/Shader.cpp.o
 
 src/Shader.i: src/Shader.cpp.i
@@ -214,7 +286,7 @@ src/Shader.i: src/Shader.cpp.i
 
 # target to preprocess a source file
 src/Shader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Shader.cpp.i
 .PHONY : src/Shader.cpp.i
 
 src/Shader.s: src/Shader.cpp.s
@@ -222,15 +294,39 @@ src/Shader.s: src/Shader.cpp.s
 
 # target to generate assembly for a file
 src/Shader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Shader.cpp.s
 .PHONY : src/Shader.cpp.s
+
+src/Trans.o: src/Trans.cpp.o
+.PHONY : src/Trans.o
+
+# target to build an object file
+src/Trans.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Trans.cpp.o
+.PHONY : src/Trans.cpp.o
+
+src/Trans.i: src/Trans.cpp.i
+.PHONY : src/Trans.i
+
+# target to preprocess a source file
+src/Trans.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Trans.cpp.i
+.PHONY : src/Trans.cpp.i
+
+src/Trans.s: src/Trans.cpp.s
+.PHONY : src/Trans.s
+
+# target to generate assembly for a file
+src/Trans.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Trans.cpp.s
+.PHONY : src/Trans.cpp.s
 
 src/Vao.o: src/Vao.cpp.o
 .PHONY : src/Vao.o
 
 # target to build an object file
 src/Vao.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vao.cpp.o
 .PHONY : src/Vao.cpp.o
 
 src/Vao.i: src/Vao.cpp.i
@@ -238,7 +334,7 @@ src/Vao.i: src/Vao.cpp.i
 
 # target to preprocess a source file
 src/Vao.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vao.cpp.i
 .PHONY : src/Vao.cpp.i
 
 src/Vao.s: src/Vao.cpp.s
@@ -246,7 +342,7 @@ src/Vao.s: src/Vao.cpp.s
 
 # target to generate assembly for a file
 src/Vao.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vao.cpp.s
 .PHONY : src/Vao.cpp.s
 
 src/Vbo.o: src/Vbo.cpp.o
@@ -254,7 +350,7 @@ src/Vbo.o: src/Vbo.cpp.o
 
 # target to build an object file
 src/Vbo.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vbo.cpp.o
 .PHONY : src/Vbo.cpp.o
 
 src/Vbo.i: src/Vbo.cpp.i
@@ -262,7 +358,7 @@ src/Vbo.i: src/Vbo.cpp.i
 
 # target to preprocess a source file
 src/Vbo.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vbo.cpp.i
 .PHONY : src/Vbo.cpp.i
 
 src/Vbo.s: src/Vbo.cpp.s
@@ -270,7 +366,7 @@ src/Vbo.s: src/Vbo.cpp.s
 
 # target to generate assembly for a file
 src/Vbo.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Vbo.cpp.s
 .PHONY : src/Vbo.cpp.s
 
 src/Window.o: src/Window.cpp.o
@@ -278,7 +374,7 @@ src/Window.o: src/Window.cpp.o
 
 # target to build an object file
 src/Window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Window.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Window.cpp.o
 .PHONY : src/Window.cpp.o
 
 src/Window.i: src/Window.cpp.i
@@ -286,7 +382,7 @@ src/Window.i: src/Window.cpp.i
 
 # target to preprocess a source file
 src/Window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Window.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Window.cpp.i
 .PHONY : src/Window.cpp.i
 
 src/Window.s: src/Window.cpp.s
@@ -294,7 +390,7 @@ src/Window.s: src/Window.cpp.s
 
 # target to generate assembly for a file
 src/Window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/src/Window.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Window.cpp.s
 .PHONY : src/Window.cpp.s
 
 # Help Target
@@ -305,19 +401,31 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... ogl_tst_02"
+	@echo "... ZPG"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... src/App.o"
 	@echo "... src/App.i"
 	@echo "... src/App.s"
-	@echo "... src/Renderer.o"
-	@echo "... src/Renderer.i"
-	@echo "... src/Renderer.s"
+	@echo "... src/Model.o"
+	@echo "... src/Model.i"
+	@echo "... src/Model.s"
+	@echo "... src/Object.o"
+	@echo "... src/Object.i"
+	@echo "... src/Object.s"
+	@echo "... src/Scene.o"
+	@echo "... src/Scene.i"
+	@echo "... src/Scene.s"
+	@echo "... src/SceneManager.o"
+	@echo "... src/SceneManager.i"
+	@echo "... src/SceneManager.s"
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"
+	@echo "... src/Trans.o"
+	@echo "... src/Trans.i"
+	@echo "... src/Trans.s"
 	@echo "... src/Vao.o"
 	@echo "... src/Vao.i"
 	@echo "... src/Vao.s"

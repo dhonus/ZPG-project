@@ -13,20 +13,13 @@
 class Window {
 private:
     GLFWwindow *window;
-
-    void error_callback(int error, const char *description) { fputs(description, stderr); }
-
-    void init();
-
-    int width, height;
+    int major, minor, revision, width, height;
     float ratio;
+    void error_callback(int error, const char *description) { fputs(description, stderr); }
 public:
     Window();
-
     ~Window();
-
     GLFWwindow *getWindow();
-
     void get_version_info();
 };
 

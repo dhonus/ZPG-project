@@ -97,19 +97,19 @@ CMakeFiles/ogl_tst_02.dir/src/Window.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Window.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Window.cpp -o CMakeFiles/ogl_tst_02.dir/src/Window.cpp.s
 
-CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
-CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o: /home/daniel/ZPG-project/src/Renderer.cpp
-CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o -c /home/daniel/ZPG-project/src/Renderer.cpp
+CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
+CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o: /home/daniel/ZPG-project/src/Scene.cpp
+CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o -c /home/daniel/ZPG-project/src/Scene.cpp
 
-CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/Renderer.cpp > CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.i
+CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/Scene.cpp > CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.i
 
-CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Renderer.cpp -o CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.s
+CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Scene.cpp -o CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.s
 
 CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
 CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o: /home/daniel/ZPG-project/src/Shader.cpp
@@ -167,33 +167,97 @@ CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Vao.cpp -o CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.s
 
+CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
+CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o: /home/daniel/ZPG-project/src/Object.cpp
+CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o -c /home/daniel/ZPG-project/src/Object.cpp
+
+CMakeFiles/ogl_tst_02.dir/src/Object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/Object.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/Object.cpp > CMakeFiles/ogl_tst_02.dir/src/Object.cpp.i
+
+CMakeFiles/ogl_tst_02.dir/src/Object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Object.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Object.cpp -o CMakeFiles/ogl_tst_02.dir/src/Object.cpp.s
+
+CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
+CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o: /home/daniel/ZPG-project/src/SceneManager.cpp
+CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o -c /home/daniel/ZPG-project/src/SceneManager.cpp
+
+CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/SceneManager.cpp > CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.i
+
+CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/SceneManager.cpp -o CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.s
+
+CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
+CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o: /home/daniel/ZPG-project/src/Model.cpp
+CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o -c /home/daniel/ZPG-project/src/Model.cpp
+
+CMakeFiles/ogl_tst_02.dir/src/Model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/Model.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/Model.cpp > CMakeFiles/ogl_tst_02.dir/src/Model.cpp.i
+
+CMakeFiles/ogl_tst_02.dir/src/Model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Model.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Model.cpp -o CMakeFiles/ogl_tst_02.dir/src/Model.cpp.s
+
+CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o: CMakeFiles/ogl_tst_02.dir/flags.make
+CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o: /home/daniel/ZPG-project/src/Trans.cpp
+CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o: CMakeFiles/ogl_tst_02.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o -MF CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o.d -o CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o -c /home/daniel/ZPG-project/src/Trans.cpp
+
+CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/daniel/ZPG-project/src/Trans.cpp > CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.i
+
+CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/daniel/ZPG-project/src/Trans.cpp -o CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.s
+
 # Object files for target ogl_tst_02
 ogl_tst_02_OBJECTS = \
 "CMakeFiles/ogl_tst_02.dir/main.cpp.o" \
 "CMakeFiles/ogl_tst_02.dir/src/Window.cpp.o" \
-"CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o" \
+"CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o" \
 "CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o" \
 "CMakeFiles/ogl_tst_02.dir/src/App.cpp.o" \
 "CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.o" \
-"CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o"
+"CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o" \
+"CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o" \
+"CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o" \
+"CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o" \
+"CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o"
 
 # External object files for target ogl_tst_02
 ogl_tst_02_EXTERNAL_OBJECTS =
 
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/main.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Window.cpp.o
-ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Renderer.cpp.o
+ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Scene.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Shader.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/App.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Vbo.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Vao.cpp.o
+ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Object.cpp.o
+ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/SceneManager.cpp.o
+ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Model.cpp.o
+ogl_tst_02: CMakeFiles/ogl_tst_02.dir/src/Trans.cpp.o
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/build.make
 ogl_tst_02: /usr/lib/libglfw.so.3.3
 ogl_tst_02: /usr/lib/libGLEW.so
 ogl_tst_02: /usr/lib/libGLX.so
 ogl_tst_02: /usr/lib/libOpenGL.so
 ogl_tst_02: CMakeFiles/ogl_tst_02.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ogl_tst_02"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable ogl_tst_02"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ogl_tst_02.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

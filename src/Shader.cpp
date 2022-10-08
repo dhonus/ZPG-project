@@ -1,23 +1,13 @@
 #include "../include/Shader.h"
 #include "vector"
-
+#include <iostream>
 
 Shader::Shader() {
-
-    std::vector<float> b{
-            -.5f, -.5f, .5f, 1, 1, 1, 0, 1,
-            -.5f, .5f, .5f, 1, 1, 0, 0, 1,
-            .5f, .5f, .5f, 1, 0, 0, 0, 1,
-            .5f, -.5f, .5f, 1, 0, 1, 0, 1
-    };
-
-    this->VBO = new Vbo(b);
-    this->VAO = new Vao(VBO);
-
     this->compile();
 }
 
 void Shader::compile() {
+
     //create and compile shaders
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertex_shader, NULL);
@@ -31,13 +21,30 @@ void Shader::compile() {
     glAttachShader(shaderProgram, fragmentShader);
     glAttachShader(shaderProgram, vertexShader);
     glLinkProgram(shaderProgram);
+
+    MatId = glGetUniformLocation(shaderProgram, "modelMatrix");
+    if (MatId == -1){
+        std::cout << "cannot get modelMatrix" << std::endl;
+        exit(-1);
+    }
 }
 
-void Shader::use_program() {
+void Shader::draw(glm::mat4 t_matrix) {
     glUseProgram(shaderProgram);
+    glUniformMatrix4fv(MatId, 1, GL_FALSE, &t_matrix[0][0]);
 }
 
-Shader::~Shader() {
-    delete VAO;
-    delete VBO;
+Shader::~Shader() {}
+
+void Shader::error_check() {
+    GLint status;
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
+    if (status == GL_FALSE) {
+        GLint infoLogLength;
+        glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+        GLchar *strInfoLog = new GLchar[infoLogLength + 1];
+        glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, strInfoLog);
+        std::cout << "linker failsure: " << strInfoLog;
+        delete[] strInfoLog;
+    }
 }

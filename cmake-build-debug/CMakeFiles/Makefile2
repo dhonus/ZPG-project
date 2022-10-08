@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/daniel/ZPG-project/cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/ogl_tst_02.dir/all
+all: CMakeFiles/ZPG.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/ogl_tst_02.dir/clean
+clean: CMakeFiles/ZPG.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ogl_tst_02.dir
+# Target rules for target CMakeFiles/ZPG.dir
 
 # All Build rule for target.
-CMakeFiles/ogl_tst_02.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target ogl_tst_02"
-.PHONY : CMakeFiles/ogl_tst_02.dir/all
+CMakeFiles/ZPG.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/daniel/ZPG-project/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target ZPG"
+.PHONY : CMakeFiles/ZPG.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ogl_tst_02.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/ZPG-project/cmake-build-debug/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ogl_tst_02.dir/all
+CMakeFiles/ZPG.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/ZPG-project/cmake-build-debug/CMakeFiles 12
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ZPG.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/daniel/ZPG-project/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/ogl_tst_02.dir/rule
+.PHONY : CMakeFiles/ZPG.dir/rule
 
 # Convenience name for target.
-ogl_tst_02: CMakeFiles/ogl_tst_02.dir/rule
-.PHONY : ogl_tst_02
+ZPG: CMakeFiles/ZPG.dir/rule
+.PHONY : ZPG
 
 # clean rule for target.
-CMakeFiles/ogl_tst_02.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ogl_tst_02.dir/build.make CMakeFiles/ogl_tst_02.dir/clean
-.PHONY : CMakeFiles/ogl_tst_02.dir/clean
+CMakeFiles/ZPG.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/clean
+.PHONY : CMakeFiles/ZPG.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

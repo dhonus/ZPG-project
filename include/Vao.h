@@ -1,18 +1,16 @@
 #ifndef OGL_TST_02_VAO_H
 #define OGL_TST_02_VAO_H
 
-
 #include <GL/glew.h>
 #include "Vbo.h"
-
+#include <memory>
 class Vao {
 public:
-    Vao(Vbo *vbo);
+    Vao(std::shared_ptr<Vbo> vbo);
     void bind_vertex_array();
 
 private:
     GLuint VAO;
 };
-
 
 #endif //OGL_TST_02_VAO_H

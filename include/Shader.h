@@ -14,18 +14,22 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Vbo.h"
 #include "Vao.h"
+#include "Object.h"
+class Object;
 
 class Shader {
 public:
     Shader();
     ~Shader();
-    GLuint shaderProgram;
-    Vbo* VBO;
-    Vao* VAO;
+    void bind_vertex_array();
     void compile();
-    void use_program();
+    void draw(glm::mat4 t_matrix);
+    void setShader();
+    void error_check();
 
 private:
+    GLint MatId;
+    GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
     /*
@@ -50,8 +54,9 @@ private:
           "layout(location=0) in vec4 vp;"
           "layout(location=1) in vec4 color;"
           "out vec4 colors;"
+          "uniform mat4 modelMatrix;"
           "void main () {"
-          "     gl_Position = vp;"
+          "     gl_Position = modelMatrix*vp;"
           "     colors = color;"
           "}";
   const char* fragment_shader =

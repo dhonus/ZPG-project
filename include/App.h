@@ -4,19 +4,16 @@
 
 #ifndef OGL_TST_02_APP_H
 #define OGL_TST_02_APP_H
-
+#include <memory>
 
 class App {
 public:
     App();
-    ~App();
+    ~App() = default;
     int init();
 private:
-    Renderer *renderer;
-    Window *window;
-    Shader *shader;
-
-    void error_check();
+    std::shared_ptr<Window> window;
+    std::shared_ptr<Scene> scene;
 
     void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 

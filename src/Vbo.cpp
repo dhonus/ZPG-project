@@ -1,3 +1,5 @@
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/matrix_transform.hpp>
 #include "../include/Vbo.h"
 
 Vbo::Vbo(std::vector<float> t_points) {
@@ -14,14 +16,13 @@ Vbo::Vbo(){
 }
 
 void Vbo::bind_buffer() {
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, 2* sizeof(this->points)  * sizeof(float), this->points.data(), GL_STATIC_DRAW);
+
     // position
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // color
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(4 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
 }

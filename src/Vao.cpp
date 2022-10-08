@@ -1,6 +1,6 @@
 #include "../include/Vao.h"
 
-Vao::Vao(Vbo *vbo) {
+Vao::Vao(std::shared_ptr<Vbo> vbo) {
     VAO = 0;
     glGenVertexArrays(1, &VAO); //generate the VAO
     glBindVertexArray(VAO); //bind the VAO

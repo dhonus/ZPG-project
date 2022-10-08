@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 #include "../include/Window.h"
-#include "../include/Renderer.h"
+#include "../include/Scene.h"
 #include "../include/Shader.h"
 #include "../include/App.h"
 
@@ -49,18 +49,15 @@ void App::button_callback(GLFWwindow *window, int button, int action, int mode) 
 }
 
 App::App() {
-    window = new Window();
+    window = std::make_shared<Window>();
     glfwSetErrorCallback(error_callback);
 
     // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit();
-
-    shader = new Shader();
 }
 
 int App::init() {
-
     //inicializace konkretni verze
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -68,32 +65,10 @@ int App::init() {
     glfwWindowHint(GLFW_OPENGL_PROFILE,
                    GLFW_OPENGL_CORE_PROFILE);
 
-    error_check();
 
-    this->renderer = new Renderer(window);
+    this->scene = std::make_shared<Scene>(window);
 
-    shader->use_program();
-    shader->VAO->bind_vertex_array();
-    renderer->render();
+    scene->render();
 
     return 0;
-}
-
-void App::error_check() {
-    GLint status;
-    glGetProgramiv(shader->shaderProgram, GL_LINK_STATUS, &status);
-    if (status == GL_FALSE) {
-        GLint infoLogLength;
-        glGetProgramiv(shader->shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-        GLchar *strInfoLog = new GLchar[infoLogLength + 1];
-        glGetProgramInfoLog(shader->shaderProgram, infoLogLength, NULL, strInfoLog);
-        fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-        delete[] strInfoLog;
-    }
-}
-
-App::~App() {
-    delete renderer;
-    delete window;
-    delete shader;
 }
