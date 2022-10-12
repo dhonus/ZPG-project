@@ -177,6 +177,30 @@ src/App.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/App.cpp.s
 .PHONY : src/App.cpp.s
 
+src/Callbacks.o: src/Callbacks.cpp.o
+.PHONY : src/Callbacks.o
+
+# target to build an object file
+src/Callbacks.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Callbacks.cpp.o
+.PHONY : src/Callbacks.cpp.o
+
+src/Callbacks.i: src/Callbacks.cpp.i
+.PHONY : src/Callbacks.i
+
+# target to preprocess a source file
+src/Callbacks.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Callbacks.cpp.i
+.PHONY : src/Callbacks.cpp.i
+
+src/Callbacks.s: src/Callbacks.cpp.s
+.PHONY : src/Callbacks.s
+
+# target to generate assembly for a file
+src/Callbacks.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Callbacks.cpp.s
+.PHONY : src/Callbacks.cpp.s
+
 src/Camera.o: src/Camera.cpp.o
 .PHONY : src/Camera.o
 
@@ -248,6 +272,30 @@ src/Object.s: src/Object.cpp.s
 src/Object.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
+
+src/Observer.o: src/Observer.cpp.o
+.PHONY : src/Observer.o
+
+# target to build an object file
+src/Observer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Observer.cpp.o
+.PHONY : src/Observer.cpp.o
+
+src/Observer.i: src/Observer.cpp.i
+.PHONY : src/Observer.i
+
+# target to preprocess a source file
+src/Observer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Observer.cpp.i
+.PHONY : src/Observer.cpp.i
+
+src/Observer.s: src/Observer.cpp.s
+.PHONY : src/Observer.s
+
+# target to generate assembly for a file
+src/Observer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Observer.cpp.s
+.PHONY : src/Observer.cpp.s
 
 src/Scene.o: src/Scene.cpp.o
 .PHONY : src/Scene.o
@@ -408,6 +456,9 @@ help:
 	@echo "... src/App.o"
 	@echo "... src/App.i"
 	@echo "... src/App.s"
+	@echo "... src/Callbacks.o"
+	@echo "... src/Callbacks.i"
+	@echo "... src/Callbacks.s"
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
@@ -417,6 +468,9 @@ help:
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/Observer.o"
+	@echo "... src/Observer.i"
+	@echo "... src/Observer.s"
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"

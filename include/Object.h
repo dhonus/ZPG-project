@@ -11,10 +11,10 @@
 #include <memory>
 #include "string"
 class Shader;
-
+class Camera;
 class Object {
 public:
-    Object(std::vector<float> b, const std::string& vertex_shader);
+    Object(std::vector<float> b, const std::string& vertex_shader, std::shared_ptr<Camera> camera);
     int draw();
     std::shared_ptr<Trans> trans;
 private:

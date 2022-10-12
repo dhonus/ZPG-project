@@ -3,11 +3,14 @@
 //
 
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include "../include/Trans.h"
 #include "iostream"
 
 Trans::Trans() {
     this->current = glm::mat4(1.0f);
+    //glm::rotate(this->current, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
 }
 
 glm::mat4 Trans::getMatrix(){

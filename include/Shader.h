@@ -16,12 +16,14 @@
 #include "Vao.h"
 #include "Object.h"
 #include "string"
+#include "Camera.h"
 
 class Object;
+class Camera;
 
 class Shader {
 public:
-    Shader(const std::string &vertexShader);
+    Shader(const std::string &vertexShader, std::shared_ptr<Camera> camera);
     ~Shader();
     void compile();
     void draw(glm::mat4 t_matrix);
@@ -34,6 +36,7 @@ private:
     GLuint fragmentShader;
     int load(const std::string &vertexShader);
     std::string output;
+    std::shared_ptr<Camera> camera;
 
     // observer
 

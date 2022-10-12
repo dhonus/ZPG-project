@@ -2,7 +2,8 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
-Shader::Shader(const std::string &vertexShader) {
+Shader::Shader(const std::string &vertexShader, std::shared_ptr<Camera> camera) {
+    this->camera = camera;
     this->load(vertexShader);
     this->compile();
     this->vertex_shader = vertexShader.c_str();
@@ -45,7 +46,7 @@ void Shader::compile() {
 
     MatId = glGetUniformLocation(shaderProgram, "modelMatrix");
 
-    if (MatId == -1 || ViewId == -1){
+    if (MatId == -1){
         std::cout << "cannot get modelMatrix" << std::endl;
         exit(-1);
     }
@@ -53,8 +54,26 @@ void Shader::compile() {
 }
 
 void Shader::draw(glm::mat4 t_matrix) {
+    //glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(MatId, 1, GL_FALSE, &t_matrix[0][0]);
+
+    glm::mat4 view = glm::mat4(1.0f);
+    //view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    /*glm::vec3 eye {0.0f, -2.5f, -1.0f};
+    view = glm::lookAt(eye,
+                       eye + glm::vec3{0.f, 3.f, 1.f},
+                       glm::vec3 {0.f, 1.f, 0.f});*/
+    glm::mat4 projection;
+    view = camera->getCamera();
+
+    projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
+
+    int projectLoc = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    glUniformMatrix4fv(projectLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+    int modelLoc = glGetUniformLocation(shaderProgram, "viewMatrix");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(view));
 }
 
 Shader::~Shader() {}

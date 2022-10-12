@@ -5,6 +5,7 @@
 #ifndef OGL_TST_02_APP_H
 #define OGL_TST_02_APP_H
 #include <memory>
+#include "Callbacks.h"
 
 class App {
 public:
@@ -14,19 +15,6 @@ public:
 private:
     std::shared_ptr<Window> window;
     std::shared_ptr<Scene> scene;
-
-    static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
-
-    void window_focus_callback(GLFWwindow *window, int focused);
-
-    void window_iconify_callback(GLFWwindow *window, int iconified);
-
-    void window_size_callback(GLFWwindow *window, int width, int height);
-
-    static void cursor_callback(GLFWwindow *window, double x, double y);
-
-    void button_callback(GLFWwindow *window, int button, int action, int mode);
-
 };
 
 

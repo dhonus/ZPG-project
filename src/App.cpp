@@ -14,48 +14,15 @@
 //Include the standard C++ headers
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 
 #include "../include/Window.h"
 #include "../include/Scene.h"
 #include "../include/Shader.h"
 #include "../include/App.h"
 
-static void error_callback(int error, const char *description) {
-    fputs(description, stderr);
-}
-
-void App::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
-
-    if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-    }
-}
-
-
-void App::window_focus_callback(GLFWwindow *window, int focused) { printf("window_focus_callback \n"); }
-
-void App::window_iconify_callback(GLFWwindow *window, int iconified) { printf("window_iconify_callback \n"); }
-
-void App::window_size_callback(GLFWwindow *window, int width, int height) {
-    printf("resize %d, %d \n", width, height);
-    glViewport(0, 0, width, height);
-}
-
-void App::cursor_callback(GLFWwindow *window, double x, double y) { printf("cursor_callback \n"); }
-
-void App::button_callback(GLFWwindow *window, int button, int action, int mode) {
-    if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
-}
-
 App::App() {
     window = std::make_shared<Window>();
-    glfwSetErrorCallback(error_callback);
-    glfwSetKeyCallback(window->getWindow(), key_callback);
-    glfwSetCursorPosCallback(window->getWindow(), cursor_callback);
-
-
     // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit();

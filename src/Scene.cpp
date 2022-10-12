@@ -6,6 +6,7 @@
 
 int Scene::render() {
     while (!glfwWindowShouldClose(window->getWindow())) {
+        glEnable(GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //setshader
         this->objects.at(0)->trans->rotate(.7, 1);
@@ -27,6 +28,9 @@ int Scene::render() {
 
 Scene::Scene(std::shared_ptr<Window> t_window) {
     this->window = t_window;
-    this->objects.push_back(std::make_unique<Object>(b, "box_wild.vs"));
-    this->objects.push_back(std::make_unique<Object>(b2, "box_regular.vs"));
+    this->camera = std::make_shared<Camera>();
+    this->callbacks = std::make_shared<Callbacks>(this->window->getWindow());
+    this->callbacks->setCamera(this->camera);
+    this->objects.push_back(std::make_unique<Object>(b, "box_wild.vs", camera));
+    this->objects.push_back(std::make_unique<Object>(b2, "box_regular.vs", camera));
 }
