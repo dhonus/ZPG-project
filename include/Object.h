@@ -5,7 +5,6 @@
 #ifndef OGL_TST_02_OBJECT_H
 #define OGL_TST_02_OBJECT_H
 
-
 #include "Shader.h"
 #include "Model.h"
 #include "Trans.h"
@@ -25,6 +24,5 @@ private:
     glm::mat4 matrix = glm::mat4(1.0f);
     std::string vertexShader{};
 };
-
 
 #endif //OGL_TST_02_OBJECT_H

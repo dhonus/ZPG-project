@@ -28,12 +28,14 @@ public:
     void error_check();
 
 private:
-    GLint MatId;
+    GLint MatId, ViewId;
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
     int load(const std::string &vertexShader);
     std::string output;
+
+    // observer
 
     const char* vertex_shader;
     const char* fragment_shader =
@@ -43,7 +45,6 @@ private:
           "void main () {"
           "     frag_colour = colors;"
           "}";
-
 };
 
 #endif //OGL_TST_02_SHADER_H

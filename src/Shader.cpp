@@ -44,10 +44,12 @@ void Shader::compile() {
     glLinkProgram(shaderProgram);
 
     MatId = glGetUniformLocation(shaderProgram, "modelMatrix");
-    if (MatId == -1){
+
+    if (MatId == -1 || ViewId == -1){
         std::cout << "cannot get modelMatrix" << std::endl;
         exit(-1);
     }
+    error_check();
 }
 
 void Shader::draw(glm::mat4 t_matrix) {

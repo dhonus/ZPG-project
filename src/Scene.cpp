@@ -7,7 +7,7 @@
 int Scene::render() {
     while (!glfwWindowShouldClose(window->getWindow())) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        //setshader
         this->objects.at(0)->trans->rotate(.7, 1);
         this->objects.at(1)->trans->scale();
         this->objects.at(1)->trans->rotate(1.3, -1);

@@ -177,6 +177,30 @@ src/App.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/App.cpp.s
 .PHONY : src/App.cpp.s
 
+src/Camera.o: src/Camera.cpp.o
+.PHONY : src/Camera.o
+
+# target to build an object file
+src/Camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Camera.cpp.o
+.PHONY : src/Camera.cpp.o
+
+src/Camera.i: src/Camera.cpp.i
+.PHONY : src/Camera.i
+
+# target to preprocess a source file
+src/Camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Camera.cpp.i
+.PHONY : src/Camera.cpp.i
+
+src/Camera.s: src/Camera.cpp.s
+.PHONY : src/Camera.s
+
+# target to generate assembly for a file
+src/Camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Camera.cpp.s
+.PHONY : src/Camera.cpp.s
+
 src/Model.o: src/Model.cpp.o
 .PHONY : src/Model.o
 
@@ -248,30 +272,6 @@ src/Scene.s: src/Scene.cpp.s
 src/Scene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/Scene.cpp.s
 .PHONY : src/Scene.cpp.s
-
-src/SceneManager.o: src/SceneManager.cpp.o
-.PHONY : src/SceneManager.o
-
-# target to build an object file
-src/SceneManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.o
-.PHONY : src/SceneManager.cpp.o
-
-src/SceneManager.i: src/SceneManager.cpp.i
-.PHONY : src/SceneManager.i
-
-# target to preprocess a source file
-src/SceneManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.i
-.PHONY : src/SceneManager.cpp.i
-
-src/SceneManager.s: src/SceneManager.cpp.s
-.PHONY : src/SceneManager.s
-
-# target to generate assembly for a file
-src/SceneManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ZPG.dir/build.make CMakeFiles/ZPG.dir/src/SceneManager.cpp.s
-.PHONY : src/SceneManager.cpp.s
 
 src/Shader.o: src/Shader.cpp.o
 .PHONY : src/Shader.o
@@ -408,6 +408,9 @@ help:
 	@echo "... src/App.o"
 	@echo "... src/App.i"
 	@echo "... src/App.s"
+	@echo "... src/Camera.o"
+	@echo "... src/Camera.i"
+	@echo "... src/Camera.s"
 	@echo "... src/Model.o"
 	@echo "... src/Model.i"
 	@echo "... src/Model.s"
@@ -417,9 +420,6 @@ help:
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"
-	@echo "... src/SceneManager.o"
-	@echo "... src/SceneManager.i"
-	@echo "... src/SceneManager.s"
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"

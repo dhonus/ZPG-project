@@ -15,7 +15,7 @@ private:
     std::shared_ptr<Window> window;
     std::shared_ptr<Scene> scene;
 
-    void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+    static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
     void window_focus_callback(GLFWwindow *window, int focused);
 
@@ -23,9 +23,10 @@ private:
 
     void window_size_callback(GLFWwindow *window, int width, int height);
 
-    void cursor_callback(GLFWwindow *window, double x, double y);
+    static void cursor_callback(GLFWwindow *window, double x, double y);
 
     void button_callback(GLFWwindow *window, int button, int action, int mode);
+
 };
 
 

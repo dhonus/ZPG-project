@@ -14,6 +14,8 @@ glm::mat4 Trans::getMatrix(){
     return this->current;
 }
 
+//crateTransform()
+
 // these methods will be replaced with more relevant operations as needed
 // currently unnecessary to do so
 void Trans::scale(){
@@ -27,4 +29,9 @@ void Trans::move(){
 
 void Trans::rotate(float deg, float quantifier){
     this->current = glm::rotate(this->current,glm::radians(deg), glm::vec3(0.0f, 0.0f, quantifier*1.0f));
+}
+
+
+TransRotate::TransRotate() {
+
 }

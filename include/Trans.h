@@ -5,8 +5,9 @@
 #ifndef OGL_TST_02_TRANS_H
 #define OGL_TST_02_TRANS_H
 
-
 #include <glm/ext/matrix_float4x4.hpp>
+
+//composite
 
 class Trans {
 private:
@@ -19,5 +20,12 @@ public:
     void rotate(float deg, float quantifier);
 };
 
+class TransRotate : Trans {
+private:
+    glm::mat4 current;
+    float alpha;
+public:
+    TransRotate();
+};
 
 #endif //OGL_TST_02_TRANS_H

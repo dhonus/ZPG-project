@@ -33,6 +33,7 @@ void App::key_callback(GLFWwindow *window, int key, int scancode, int action, in
     }
 }
 
+
 void App::window_focus_callback(GLFWwindow *window, int focused) { printf("window_focus_callback \n"); }
 
 void App::window_iconify_callback(GLFWwindow *window, int iconified) { printf("window_iconify_callback \n"); }
@@ -51,6 +52,9 @@ void App::button_callback(GLFWwindow *window, int button, int action, int mode) 
 App::App() {
     window = std::make_shared<Window>();
     glfwSetErrorCallback(error_callback);
+    glfwSetKeyCallback(window->getWindow(), key_callback);
+    glfwSetCursorPosCallback(window->getWindow(), cursor_callback);
+
 
     // start GLEW extension handler
     glewExperimental = GL_TRUE;
