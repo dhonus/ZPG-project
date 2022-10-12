@@ -15,6 +15,8 @@ public:
 private:
     std::shared_ptr<Window> window;
     std::shared_ptr<Scene> scene;
+    int width = 800;
+    int height = 600;
 };
 
 

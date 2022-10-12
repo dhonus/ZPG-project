@@ -41,8 +41,7 @@ private:
 
     static void button_callback(GLFWwindow *window, int button, int action, int mode);
 
-    static bool A;
-    static bool B;
+    static bool W,A,S,D;
 };
 
 

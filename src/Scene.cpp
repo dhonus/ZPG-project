@@ -17,6 +17,13 @@ int Scene::render() {
             o->draw();
         }
 
+        // this makes the movement with WASD not suck. A callback is completely unusable for this.
+        camera->move (
+                glfwGetKey( window->getWindow(), GLFW_KEY_W ) == GLFW_PRESS,
+                glfwGetKey( window->getWindow(), GLFW_KEY_S ) == GLFW_PRESS,
+                glfwGetKey( window->getWindow(), GLFW_KEY_A ) == GLFW_PRESS,
+                glfwGetKey( window->getWindow(), GLFW_KEY_D ) == GLFW_PRESS );
+
         // update other events like input handling
         glfwPollEvents();
 
@@ -26,11 +33,11 @@ int Scene::render() {
     return 0;
 }
 
-Scene::Scene(std::shared_ptr<Window> t_window) {
+Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->window = t_window;
-    this->camera = std::make_shared<Camera>();
+    this->camera = std::make_shared<Camera>(width, height);
     this->callbacks = std::make_shared<Callbacks>(this->window->getWindow());
     this->callbacks->setCamera(this->camera);
-    this->objects.push_back(std::make_unique<Object>(b, "box_wild.vs", camera));
+    this->objects.push_back(std::make_unique<Object>(b, "box_regular.vs", camera));
     this->objects.push_back(std::make_unique<Object>(b2, "box_regular.vs", camera));
 }

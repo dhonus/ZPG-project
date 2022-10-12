@@ -1,7 +1,7 @@
 #include "../include/Window.h"
 
 
-Window::Window() {
+Window::Window(int width, int height) {
     glfwGetVersion(&major, &minor, &revision);
     printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 
@@ -22,6 +22,7 @@ Window::Window() {
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1);
     get_version_info();
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Window::get_version_info() {
@@ -40,3 +41,4 @@ Window::~Window() {
 GLFWwindow *Window::getWindow() {
     return this->window;
 }
+

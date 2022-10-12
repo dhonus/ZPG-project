@@ -22,7 +22,7 @@
 #include "../include/App.h"
 
 App::App() {
-    window = std::make_shared<Window>();
+    window = std::make_shared<Window>(this->width, this->height);
     // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit();
@@ -37,7 +37,7 @@ int App::init() {
                    GLFW_OPENGL_CORE_PROFILE);
 
 
-    this->scene = std::make_shared<Scene>(window);
+    this->scene = std::make_shared<Scene>(window, this->width, this->height);
 
     scene->render();
 

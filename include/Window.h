@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <glm/vec2.hpp>
 
 class Window {
 private:
@@ -17,7 +18,7 @@ private:
     float ratio;
     void error_callback(int error, const char *description) { fputs(description, stderr); }
 public:
-    Window();
+    Window(int width, int height);
     ~Window();
     GLFWwindow *getWindow();
     void get_version_info();

@@ -13,7 +13,7 @@
 
 class Scene {
 public:
-    Scene(std::shared_ptr<Window> t_window);
+    Scene(std::shared_ptr<Window> t_window, int width, int height);
     std::vector<std::unique_ptr<Object>> objects;
     int render();
 private:

@@ -11,22 +11,13 @@ static void error_callback(int error, const char *description) {
     fputs(description, stderr);
 }
 
+bool Callbacks::W = false;
 bool Callbacks::A = false;
-bool Callbacks::B = false;
+bool Callbacks::S = false;
+bool Callbacks::D = false;
 
 void Callbacks::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    //printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
 
-    if (key == GLFW_KEY_A) A = true;
-    if (key == GLFW_KEY_B) B = true;
-    if (A && B)
-    {
-        // now you know that both A and B keys are down, do what you need
-        std::cout << "yay\n";
-        A, B = false;
-    }
 }
 
 
@@ -49,6 +40,7 @@ void Callbacks::button_callback(GLFWwindow *window, int button, int action, int 
 
 void Callbacks::init() {
 
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
     auto mouse = [](GLFWwindow * win, double x, double y) {
         if (!camera){
             std::cout << "camera not bound\n" << std::flush;
@@ -56,11 +48,40 @@ void Callbacks::init() {
         }
         camera->mouse(x,y);
     };
+    auto keyboard = [](GLFWwindow *window, int key, int scancode, int action, int mods){
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, GL_TRUE);
+
+
+        /*
+        if (key == GLFW_KEY_W) W = true;
+        if (key == GLFW_KEY_A) A = true;
+        if (key == GLFW_KEY_S) S = true;
+        if (key == GLFW_KEY_D) D = true;
+        camera->move(W,S,A,D);
+        W = false;
+        A = false;
+        S = false;
+        D = false;
+        // Move backward
+        if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS){
+            std::cout << "d";
+        }
+        // Strafe right
+        if (glfwGetKey( window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
+            std::cout << "l";
+        }
+        // Strafe left
+        if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS){
+            std::cout << "r";
+        }
+        */
+    };
+
     glfwSetErrorCallback(error_callback);
-    glfwSetKeyCallback(window, key_callback);
+    glfwSetKeyCallback(window, keyboard);
     glfwSetCursorPosCallback(window, mouse);
     glfwSetWindowSizeCallback(window, window_size_callback);
-    glfwSetKeyCallback(window, key_callback);
 }
 
 Callbacks::Callbacks(GLFWwindow* window) {
