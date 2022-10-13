@@ -14,12 +14,15 @@
 class Scene {
 public:
     Scene(std::shared_ptr<Window> t_window, int width, int height);
+    ~Scene();
     std::vector<std::unique_ptr<Object>> objects;
     int render();
+
 private:
-    std::shared_ptr<Camera> camera;
+    //std::shared_ptr<Camera> camera;
+    Camera* camera;
+    Callbacks* callbacks;
     std::shared_ptr<Window> window;
-    std::shared_ptr<Callbacks> callbacks;
     std::vector<float> b{
             -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,

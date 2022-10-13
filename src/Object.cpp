@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../include/Object.h"
 
-Object::Object(std::vector<float> b, const std::string& vertex_shader, std::shared_ptr<Camera> camera) {
+Object::Object(std::vector<float> b, const std::string& vertex_shader, Camera* camera) {
     this->vertexShader = vertex_shader;
     this->shader = std::make_shared<Shader>(this->vertexShader, camera);
     this->model = std::make_shared<Model>(b);

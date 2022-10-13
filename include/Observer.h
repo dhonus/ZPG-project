@@ -9,24 +9,24 @@
 #include <algorithm>
 #include <iostream>
 
-class Observable;
+class Subject;
 
 class Observer {
 public:
     virtual ~Observer() = default;
-    virtual void update(Observable&) = 0;
+    virtual void update(Subject&) = 0;
 };
 
-class Observable{
+class Subject{
 private:
     std::vector<Observer*> observers;
 public:
-    virtual ~Observable() = default;
-    void attach(Observer& observer) {
-        observers.push_back(&observer);
+    virtual ~Subject() = default;
+    void attach(Observer* observer) {
+        observers.push_back(observer);
     }
-    void detach(Observer& observer){
-        observers.erase(std::remove(observers.begin(), observers.end(), &observer));
+    void detach(Observer* observer){
+        observers.erase(std::remove(observers.begin(), observers.end(), observer));
     }
     void notify(){
         for (auto& o : observers){

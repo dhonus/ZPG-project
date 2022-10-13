@@ -40,18 +40,25 @@ void Callbacks::button_callback(GLFWwindow *window, int button, int action, int 
 
 void Callbacks::init() {
 
+    auto windowSize = [](GLFWwindow *window, int width, int height){
+        printf("resize %d, %d \n", width, height);
+        glViewport(0, 0, width, height);
+        instance().width = width;
+        instance().height = height;
+        camera->update(instance());
+    };
+
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
     auto mouse = [](GLFWwindow * win, double x, double y) {
         if (!camera){
             std::cout << "camera not bound\n" << std::flush;
             return;
         }
-        camera->mouse(x,y);
+        camera->mouse(x, y);
     };
     auto keyboard = [](GLFWwindow *window, int key, int scancode, int action, int mods){
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GL_TRUE);
-
 
         /*
         if (key == GLFW_KEY_W) W = true;
@@ -81,15 +88,24 @@ void Callbacks::init() {
     glfwSetErrorCallback(error_callback);
     glfwSetKeyCallback(window, keyboard);
     glfwSetCursorPosCallback(window, mouse);
-    glfwSetWindowSizeCallback(window, window_size_callback);
+    glfwSetWindowSizeCallback(window, windowSize);
 }
 
 Callbacks::Callbacks(GLFWwindow* window) {
     this->window = window;
     this->init();
+    this->callbacks = this;
 }
-std::shared_ptr<Camera> Callbacks::camera = nullptr;
 
-void Callbacks::setCamera(std::shared_ptr<Camera> t_camera) {
-    Callbacks::camera = std::move(t_camera);
+Camera* Callbacks::camera = nullptr;
+Callbacks* Callbacks::callbacks = nullptr;
+float Callbacks::width = 0;
+float Callbacks::height = 0;
+
+void Callbacks::setCamera(Camera* t_camera) {
+    Callbacks::camera = t_camera;
+}
+
+Callbacks &Callbacks::instance() {
+    return *callbacks;
 }

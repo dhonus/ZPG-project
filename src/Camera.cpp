@@ -10,15 +10,21 @@ glm::mat4 Camera::getCamera() {
 }
 
 void Camera::mouse(float x, float y) {
-    if (first) // initially set to true
+    /*
+     * The pitch is the angle that depicts how much we're looking up or down as seen in the first image.
+     * The second image shows the yaw value which represents the magnitude we're looking to the left or to the right.
+     * The roll represents how much we roll as mostly used in space-flight cameras. Each of the Euler angles are
+     * represented by a single value and with the combination of all 3 of them we can calculate any rotation vector in 3D.
+    */
+    if (first)
     {
-        lastX = x/2;
-        lastY = y/2;
+        lastX = x;
+        lastY = y;
         first = false;
     }
-
     float xoffset = x - lastX;
     float yoffset = lastY - y; // reversed since y-coordinates range from bottom to top
+    std::cout << "x offset: " << xoffset << ", y offset: " << yoffset << " x: " << x << " y: " << y <<"\n";
     lastX = x;
     lastY = y;
 
@@ -33,38 +39,54 @@ void Camera::mouse(float x, float y) {
     if(pitch < -89.0f)
         pitch = -89.0f;
 
-
-    /*
-     * The pitch is the angle that depicts how much we're looking up or down as seen in the first image. The second image shows the yaw value which represents the magnitude we're looking to the left or to the right. The roll represents how much we roll as mostly used in space-flight cameras. Each of the Euler angles are represented by a single value and with the combination of all 3 of them we can calculate any rotation vector in 3D.
-    */
-
-
     this->target.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     this->target.y = sin(glm::radians(pitch));
     this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
-
-    //this->target.y = cos(1);
-    std::cout << "Mouse!! X:"<<x<<" Y:"<<lastX<<"\n";
+    this->target = glm::normalize(target);
 }
 
-void Camera::update(Observable &) {
-    std::cout << "updated camera";
+void Camera::update(Subject& subject) {
+    if (&subject == callback){
+        this->width = callback->width;
+        this->height = callback->height;
+        this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
+    }
 }
 
-Camera::Camera(int width, int height) {
-    lastX = width/2,
-    lastY = height/2;
+Camera::Camera(int width, int height, Callbacks& callback, std::shared_ptr<Window> window) {
+    this->lastX = width/2,
+    this->lastY = height/2;
+    this->callback = &callback;
+    this->window = window;
+    this->width = width;
+    this->height = height;
+    this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
+    this->target.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    this->target.y = sin(glm::radians(pitch));
+    this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    this->target = glm::normalize(target);
 }
 
-void Camera::move(bool front, bool back, bool left, bool right) {
-    std::cout << "moving " << front<<back<<left<<right<<"\n";
+void Camera::move(bool front, bool back, bool left, bool right, bool up, bool down) {
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+    cameraSpeed = 3.5 * deltaTime;
+
     if (front)
         position += cameraSpeed*target;
     if (back)
         position -= cameraSpeed*target;
-    if(left)
+    if (left)
         position -= glm::normalize(glm::cross(target, upwards)) * cameraSpeed;
-    if(right)
+    if (right)
         position += glm::normalize(glm::cross(target, upwards)) * cameraSpeed;
+    if (up)
+        position += cameraSpeed*upwards;
+    if (down)
+        position -= cameraSpeed*upwards;
+}
+
+glm::mat4 Camera::perspective() {
+    return camera;
 }

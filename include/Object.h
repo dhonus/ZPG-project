@@ -10,17 +10,19 @@
 #include "Trans.h"
 #include <memory>
 #include "string"
+#include "Observer.h"
+
 class Shader;
 class Camera;
+
 class Object {
 public:
-    Object(std::vector<float> b, const std::string& vertex_shader, std::shared_ptr<Camera> camera);
+    Object(std::vector<float> b, const std::string& vertex_shader, Camera* camera);
     int draw();
     std::shared_ptr<Trans> trans;
 private:
     std::shared_ptr<Model> model;
     std::shared_ptr<Shader> shader;
-    glm::vec3 position;
     glm::mat4 matrix = glm::mat4(1.0f);
     std::string vertexShader{};
 };

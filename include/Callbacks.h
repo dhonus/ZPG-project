@@ -21,12 +21,15 @@
 #include "memory"
 #include "Observer.h"
 class Camera;
-class Callbacks : Observable{
+class Callbacks : public Subject {
 public:
     Callbacks(GLFWwindow* window);
-    static void setCamera(std::shared_ptr<Camera> camera);
-    static std::shared_ptr<Camera> camera;
+    static void setCamera(Camera* camera);
+    static float width, height;
 private:
+    static Camera* camera;
+    static Callbacks* callbacks;
+    static Callbacks& instance();
     GLFWwindow* window;
     void init();
     static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
