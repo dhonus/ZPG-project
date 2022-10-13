@@ -5,14 +5,16 @@
 #include <iostream>
 #include "../include/Model.h"
 
-Model::Model(std::vector<float> b) {
-    this->VBO = std::make_shared<Vbo>(b);
+Model::Model(std::vector<float> b, GLenum mode, int vertexCount, int posSize, int colSize, int colOffset, int genSize) {
+    this->VBO = std::make_shared<Vbo>(b, posSize, colSize, colOffset, genSize);
     this->VAO = std::make_shared<Vao>(VBO);
     this->VAO->bind_vertex_array();
+    this->mode = mode;
+    this->vertexCount = vertexCount;
 }
 
 int Model::draw(){
     this->VAO->bind_vertex_array();
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawArrays(mode, 0, vertexCount);
     return 0;
 }

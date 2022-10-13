@@ -14,7 +14,7 @@
 #include <string>
 
 
-
+class Camera;
 class Hud {
 public:
     int draw(Camera* camera);

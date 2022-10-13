@@ -3,7 +3,9 @@
 //
 
 #include "../include/Scene.h"
-
+#include "../models/sphere.h"
+#include "../models/suzi_flat.h"
+#include "../models/cube.h"
 
 int Scene::render() {
 
@@ -32,10 +34,7 @@ int Scene::render() {
 
         hud->draw(camera);
 
-        // update other events like input handling
         glfwPollEvents();
-
-        // put the stuff we’ve been drawing onto the display
         glfwSwapBuffers(window->getWindow());
 
     }
@@ -44,7 +43,6 @@ int Scene::render() {
 
 Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->window = t_window;
-    //this->camera = std::make_shared<Camera>(width, height);
     this->callbacks = new Callbacks(this->window->getWindow());
     this->camera = new Camera(width, height, *callbacks, window);
     this->callbacks->setCamera(this->camera);
@@ -52,15 +50,53 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
 
     this->objects.push_back(
             std::make_unique<Object>(
-                    b,
-                    "box_regular.vs",
-                    camera ));
+                cube,
+                "box_regular.vs",
+                camera,
+                GL_TRIANGLES,
+                36,
+                3,
+                2,
+                3,
+                5
+                ));
 
     this->objects.push_back(
             std::make_unique<Object>(
-                    b2,
-                    "box_regular.vs",
-                    camera ));
+                cube,
+                "box_regular.vs",
+                camera,
+                GL_TRIANGLES,
+                36,
+                3,
+                2,
+                3,
+                5));
+
+    /*this->objects.push_back(
+            std::make_unique<Object>(
+                sphere,
+                "box_regular.vs",
+                camera,
+                GL_TRIANGLES,
+                2880,
+                3,
+                2,
+                3,
+                6
+            ));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                suziFlat,
+                "box_regular.vs",
+                camera,
+                GL_TRIANGLES,
+                2904,
+                3,
+                2,
+                3,
+                6
+            ));*/
 
     for (auto & o : objects){
         //this->callbacks->atta

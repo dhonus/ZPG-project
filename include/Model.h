@@ -11,11 +11,13 @@
 
 class Model {
 public:
-    Model(std::vector<float> b);
+    Model(std::vector<float> b, GLenum mode, int vertexCount, int posSize, int colSize, int colOffset, int genSize);
     int draw();
 private:
     std::shared_ptr<Vbo> VBO;
     std::shared_ptr<Vao> VAO;
+    GLenum mode;
+    int vertexCount;
 };
 
 #endif //OGL_TST_02_MODEL_H

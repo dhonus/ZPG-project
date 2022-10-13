@@ -15,8 +15,12 @@ class Vbo {
 private:
     GLuint VBO;
     std::vector<float> points;
+    int posSize;
+    int colSize;
+    int colOffset;
+    int genSize;
 public:
-    Vbo(std::vector<float> t_points);
+    Vbo(std::vector<float> &t_points, int posSize, int colSize, int colOffset, int genSize);
     Vbo();
     void bind_buffer();
 };

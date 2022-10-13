@@ -11,13 +11,17 @@
 #include <memory>
 #include "string"
 #include "Observer.h"
+#include "Scene.h"
+
 
 class Shader;
 class Camera;
+class Scene;
 
 class Object {
 public:
-    Object(std::vector<float> b, const std::string& vertex_shader, Camera* camera);
+    Object(std::vector<float> b, const std::string &vertex_shader, Camera *camera, GLenum mode, int vertexCount,
+           int posSize, int colSize, int colOffset, int genSize);
     int draw();
     std::shared_ptr<Trans> trans;
 private:
