@@ -44,6 +44,7 @@ public:
     void move(bool front, bool back, bool left, bool right, bool up, bool down);
     void mouse(float x, float y);
     void update(Subject& subject);
+    glm::vec3 pos() const;
 };
 
 

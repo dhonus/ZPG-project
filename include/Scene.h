@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Camera.h"
 #include "Callbacks.h"
+#include "Hud.h"
 
 
 class Scene {
@@ -19,8 +20,8 @@ public:
     int render();
 
 private:
-    //std::shared_ptr<Camera> camera;
     Camera* camera;
+    Hud* hud;
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
     std::vector<float> b{

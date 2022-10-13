@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 # add sources
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "include/*.h")
-add_executable(ZPG main.cpp ${SOURCES} ${HEADERS})
+file(GLOB MODELS "models/*.h")
+file(GLOB LIBS "lib/*.h")
+add_executable(ZPG main.cpp ${SOURCES} ${HEADERS} ${MODELS} ${LIBS})
 
 # link libraries
 find_package(glfw3 3.3 REQUIRED)

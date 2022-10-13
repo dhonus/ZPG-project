@@ -9,6 +9,10 @@ glm::mat4 Camera::getCamera() {
     return glm::lookAt(this->position, position + target, upwards);
 }
 
+glm::vec3 Camera::pos() const{
+    return this->position;
+}
+
 void Camera::mouse(float x, float y) {
     /*
      * The pitch is the angle that depicts how much we're looking up or down as seen in the first image.
@@ -24,7 +28,6 @@ void Camera::mouse(float x, float y) {
     }
     float xoffset = x - lastX;
     float yoffset = lastY - y; // reversed since y-coordinates range from bottom to top
-    std::cout << "x offset: " << xoffset << ", y offset: " << yoffset << " x: " << x << " y: " << y <<"\n";
     lastX = x;
     lastY = y;
 

@@ -1,6 +1,4 @@
-#include "include/Window.h"
 #include "include/Scene.h"
-#include "include/Shader.h"
 #include "include/App.h"
 #include <memory>
 

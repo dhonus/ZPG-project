@@ -4,7 +4,9 @@
 
 #include "../include/Scene.h"
 
+
 int Scene::render() {
+
     while (!glfwWindowShouldClose(window->getWindow())) {
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
@@ -18,7 +20,8 @@ int Scene::render() {
             o->draw();
         }
 
-        // this makes the movement with WASD not suck. A callback is completely unusable for this.
+        // This makes the movement with WASD immediate.
+        // A callback is completely unusable for this.
         camera->move (
                 glfwGetKey( window->getWindow(), GLFW_KEY_W ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_S ) == GLFW_PRESS,
@@ -27,11 +30,14 @@ int Scene::render() {
                 glfwGetKey( window->getWindow(), GLFW_KEY_SPACE ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS );
 
+        hud->draw(camera);
+
         // update other events like input handling
         glfwPollEvents();
 
         // put the stuff we’ve been drawing onto the display
         glfwSwapBuffers(window->getWindow());
+
     }
     return 0;
 }
@@ -44,12 +50,22 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->callbacks->setCamera(this->camera);
     this->callbacks->attach(this->camera);
 
-    this->objects.push_back(std::make_unique<Object>(b, "box_regular.vs", camera));
-    this->objects.push_back(std::make_unique<Object>(b2, "box_regular.vs", camera));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    b,
+                    "box_regular.vs",
+                    camera ));
+
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    b2,
+                    "box_regular.vs",
+                    camera ));
 
     for (auto & o : objects){
         //this->callbacks->atta
     }
+    this->hud = new Hud;
 }
 
 Scene::~Scene() {
