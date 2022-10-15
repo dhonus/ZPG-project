@@ -12,6 +12,7 @@ Window::Window(int width, int height) {
         exit(EXIT_FAILURE);
     }
 
+
     this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
 
     glfwGetFramebufferSize(this->window, &width, &height);

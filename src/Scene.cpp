@@ -6,24 +6,25 @@
 #include "../models/sphere.h"
 #include "../models/suzi_flat.h"
 #include "../models/cube.h"
-
+#include "../models/floor.h"
 int Scene::render() {
+    //this->objects.at(0)->trans->add(new TransRotate());
+    this->objects.at(1)->trans->add(new TransRotate(.7, -1, {0.0f, 1.0f, 1.0f}));
+    this->objects.at(1)->trans->add(new TransMove(glm::vec3(0.1f, 0.0f, 0.0f)));
+
+    this->objects.at(0)->trans->add(new TransRotate(.2, -1, {0.0f, 1.0f, 1.0f}));
 
     while (!glfwWindowShouldClose(window->getWindow())) {
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //setshader
-        this->objects.at(0)->trans->rotate(.7, 1);
-        this->objects.at(1)->trans->scale();
-        this->objects.at(1)->trans->rotate(1.3, -1);
 
         for (auto & o : this->objects){
             o->draw();
         }
 
         // This makes the movement with WASD immediate.
-        // A callback is completely unusable for this.
+        // A callback is unusable for this.
         camera->move (
                 glfwGetKey( window->getWindow(), GLFW_KEY_W ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_S ) == GLFW_PRESS,
@@ -58,22 +59,20 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 3,
                 2,
                 3,
-                5
-                ));
-
-    this->objects.push_back(
+                5));
+    /*this->objects.push_back(
             std::make_unique<Object>(
-                cube,
+                floor_model,
                 "box_regular.vs",
                 camera,
-                GL_TRIANGLES,
-                36,
-                3,
-                2,
-                3,
-                5));
+                GL_POLYGON,
+                4,
+                4,
+                4,
+                4,
+                8));
 
-    /*this->objects.push_back(
+   this->objects.push_back(
             std::make_unique<Object>(
                 sphere,
                 "box_regular.vs",
@@ -84,11 +83,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 2,
                 3,
                 6
-            ));
+            ));*/
     this->objects.push_back(
             std::make_unique<Object>(
                 suziFlat,
-                "box_regular.vs",
+                "box_wild.vs",
                 camera,
                 GL_TRIANGLES,
                 2904,
@@ -96,11 +95,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 2,
                 3,
                 6
-            ));*/
+            ));
 
-    for (auto & o : objects){
-        //this->callbacks->atta
-    }
     this->hud = new Hud;
 }
 
