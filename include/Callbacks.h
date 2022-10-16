@@ -20,8 +20,8 @@ class Camera;
 
 class Callbacks : public Subject {
 public:
-    Callbacks(GLFWwindow* window);
-    static void setCamera(Camera* camera);
+    Callbacks(GLFWwindow& window);
+    static void setCamera(Camera *&camera);
     static float width, height;
 private:
     static Camera* camera;

@@ -39,7 +39,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-GLFWwindow *Window::getWindow() {
+GLFWwindow* Window::getWindow() {
     return this->window;
 }
 

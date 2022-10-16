@@ -22,10 +22,10 @@ private:
     std::vector<Observer*> observers;
 public:
     virtual ~Subject() = default;
-    void attach(Observer* observer) {
+    void attach(Observer *observer) {
         observers.push_back(observer);
     }
-    void detach(Observer* observer){
+    void detach(Observer *observer){
         observers.erase(std::remove(observers.begin(), observers.end(), observer));
     }
     void notify(){

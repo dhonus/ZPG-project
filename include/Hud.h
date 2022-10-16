@@ -17,7 +17,7 @@
 class Camera;
 class Hud {
 public:
-    int draw(Camera* camera);
+    int draw(Camera& camera);
 };
 
 

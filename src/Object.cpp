@@ -11,7 +11,7 @@ int Object::draw() {
     return 0;
 }
 
-Object::Object(std::vector<float> b, const std::string &vertex_shader, Camera *camera, GLenum mode, int vertexCount,
+Object::Object(std::vector<float> b, const std::string &vertex_shader, Camera *&camera, GLenum mode, int vertexCount,
                int posSize, int colSize, int colOffset, int genSize) {
     this->vertexShader = vertex_shader;
     this->shader = std::make_shared<Shader>(this->vertexShader, camera);

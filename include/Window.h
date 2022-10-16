@@ -20,7 +20,7 @@ private:
 public:
     Window(int width, int height);
     ~Window();
-    GLFWwindow *getWindow();
+    GLFWwindow* getWindow();
     void get_version_info();
 };
 

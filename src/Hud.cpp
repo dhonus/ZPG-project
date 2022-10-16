@@ -5,11 +5,11 @@
 #include <iostream>
 #include "../include/Hud.h"
 
-int Hud::draw(Camera* camera) {
+int Hud::draw(Camera& camera) {
     gltInit();
 
     GLTtext *text = gltCreateText();
-    glm::vec3 pos = camera->pos();
+    glm::vec3 pos = camera.pos();
     std::string position{};
     position += "x: " + std::to_string(pos[0]);
     position += "\ny: " + std::to_string(pos[1]);

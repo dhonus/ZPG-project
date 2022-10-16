@@ -25,7 +25,7 @@ class Observer;
 
 class Shader : public Observer{
 public:
-    Shader(const std::string &vertexShader, Camera* camera);
+    Shader(const std::string &vertexShader, Camera *&camera);
     ~Shader() = default;
     void compile();
     void draw(glm::mat4 t_matrix);

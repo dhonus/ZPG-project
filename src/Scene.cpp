@@ -8,11 +8,27 @@
 #include "../models/cube.h"
 #include "../models/floor.h"
 int Scene::render() {
-    //this->objects.at(0)->trans->add(new TransRotate());
-    this->objects.at(1)->trans->add(new TransRotate(.7, -1, {0.0f, 1.0f, 1.0f}));
-    this->objects.at(1)->trans->add(new TransMove(glm::vec3(0.1f, 0.0f, 0.0f)));
+    this->objects.at(0)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
+    this->objects.at(0)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
+    this->objects.at(0)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
 
-    this->objects.at(0)->trans->add(new TransRotate(.2, -1, {0.0f, 1.0f, 1.0f}));
+    this->objects.at(1)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
+    this->objects.at(1)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
+    this->objects.at(1)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+
+    this->objects.at(2)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
+    this->objects.at(2)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
+    this->objects.at(2)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+
+    this->objects.at(0)->trans->add(new TransRotate(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)));
+    this->objects.at(0)->trans->add(new TransScale(0.5f));
+
+    this->objects.at(1)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)));
+    this->objects.at(1)->trans->add(new TransScale(0.3f));
+
+    this->objects.at(3)->trans->add(new TransRotate(true, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
+    this->objects.at(3)->trans->add(new TransScale(200.0f));
+
 
     while (!glfwWindowShouldClose(window->getWindow())) {
         glEnable(GL_DEPTH_TEST);
@@ -33,7 +49,7 @@ int Scene::render() {
                 glfwGetKey( window->getWindow(), GLFW_KEY_SPACE ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS );
 
-        hud->draw(camera);
+        hud->draw(*camera);
 
         glfwPollEvents();
         glfwSwapBuffers(window->getWindow());
@@ -44,11 +60,11 @@ int Scene::render() {
 
 Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->window = t_window;
-    this->callbacks = new Callbacks(this->window->getWindow());
+    this->callbacks = new Callbacks(*this->window->getWindow());
     this->camera = new Camera(width, height, *callbacks, window);
     this->callbacks->setCamera(this->camera);
     this->callbacks->attach(this->camera);
-
+    /*
     this->objects.push_back(
             std::make_unique<Object>(
                 cube,
@@ -59,7 +75,29 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 3,
                 2,
                 3,
-                5));
+                5));*/
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "box_regular.vs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "box_regular.vs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6));
     /*this->objects.push_back(
             std::make_unique<Object>(
                 floor_model,
@@ -96,6 +134,18 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 3,
                 6
             ));
+
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    floor_model,
+                    "box_regular.vs",
+                    camera,
+                    GL_POLYGON,
+                    4,
+                    4,
+                    4,
+                    4,
+                    8));
 
     this->hud = new Hud;
 }

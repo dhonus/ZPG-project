@@ -28,7 +28,7 @@ void Callbacks::init() {
         camera->update(instance());
     };
 
-    auto mouse = [](GLFWwindow * win, double x, double y) {
+    auto mouse = [](GLFWwindow *win, double x, double y) {
         if (!camera){
             std::cout << "camera not bound\n" << std::flush;
             return;
@@ -49,8 +49,8 @@ void Callbacks::init() {
     glfwSetWindowFocusCallback(window, focused);
 }
 
-Callbacks::Callbacks(GLFWwindow* window) {
-    this->window = window;
+Callbacks::Callbacks(GLFWwindow& window) {
+    this->window = &window;
     this->init();
     this->callbacks = this;
 }
@@ -60,7 +60,7 @@ Callbacks* Callbacks::callbacks = nullptr;
 float Callbacks::width = 0;
 float Callbacks::height = 0;
 
-void Callbacks::setCamera(Camera* t_camera) {
+void Callbacks::setCamera(Camera *&t_camera) {
     Callbacks::camera = t_camera;
 }
 

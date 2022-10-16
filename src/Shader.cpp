@@ -2,7 +2,7 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
-Shader::Shader(const std::string &vertexShader, Camera* camera) {
+Shader::Shader(const std::string &vertexShader, Camera *&camera) {
     this->camera = camera;
     this->load(vertexShader);
     this->compile();
