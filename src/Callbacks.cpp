@@ -4,31 +4,38 @@
 
 #include "../include/Callbacks.h"
 
-static void error_callback(int error, const char *description) {
-    fputs(description, stderr);
-}
+Camera* Callbacks::camera = nullptr;
+Callbacks* Callbacks::callbacks = nullptr;
+
+float Callbacks::width = 0;
+float Callbacks::height = 0;
+
+static auto errorCallback = [](int error, const char *description) {
+    std::cout << description << std::flush;
+    exit(-1);
+};
 
 void Callbacks::init() {
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 
-    auto focused = [](GLFWwindow *window, int focused) {
-        std::cout << "focused\n";
+    auto windowFocusedCallback = [](GLFWwindow *window, int focused) {
+        std::cout << "windowFocusedCallback\n";
     };
 
-    auto iconified = [](GLFWwindow *window, int iconified) {
-        std::cout << "iconified\n";
+    auto windowIconifiedCallback = [](GLFWwindow *window, int iconified) {
+        std::cout << "windowIconifiedCallback\n";
     };
 
-    auto windowSize = [](GLFWwindow *window, int width, int height){
-        printf("resize %d, %d \n", width, height);
+    auto windowSizeChangeCallback = [](GLFWwindow *window, int width, int height){
+        std::cout << "resize W: " << width << " H: " <<  height << "\n" << std::flush;
         glViewport(0, 0, width, height);
         instance().width = width;
         instance().height = height;
         camera->update(instance());
     };
 
-    auto mouse = [](GLFWwindow *win, double x, double y) {
+    auto mouseCallback = [](GLFWwindow *win, double x, double y) {
         if (!camera){
             std::cout << "camera not bound\n" << std::flush;
             return;
@@ -41,12 +48,13 @@ void Callbacks::init() {
             glfwSetWindowShouldClose(window, GL_TRUE);
     };
 
-    glfwSetErrorCallback(error_callback);
+
+    glfwSetErrorCallback(errorCallback);
     glfwSetKeyCallback(window, keyboard);
-    glfwSetCursorPosCallback(window, mouse);
-    glfwSetWindowSizeCallback(window, windowSize);
-    glfwSetWindowIconifyCallback(window, iconified);
-    glfwSetWindowFocusCallback(window, focused);
+    glfwSetCursorPosCallback(window, mouseCallback);
+    glfwSetWindowSizeCallback(window, windowSizeChangeCallback);
+    glfwSetWindowIconifyCallback(window, windowIconifiedCallback);
+    glfwSetWindowFocusCallback(window, windowFocusedCallback);
 }
 
 Callbacks::Callbacks(GLFWwindow& window) {
@@ -54,11 +62,6 @@ Callbacks::Callbacks(GLFWwindow& window) {
     this->init();
     this->callbacks = this;
 }
-
-Camera* Callbacks::camera = nullptr;
-Callbacks* Callbacks::callbacks = nullptr;
-float Callbacks::width = 0;
-float Callbacks::height = 0;
 
 void Callbacks::setCamera(Camera *&t_camera) {
     Callbacks::camera = t_camera;

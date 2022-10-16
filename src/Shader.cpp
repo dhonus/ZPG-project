@@ -11,12 +11,12 @@ Shader::Shader(const std::string &vertexShader, Camera *&camera) {
 
 int Shader::load(const std::string &vertexShader){
     std::string filepath = "../shaders/" + vertexShader;
-    std::string temp;
+    std::string temp{};
 
     std::ifstream theFile(filepath);
 
     if(!theFile){
-        std::cout << "could not find shader " << filepath << "\n";
+        std::cout << "could not find shader " << filepath << "\n" << std::flush;
         exit(-1);
     }
 
@@ -26,6 +26,7 @@ int Shader::load(const std::string &vertexShader){
     this->vertex_shader = output.c_str();
 
     theFile.close();
+    return 0;
 }
 
 void Shader::compile() {
@@ -55,7 +56,7 @@ void Shader::compile() {
 }
 
 void Shader::draw(glm::mat4 t_matrix) {
-    this->projection = camera->perspective();
+    this->projection = camera->getPerspective();
     glUseProgram(shaderProgram);
 
     glUniformMatrix4fv(model_matrix_ID, 1, GL_FALSE, &t_matrix[0][0]);

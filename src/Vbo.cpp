@@ -2,7 +2,7 @@
 #include <glm/ext/matrix_transform.hpp>
 #include "../include/Vbo.h"
 #include "iostream"
-Vbo::Vbo(std::vector<float> &t_points, int posSize, int colSize, int colOffset, int genSize) {
+Vbo::Vbo(const std::vector<float> &t_points, int posSize, int colSize, int colOffset, int genSize) {
     this->points = t_points;
     VBO = 0;
     glGenBuffers(1, &VBO); // generate the VBO

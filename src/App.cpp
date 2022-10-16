@@ -5,7 +5,7 @@
 #include "../include/App.h"
 
 App::App() {
-    window = std::make_shared<Window>(this->width, this->height);
+    this->window = std::make_shared<Window>(this->width, this->height);
     glewExperimental = GL_TRUE;
     glewInit();
 }
@@ -17,9 +17,9 @@ int App::init() {
     glfwWindowHint(GLFW_OPENGL_PROFILE,
                    GLFW_OPENGL_CORE_PROFILE);
 
-    this->scene = std::make_shared<Scene>(window, this->width, this->height);
+    this->scene = std::make_shared<Scene>(this->window, this->width, this->height);
 
-    scene->render();
+    this->scene->render();
 
     return 0;
 }

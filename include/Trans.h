@@ -10,12 +10,13 @@
 #include <iostream>
 #include <list>
 #include <GLFW/glfw3.h>
+#include "memory"
 
 class Composite {
 public:
     virtual glm::mat4 transform() const = 0;
     virtual void remove(Composite &g) {}
-    virtual void add(Composite &g) {}
+    virtual Composite* add(std::shared_ptr<Composite> g) { return nullptr; }
     virtual void getChild(int) {}
     virtual ~Composite() = default;
 protected:
@@ -44,7 +45,7 @@ private:
 
 class TransMove : public Composite {
 public:
-    explicit TransMove(glm::vec3 moveDirection);
+    TransMove(glm::vec3 moveDirection);
     glm::mat4 transform() const override;
 private:
     glm::vec3 moveDirection;
@@ -58,10 +59,10 @@ public:
     ~Trans() override;
 
     glm::mat4 transform() const override;
-    void add(Composite *transformation);
+    Composite* add(std::shared_ptr<Composite> transformation);
 
 private:
-    std::list<Composite*> transformations;
+    std::list<std::shared_ptr<Composite>> transformations;
 };
 
 #endif //OGL_TST_02_TRANS_H

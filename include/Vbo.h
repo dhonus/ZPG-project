@@ -20,7 +20,7 @@ private:
     int colOffset;
     int genSize;
 public:
-    Vbo(std::vector<float> &t_points, int posSize, int colSize, int colOffset, int genSize);
+    Vbo(const std::vector<float> &t_points, int posSize, int colSize, int colOffset, int genSize);
     Vbo();
     void bind_buffer();
 };

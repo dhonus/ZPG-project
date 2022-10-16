@@ -58,15 +58,12 @@ glm::mat4 Trans::transform() const {
     return mod;
 }
 
-void Trans::add(Composite *transformation) {
+Composite* Trans::add(std::shared_ptr<Composite> transformation) {
     transformations.push_back(transformation);
+    return this;
 }
 
-Trans::~Trans(){
-    for (auto& trans : transformations){
-        delete trans;
-    }
-}
+Trans::~Trans(){}
 
 
 glm::mat4 Trans::getMatrix(){

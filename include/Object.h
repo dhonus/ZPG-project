@@ -20,11 +20,12 @@ class Scene;
 
 class Object {
 public:
-    Object(std::vector<float> b, const std::string &vertex_shader, Camera *&camera, GLenum mode, int vertexCount,
+    Object(const std::vector<float> &vertices, const std::string &vertex_shader, Camera *&camera, GLenum mode, int vertexCount,
            int posSize, int colSize, int colOffset, int genSize);
     int draw();
-    std::shared_ptr<Trans> trans;
+    Composite* add(std::shared_ptr<Composite> g);
 private:
+    std::unique_ptr<Trans> trans;
     std::shared_ptr<Model> model;
     std::shared_ptr<Shader> shader;
     glm::mat4 matrix = glm::mat4(1.0f);

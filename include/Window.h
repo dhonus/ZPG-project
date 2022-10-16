@@ -10,13 +10,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <glm/vec2.hpp>
+#include <iostream>
 
 class Window {
 private:
     GLFWwindow *window;
     int major, minor, revision, width, height;
-    float ratio;
-    void error_callback(int error, const char *description) { fputs(description, stderr); }
 public:
     Window(int width, int height);
     ~Window();

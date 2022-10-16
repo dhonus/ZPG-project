@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.24)
 project(ZPG)
 set(CMAKE_CXX_STANDARD 17)
 
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
+
 # add sources
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "include/*.h")

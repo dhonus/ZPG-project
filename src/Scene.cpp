@@ -8,36 +8,34 @@
 #include "../models/cube.h"
 #include "../models/floor.h"
 int Scene::render() {
-    this->objects.at(0)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
-    this->objects.at(0)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
-    this->objects.at(0)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+    std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
 
-    this->objects.at(1)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
-    this->objects.at(1)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
-    this->objects.at(1)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+    baseOrbit
+        ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 1.0f, 1.0f}))
+        ->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))
+        ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
 
-    this->objects.at(2)->trans->add(new TransMove({0.0f, 1.0f, 1.0f}));
-    this->objects.at(2)->trans->add(new TransRotate(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)));
-    this->objects.at(2)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+    this->objects.at(0)->add(baseOrbit);
+    this->objects.at(1)->add(baseOrbit);
+    this->objects.at(2)->add(baseOrbit);
 
-    this->objects.at(0)->trans->add(new TransRotate(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)));
-    this->objects.at(0)->trans->add(new TransScale(0.5f));
+    this->objects.at(0)
+        ->add(std::make_shared<TransRotate>(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)))
+        ->add(std::make_shared<TransScale>(0.5f));
 
-    this->objects.at(1)->trans->add(new TransRotate(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)));
-    this->objects.at(1)->trans->add(new TransScale(0.3f));
+    this->objects.at(1)
+        ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
+        ->add(std::make_shared<TransScale>(0.3f));
 
-    this->objects.at(3)->trans->add(new TransRotate(true, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
-    this->objects.at(3)->trans->add(new TransScale(200.0f));
+    this->objects.at(3)
+        ->add(std::make_shared<TransRotate>(true, 0.5f, -glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)))
+        ->add(std::make_shared<TransScale>(200.0f));
 
 
     while (!glfwWindowShouldClose(window->getWindow())) {
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        for (auto & o : this->objects){
-            o->draw();
-        }
 
         // This makes the movement with WASD immediate.
         // A callback is unusable for this.
@@ -49,12 +47,15 @@ int Scene::render() {
                 glfwGetKey( window->getWindow(), GLFW_KEY_SPACE ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS );
 
+        for (auto & o : this->objects) o->draw();
+
         hud->draw(*camera);
 
         glfwPollEvents();
         glfwSwapBuffers(window->getWindow());
 
     }
+
     return 0;
 }
 

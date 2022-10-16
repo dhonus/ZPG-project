@@ -21,9 +21,9 @@ class Callbacks;
 class Camera : public Observer {
 private:
     glm::mat4 camera;
-    glm::vec3 position{0.0f, 0.0f, 3.0f};
-    glm::vec3 target{0.f, 0.f, -2.f};
-    glm::vec3 upwards {0.f, 1.f, 0.f};
+    glm::vec3 position;
+    glm::vec3 target;
+    glm::vec3 upwards;
     Callbacks* callback;
     std::shared_ptr<Shader> shader;
     std::shared_ptr<Window> window;
@@ -40,11 +40,11 @@ private:
 public:
     Camera(int width, int height, Callbacks& callback, std::shared_ptr<Window> window);
     glm::mat4 getCamera();
-    glm::mat4 perspective();
+    glm::vec3 getPosition() const;
+    glm::mat4 getPerspective();
     void move(bool front, bool back, bool left, bool right, bool up, bool down);
     void mouse(float x, float y);
     void update(Subject& subject);
-    glm::vec3 pos() const;
 };
 
 

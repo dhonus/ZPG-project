@@ -9,7 +9,7 @@ glm::mat4 Camera::getCamera() {
     return glm::lookAt(this->position, position + target, upwards);
 }
 
-glm::vec3 Camera::pos() const{
+glm::vec3 Camera::getPosition() const{
     return this->position;
 }
 
@@ -57,6 +57,9 @@ void Camera::update(Subject& subject) {
 }
 
 Camera::Camera(int width, int height, Callbacks& callback, std::shared_ptr<Window> window) {
+    this->position = glm::vec3 {0.0f, 0.0f, 3.0f};
+    this->target = glm::vec3 {0.f, 0.f, -2.f};
+    this->upwards = glm::vec3 {0.f, 1.f, 0.f};
     this->lastX = width/2,
     this->lastY = height/2;
     this->callback = &callback;
@@ -72,9 +75,9 @@ Camera::Camera(int width, int height, Callbacks& callback, std::shared_ptr<Windo
 
 void Camera::move(bool front, bool back, bool left, bool right, bool up, bool down) {
     float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-    cameraSpeed = 3.5 * deltaTime;
+    this->deltaTime = currentFrame - this->lastFrame;
+    this->lastFrame = currentFrame;
+    this->cameraSpeed = 3.5 * this->deltaTime;
 
     if (front)
         position += cameraSpeed*target;
@@ -90,6 +93,6 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
         position -= cameraSpeed*upwards;
 }
 
-glm::mat4 Camera::perspective() {
-    return camera;
+glm::mat4 Camera::getPerspective() {
+    return this->camera;
 }

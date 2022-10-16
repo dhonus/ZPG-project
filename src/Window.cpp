@@ -3,15 +3,14 @@
 
 Window::Window(int width, int height) {
     glfwGetVersion(&major, &minor, &revision);
-    printf("Using GLFW %i.%i.%i\n", major, minor, revision);
+    std::cout << "Using GLFW " << major << " " << minor << " " <<  revision << "\n" << std::flush;
 
     glViewport(0, 0, width, height);
 
     if (!glfwInit()) {
-        fprintf(stderr, "ERROR: could not start GLFW3\n");
-        exit(EXIT_FAILURE);
+        std::cout << "ERROR: could not start GLFW3\n" << std::flush;
+        exit(-1);
     }
-
 
     this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
 
@@ -23,15 +22,16 @@ Window::Window(int width, int height) {
     glfwMakeContextCurrent(this->window);
     glfwSwapInterval(1);
     get_version_info();
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Window::get_version_info() {
-    printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
-    printf("Using GLEW %s\n", glewGetString(GLEW_VERSION));
-    printf("Vendor %s\n", glGetString(GL_VENDOR));
-    printf("Scene %s\n", glGetString(GL_RENDERER));
-    printf("GLSL %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    std::cout
+        << "OpenGL Version: " << glGetString(GL_VERSION)
+        << "\nUsing GLEW: " << glewGetString(GLEW_VERSION)
+        << "\nVendor: " << glGetString(GL_VENDOR)
+        << "\nScene: " << glGetString(GL_RENDERER)
+        << "\nGLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n" << std::flush;
 }
 
 Window::~Window() {
