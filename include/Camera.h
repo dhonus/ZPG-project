@@ -47,5 +47,4 @@ public:
     void update(Subject& subject);
 };
 
-
 #endif //ZPG_CAMERA_H
