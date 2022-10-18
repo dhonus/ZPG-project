@@ -25,6 +25,7 @@ public:
            int vertexCount, int posSize, int colSize, int colOffset, int genSize);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
+    void remove(std::shared_ptr<Composite> g);
 private:
     std::unique_ptr<Trans> trans;
     std::shared_ptr<Model> model;

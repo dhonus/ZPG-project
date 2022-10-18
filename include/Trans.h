@@ -15,7 +15,7 @@
 class Composite {
 public:
     virtual glm::mat4 transform() const = 0;
-    virtual void remove(Composite &g) {}
+    virtual void remove(std::shared_ptr<Composite> g) {}
     virtual Composite* add(std::shared_ptr<Composite> g) { return nullptr; }
     virtual void getChild(int) {}
     virtual ~Composite() = default;
@@ -60,6 +60,7 @@ public:
 
     glm::mat4 transform() const override;
     Composite* add(std::shared_ptr<Composite> transformation);
+    void remove(std::shared_ptr<Composite> transformation);
 
 private:
     std::list<std::shared_ptr<Composite>> transformations;

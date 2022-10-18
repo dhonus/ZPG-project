@@ -24,3 +24,7 @@ Object::Object(const std::vector<float> &vertices, const std::string &vertex_sha
 Composite* Object::add(std::shared_ptr<Composite> obj){
     return this->trans->add(std::move(obj));
 }
+
+void Object::remove(std::shared_ptr<Composite> obj){
+    this->trans->remove(std::move(obj));
+}

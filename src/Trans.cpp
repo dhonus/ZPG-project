@@ -63,6 +63,10 @@ Composite* Trans::add(std::shared_ptr<Composite> transformation) {
     return this;
 }
 
+void Trans::remove(std::shared_ptr<Composite> g){
+    transformations.remove(g);
+}
+
 Trans::~Trans(){}
 
 

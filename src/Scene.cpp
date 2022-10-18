@@ -10,11 +10,11 @@
 int Scene::render() {
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
 
-    baseOrbit
+    /*baseOrbit
         ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 1.0f, 1.0f}))
         ->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))
         ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
-
+*/
     this->objects.at(0)->add(baseOrbit);
     this->objects.at(1)->add(baseOrbit);
     this->objects.at(2)->add(baseOrbit);
@@ -30,6 +30,9 @@ int Scene::render() {
     this->objects.at(3)
         ->add(std::make_shared<TransRotate>(true, 0.5f, -glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)))
         ->add(std::make_shared<TransScale>(200.0f));
+
+    this->objects.at(4)->add(std::make_shared<TransMove>(glm::vec3(5.0, -10.0, 7.0)));
+    this->objects.at(5)->add(std::make_shared<TransMove>(glm::vec3(2.0, 0.0, 3.0)));
 
 
     while (!glfwWindowShouldClose(window->getWindow())) {
@@ -128,8 +131,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->objects.push_back(
             std::make_unique<Object>(
                 suziFlat,
-                "box_wild.vs",
-                "regular.fs",
+                "basic_light.vs",
+                "basic_light.fs",
                 camera,
                 GL_TRIANGLES,
                 2904,
@@ -151,6 +154,31 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     4,
                     4,
                     8));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "basic_light.vs",
+                    "basic_light.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6
+            ));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    cube,
+                    "basic_light.vs",
+                    "basic_light.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    36,
+                    3,
+                    2,
+                    3,
+                    5));
 
     this->hud = new Hud;
 }
