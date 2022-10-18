@@ -2,16 +2,19 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
-Shader::Shader(const std::string &vertexShader, Camera *&camera) {
+Shader::Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera) {
     this->camera = camera;
-    this->load(vertexShader);
+    std::string vs = this->load(vertexShader);
+    std::string fs = this->load(fragmentShader);
+    this->vertex_shader = vs.c_str();
+    this->fragment_shader = fs.c_str();
     this->compile();
-    this->vertex_shader = vertexShader.c_str();
 }
 
-int Shader::load(const std::string &vertexShader){
-    std::string filepath = "../shaders/" + vertexShader;
+std::string Shader::load(const std::string &t_shader){
+    std::string filepath = "../shaders/" + t_shader;
     std::string temp{};
+    output = "";
 
     std::ifstream theFile(filepath);
 
@@ -23,10 +26,9 @@ int Shader::load(const std::string &vertexShader){
     while (getline (theFile, temp))
         output += temp + "\n";
 
-    this->vertex_shader = output.c_str();
-
+    //this->vertex_shader = output.c_str();
     theFile.close();
-    return 0;
+    return output;
 }
 
 void Shader::compile() {

@@ -20,8 +20,9 @@ class Scene;
 
 class Object {
 public:
-    Object(const std::vector<float> &vertices, const std::string &vertex_shader, Camera *&camera, GLenum mode, int vertexCount,
-           int posSize, int colSize, int colOffset, int genSize);
+    Object(const std::vector<float> &vertices, const std::string &vertex_shader,
+           const std::string &fragment_shader, Camera *&camera, GLenum mode,
+           int vertexCount, int posSize, int colSize, int colOffset, int genSize);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
 private:
@@ -30,6 +31,7 @@ private:
     std::shared_ptr<Shader> shader;
     glm::mat4 matrix = glm::mat4(1.0f);
     std::string vertexShader{};
+    std::string fragmentShader{};
 };
 
 #endif //OGL_TST_02_OBJECT_H

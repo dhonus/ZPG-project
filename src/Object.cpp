@@ -11,10 +11,12 @@ int Object::draw() {
     return 0;
 }
 
-Object::Object(const std::vector<float> &vertices, const std::string &vertex_shader, Camera *&camera, GLenum mode, int vertexCount,
-               int posSize, int colSize, int colOffset, int genSize) {
+Object::Object(const std::vector<float> &vertices, const std::string &vertex_shader,
+               const std::string &fragment_shader, Camera *&camera, GLenum mode,
+               int vertexCount, int posSize, int colSize, int colOffset, int genSize) {
     this->vertexShader = vertex_shader;
-    this->shader = std::make_shared<Shader>(this->vertexShader, camera);
+    this->fragmentShader = fragment_shader;
+    this->shader = std::make_shared<Shader>(this->vertexShader, this->fragmentShader, camera);
     this->model = std::make_shared<Model>(vertices, mode, vertexCount, posSize, colSize, colOffset, genSize);
     this->trans = std::make_unique<Trans>();
 }

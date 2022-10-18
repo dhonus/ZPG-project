@@ -25,7 +25,7 @@ class Observer;
 
 class Shader : public Observer{
 public:
-    Shader(const std::string &vertexShader, Camera *&camera);
+    Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera);
     ~Shader() = default;
     void compile();
     void draw(glm::mat4 t_matrix);
@@ -36,7 +36,7 @@ private:
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
-    int load(const std::string &vertexShader);
+    std::string load(const std::string &t_shader);
     std::string output;
     Camera* camera;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
@@ -44,13 +44,7 @@ private:
     int view_matrix_ID;
 
     const char* vertex_shader;
-    const char* fragment_shader =
-          "#version 330\n"
-          "out vec4 frag_colour;"
-          "in vec4 colors;"
-          "void main () {"
-          "     frag_colour = colors;"
-          "}";
+    const char* fragment_shader;
 };
 
 #endif //OGL_TST_02_SHADER_H

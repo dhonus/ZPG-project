@@ -81,6 +81,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_unique<Object>(
                     sphere,
                     "box_regular.vs",
+                    "regular.fs",
                     camera,
                     GL_TRIANGLES,
                     2880,
@@ -92,6 +93,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_unique<Object>(
                     sphere,
                     "box_regular.vs",
+                    "regular.fs",
                     camera,
                     GL_TRIANGLES,
                     2880,
@@ -127,6 +129,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_unique<Object>(
                 suziFlat,
                 "box_wild.vs",
+                "regular.fs",
                 camera,
                 GL_TRIANGLES,
                 2904,
@@ -140,6 +143,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_unique<Object>(
                     floor_model,
                     "box_regular.vs",
+                    "regular.fs",
                     camera,
                     GL_POLYGON,
                     4,
