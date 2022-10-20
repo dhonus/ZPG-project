@@ -11,7 +11,7 @@ int Scene::render() {
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
 
     /*baseOrbit
-        ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 1.0f, 1.0f}))
+        ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))
         ->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))
         ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
 */
@@ -31,7 +31,8 @@ int Scene::render() {
         ->add(std::make_shared<TransRotate>(true, 0.5f, -glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f)))
         ->add(std::make_shared<TransScale>(200.0f));
 
-    this->objects.at(4)->add(std::make_shared<TransMove>(glm::vec3(5.0, -10.0, 7.0)));
+    this->objects.at(4)
+        ->add(std::make_shared<TransMove>(glm::vec3(5.0, 10.0, 20.0)));
     this->objects.at(5)->add(std::make_shared<TransMove>(glm::vec3(2.0, 0.0, 3.0)));
 
 

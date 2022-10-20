@@ -41,7 +41,7 @@ private:
     Camera* camera;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
     int projection_matrix_ID;
-    int view_matrix_ID;
+    int view_matrix_ID, cameraPosition_ID;
 
     const char* vertex_shader;
     const char* fragment_shader;
