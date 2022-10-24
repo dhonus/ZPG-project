@@ -7,6 +7,7 @@
 #include "../models/suzi_smooth.h"
 #include "../models/cube.h"
 #include "../models/floor.h"
+#include "../models/tree.h"
 
 int Scene::render() {
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
@@ -15,7 +16,8 @@ int Scene::render() {
         ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))
         ->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))
         ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
-*/
+    */
+
     this->objects.at(0)->add(baseOrbit);
     this->objects.at(1)->add(baseOrbit);
     this->objects.at(2)->add(baseOrbit);
@@ -97,12 +99,12 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     6));
     this->objects.push_back(
             std::make_unique<Object>(
-                    sphere,
+                    tree,
                     "light.vs",
                     "light.fs",
                     camera,
                     GL_TRIANGLES,
-                    2880,
+                    92814,
                     3,
                     2,
                     3,
@@ -159,19 +161,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     8));
     this->objects.push_back(
             std::make_unique<Object>(
-                    sphere,
-                    "light.vs",
-                    "light.fs",
-                    camera,
-                    GL_TRIANGLES,
-                    2880,
-                    3,
-                    2,
-                    3,
-                    6
-            ));
-    this->objects.push_back(
-            std::make_unique<Object>(
                     cube,
                     "light.vs",
                     "light.fs",
@@ -181,7 +170,20 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     3,
                     2,
                     3,
-                    5));
+                    5
+            ));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    tree,
+                    "light.vs",
+                    "light.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    92814,
+                    3,
+                    2,
+                    3,
+                    6));
 
     this->hud = new Hud;
 }

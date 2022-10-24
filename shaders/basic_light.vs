@@ -17,7 +17,7 @@ void main () {
     colors = aNormal;
     Normal = vec3(aNormal);
     //Normal = vec3(mat3(transpose(inverse(modelMatrix))) * nvec3(aNormal));
-    FragPos = vec3(modelMatrix*aNormal);
+    FragPos = vec3(modelMatrix*aPos);
     /*gl_Position = projectionMatrix*viewMatrix*modelMatrix*vp;
     worldNormal = vec3(modelMatrix * normals);
     //worldNormal = vec3(modelMatrix * normals);
