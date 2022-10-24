@@ -50,6 +50,8 @@ void Shader::compile() {
     projection_matrix_ID = glGetUniformLocation(shaderProgram, "projectionMatrix");
     view_matrix_ID = glGetUniformLocation(shaderProgram, "viewMatrix");
     cameraPosition_ID = glGetUniformLocation(shaderProgram, "cameraPosition");
+    lightPos = glGetUniformLocation(shaderProgram, "lightPos");
+    cameraDirection = glGetUniformLocation(shaderProgram, "cameraDirection");
 
     if (model_matrix_ID == -1 || projection_matrix_ID == -1 || view_matrix_ID == -1){
         std::cout << "cannot get matrix uniformLocation" << std::endl;
@@ -65,7 +67,9 @@ void Shader::draw(glm::mat4 t_matrix) {
     glUniformMatrix4fv(model_matrix_ID, 1, GL_FALSE, &t_matrix[0][0]);
     glUniformMatrix4fv(projection_matrix_ID, 1, GL_FALSE, glm::value_ptr(projection));
     glUniformMatrix4fv(view_matrix_ID, 1, GL_FALSE, glm::value_ptr(camera->getCamera()));
-    glUniformMatrix4fv(cameraPosition_ID, 1, GL_FALSE, glm::value_ptr(camera->getPosition()));
+    glUniformMatrix4fv(cameraDirection, 1, GL_FALSE, glm::value_ptr(camera->getCamera()));
+    glUniform3fv(cameraPosition_ID, 1, glm::value_ptr(camera->getPosition()));
+    glUniform3fv(lightPos, 1, glm::value_ptr(camera->getPosition()));
 }
 
 void Shader::error_check() {

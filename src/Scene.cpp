@@ -4,9 +4,10 @@
 
 #include "../include/Scene.h"
 #include "../models/sphere.h"
-#include "../models/suzi_flat.h"
+#include "../models/suzi_smooth.h"
 #include "../models/cube.h"
 #include "../models/floor.h"
+
 int Scene::render() {
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
 
@@ -18,6 +19,7 @@ int Scene::render() {
     this->objects.at(0)->add(baseOrbit);
     this->objects.at(1)->add(baseOrbit);
     this->objects.at(2)->add(baseOrbit);
+    this->objects.at(5)->add(baseOrbit);
 
     this->objects.at(0)
         ->add(std::make_shared<TransRotate>(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)))
@@ -32,7 +34,7 @@ int Scene::render() {
         ->add(std::make_shared<TransScale>(200.0f));
 
     this->objects.at(4)
-        ->add(std::make_shared<TransMove>(glm::vec3(5.0, 10.0, 20.0)));
+        ->add(std::make_shared<TransMove>(glm::vec3(0.0, 10.0, 0.0)));
     this->objects.at(5)->add(std::make_shared<TransMove>(glm::vec3(2.0, 0.0, 3.0)));
 
 
@@ -84,8 +86,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
-                    "box_regular.vs",
-                    "regular.fs",
+                    "light.vs",
+                    "light.fs",
                     camera,
                     GL_TRIANGLES,
                     2880,
@@ -96,8 +98,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
-                    "box_regular.vs",
-                    "regular.fs",
+                    "light.vs",
+                    "light.fs",
                     camera,
                     GL_TRIANGLES,
                     2880,
@@ -131,9 +133,9 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             ));*/
     this->objects.push_back(
             std::make_unique<Object>(
-                suziFlat,
-                "basic_light.vs",
-                "basic_light.fs",
+                suziSmooth,
+                "light.vs",
+                "light.fs",
                 camera,
                 GL_TRIANGLES,
                 2904,
@@ -158,8 +160,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
-                    "basic_light.vs",
-                    "basic_light.fs",
+                    "light.vs",
+                    "light.fs",
                     camera,
                     GL_TRIANGLES,
                     2880,
@@ -171,8 +173,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->objects.push_back(
             std::make_unique<Object>(
                     cube,
-                    "basic_light.vs",
-                    "basic_light.fs",
+                    "light.vs",
+                    "light.fs",
                     camera,
                     GL_TRIANGLES,
                     36,

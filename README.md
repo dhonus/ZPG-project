@@ -1,1 +1,1 @@
-![alt text](_0vid.gif)
+![alt text](0_screen.png)

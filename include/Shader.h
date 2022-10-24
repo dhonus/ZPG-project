@@ -32,7 +32,10 @@ public:
     void error_check();
     void update(Subject& subject);
 private:
-    GLint model_matrix_ID, ViewId;
+    GLint model_matrix_ID,
+        ViewId, projection_matrix_ID,
+        view_matrix_ID, cameraPosition_ID,
+        lightPos, cameraDirection;
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -40,11 +43,10 @@ private:
     std::string output;
     Camera* camera;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
-    int projection_matrix_ID;
-    int view_matrix_ID, cameraPosition_ID;
 
     const char* vertex_shader;
     const char* fragment_shader;
+
 };
 
 #endif //OGL_TST_02_SHADER_H
