@@ -12,11 +12,14 @@
 int Scene::render() {
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
 
-    /*baseOrbit
+    baseOrbit
         ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))
         ->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))
         ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
-    */
+
+    std::shared_ptr<Composite> pohnoutKoulema = std::make_shared<Trans>();
+    pohnoutKoulema
+        ->add(std::make_shared<TransMove>(glm::vec3{15.0f, 0.0f, 0.0f}));
 
     this->objects.at(0)->add(baseOrbit);
     this->objects.at(1)->add(baseOrbit);
@@ -38,6 +41,19 @@ int Scene::render() {
     this->objects.at(4)
         ->add(std::make_shared<TransMove>(glm::vec3(0.0, 10.0, 0.0)));
     this->objects.at(5)->add(std::make_shared<TransMove>(glm::vec3(2.0, 0.0, 3.0)));
+
+    this->objects.at(6)
+        ->add(pohnoutKoulema)
+        ->add(std::make_shared<TransMove>(glm::vec3(3.0, 0.0, 0.0)));
+    this->objects.at(7)
+        ->add(pohnoutKoulema)
+        ->add(std::make_shared<TransMove>(glm::vec3(-3.0, 0.0, 0.0)));
+    this->objects.at(8)
+    ->add(pohnoutKoulema)
+            ->add(std::make_shared<TransMove>(glm::vec3(0.0, 3.0, 0.0)));
+    this->objects.at(9)
+    ->add(pohnoutKoulema)
+            ->add(std::make_shared<TransMove>(glm::vec3(0.0, -3.0, 0.0)));
 
 
     while (!glfwWindowShouldClose(window->getWindow())) {
@@ -184,6 +200,56 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     2,
                     3,
                     6));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    suziSmooth,
+                    "4_hezke_koule.vs",
+                    "4_hezke_koule.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2904,
+                    3,
+                    2,
+                    3,
+                    6
+            ));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "4_hezke_koule.vs",
+                    "4_hezke_koule.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "4_hezke_koule.vs",
+                    "4_hezke_koule.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "4_hezke_koule.vs",
+                    "4_hezke_koule.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880,
+                    3,
+                    2,
+                    3,
+                    6));
+
 
     this->hud = new Hud;
 }
@@ -192,3 +258,4 @@ Scene::~Scene() {
     delete this->camera;
     delete this->callbacks;
 }
+

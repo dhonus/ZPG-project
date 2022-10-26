@@ -45,7 +45,7 @@ TransMove::TransMove(glm::vec3 moveDirection){
 glm::mat4 TransMove::transform() const {
     glm::mat4 mod {1.0f};
     glm::rotate(mod, glm::radians(1.0f), moveDirection);
-    mod = glm::translate(mod, 0.5f * moveDirection);
+    mod = glm::translate(mod, moveDirection);
     return mod;
 }
 
