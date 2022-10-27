@@ -108,11 +108,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "light.fs",
                     camera,
                     GL_TRIANGLES,
-                    2880,
-                    3,
-                    2,
-                    3,
-                    6));
+                    2880, 3, 3, 3, 6));
     this->objects.push_back(
             std::make_unique<Object>(
                     tree,
@@ -120,11 +116,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "light.fs",
                     camera,
                     GL_TRIANGLES,
-                    92814,
-                    3,
-                    2,
-                    3,
-                    6));
+                    92814, 3, 3, 3, 6));
     /*this->objects.push_back(
             std::make_unique<Object>(
                 floor_model,
@@ -156,12 +148,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 "light.fs",
                 camera,
                 GL_TRIANGLES,
-                2904,
-                3,
-                2,
-                3,
-                6
-            ));
+                2904, 3, 3, 3, 6 ));
 
     this->objects.push_back(
             std::make_unique<Object>(
@@ -170,11 +157,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "regular.fs",
                     camera,
                     GL_POLYGON,
-                    4,
-                    4,
-                    4,
-                    4,
-                    8));
+                    4, 4, 4, 4, 8));
     this->objects.push_back(
             std::make_unique<Object>(
                     cube,
@@ -182,12 +165,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "light.fs",
                     camera,
                     GL_TRIANGLES,
-                    36,
-                    3,
-                    2,
-                    3,
-                    5
-            ));
+                    36, 3, 3, 3, 5 ));
     this->objects.push_back(
             std::make_unique<Object>(
                     tree,
@@ -195,24 +173,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "light.fs",
                     camera,
                     GL_TRIANGLES,
-                    92814,
-                    3,
-                    2,
-                    3,
-                    6));
-    this->objects.push_back(
-            std::make_unique<Object>(
-                    suziSmooth,
-                    "4_hezke_koule.vs",
-                    "4_hezke_koule.fs",
-                    camera,
-                    GL_TRIANGLES,
-                    2904,
-                    3,
-                    2,
-                    3,
-                    6
-            ));
+                    92814, 3, 3, 3, 6));
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
@@ -220,11 +181,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "4_hezke_koule.fs",
                     camera,
                     GL_TRIANGLES,
-                    2880,
-                    3,
-                    2,
-                    3,
-                    6));
+                    2880, 3, 3, 3, 6));
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
@@ -232,11 +189,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "4_hezke_koule.fs",
                     camera,
                     GL_TRIANGLES,
-                    2880,
-                    3,
-                    2,
-                    3,
-                    6));
+                    2880, 3, 3, 3, 6));
     this->objects.push_back(
             std::make_unique<Object>(
                     sphere,
@@ -244,11 +197,15 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     "4_hezke_koule.fs",
                     camera,
                     GL_TRIANGLES,
-                    2880,
-                    3,
-                    2,
-                    3,
-                    6));
+                    2880, 3, 3, 3, 6));
+    this->objects.push_back(
+            std::make_unique<Object>(
+                    sphere,
+                    "4_hezke_koule.vs",
+                    "4_hezke_koule.fs",
+                    camera,
+                    GL_TRIANGLES,
+                    2880, 3, 3, 3, 6));
 
 
     this->hud = new Hud;

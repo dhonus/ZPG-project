@@ -33,6 +33,7 @@ void main () {
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0),128);
     vec3 specular = specularStrength * spec * lightColor;
+    specular*=attenuation;
 
 
     //frag_colour = vec4(specular, 1.0f);

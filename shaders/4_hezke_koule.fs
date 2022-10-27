@@ -26,7 +26,7 @@ void main () {
     float specularStrength = 1;
     vec3 viewDir = normalize(cameraPosition - worldPosition);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0),128);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor;
 
     //frag_colour = vec4(specular, 1.0f);
