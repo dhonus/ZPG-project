@@ -35,7 +35,7 @@ private:
     GLint model_matrix_ID,
         projection_matrix_ID,
         view_matrix_ID, cameraPosition_ID,
-        lightPos, cameraDirection;
+        lightPos, cameraDirection, fogToggle;
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -47,6 +47,8 @@ private:
 
     const char* vertex_shader;
     const char* fragment_shader;
+
+    float fog = 0.0f;
 
 };
 

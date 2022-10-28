@@ -13,10 +13,13 @@
 
 int Scene::render() {
 
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LINE_SMOOTH);
     while (!glfwWindowShouldClose(window->getWindow())) {
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_LINE_SMOOTH);
-        glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
+        glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+        //glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+        //glClearColor(0.5f, 0.7f, 0.9f, 1.0f);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // This makes the movement with WASD immediate.

@@ -7,6 +7,22 @@ in vec4 worldPosition;
 in vec3 worldNormal;
 uniform vec3 cameraPosition;
 uniform mat4 cameraDirection;
+uniform float foggy;
+
+vec4 fog(vec4 f){
+    // Fog parameters, could make them uniforms and pass them into the fragment shader
+    float fog_maxdist = 90;
+    float fog_mindist = 0.1;
+    vec4  fog_colour = vec4(0.4, 0.4, 0.4, 1.0);
+
+// Calculate fog
+    float dist = length(FragPos - cameraPosition);
+    float fog_factor = (fog_maxdist - dist) /
+                       (fog_maxdist - fog_mindist);
+    fog_factor = clamp(fog_factor, 0.0, 1.0);
+
+    return mix(fog_colour, f, fog_factor);
+}
 
 void main () {
     float ambientStrength = 0.1f;
@@ -36,8 +52,9 @@ void main () {
     vec3 specular = specularStrength * spec * lightColor;
 
 
-
     //frag_colour = vec4(ambientLight, 1.0f) + vec4(diffuse, 1.0f);
     frag_colour = vec4(ambientLight, 1.0f) + vec4(specular, 1.0f) + diffuse;
-
+    if (foggy == 1.0f){
+        frag_colour = fog(frag_colour);
+    }
 }

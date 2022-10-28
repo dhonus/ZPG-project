@@ -53,6 +53,7 @@ void Shader::compile() {
     cameraPosition_ID = glGetUniformLocation(shaderProgram, "cameraPosition");
     lightPos = glGetUniformLocation(shaderProgram, "lightPos");
     cameraDirection = glGetUniformLocation(shaderProgram, "cameraDirection");
+    fogToggle = glGetUniformLocation(shaderProgram, "foggy");
 
     if (model_matrix_ID == -1 || projection_matrix_ID == -1 || view_matrix_ID == -1){
         std::cout << "cannot get matrix uniformLocation" << std::endl;
@@ -70,6 +71,7 @@ void Shader::draw(glm::mat4 t_matrix) {
     glUniformMatrix4fv(cameraDirection, 1, GL_FALSE, glm::value_ptr(camMatrix));
     glUniform3fv(cameraPosition_ID, 1, glm::value_ptr(camera->getPosition()));
     glUniform3fv(lightPos, 1, glm::value_ptr(camera->getPosition()));
+    glUniform1f(fogToggle, fog);
 }
 
 void Shader::error_check() {
