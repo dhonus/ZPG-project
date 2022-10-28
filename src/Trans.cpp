@@ -22,7 +22,7 @@ TransRotate::TransRotate(bool stationary, float speed, glm::vec3 position, glm::
 glm::mat4 TransRotate::transform() const {
     glm::mat4 trans = glm::mat4(1.0f);
     if (stationary){
-        trans = glm::rotate(trans, glm::radians(90.0f), axis);
+        trans = glm::rotate(glm::mat4(1.0f), speed, axis);
     } else {
         trans = glm::rotate(trans, (float)glfwGetTime() * speed, axis);
     }
@@ -35,7 +35,7 @@ TransScale::TransScale(float factor){
 }
 
 glm::mat4 TransScale::transform() const {
-    return glm :: scale (glm::mat4{1.0f} , glm::vec3{factor});
+    return glm::scale (glm::mat4{1.0f} , glm::vec3{factor});
 }
 
 TransMove::TransMove(glm::vec3 moveDirection){

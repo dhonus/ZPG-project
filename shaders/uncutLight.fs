@@ -15,8 +15,8 @@ void main () {
     vec3 ambientLight = (ambientStrength * ambientColor) * objectColor;
 
     // diffuse
-    vec3 lightPosition = vec3(15.0f, 15.0f, 0.0f);
-    vec3 lightColor = vec3(0.7f, 0.5f, 0.7f);
+    vec3 lightPosition = vec3(0.0f, 0.0f, -5.0f);
+    vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPosition - worldPosition);
     float diff = max(dot(norm, lightDir), 0.0);
@@ -26,9 +26,13 @@ void main () {
     float specularStrength = 1;
     vec3 viewDir = normalize(cameraPosition - worldPosition);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4);
     vec3 specular = specularStrength * spec * lightColor;
-
+/*
+    if (dot(norm, lightDir) < 0.0){
+        specular = vec3(0.0f, 0.0f, 0.0f);
+    }
+*/
     //frag_colour = vec4(specular, 1.0f);
     frag_colour = vec4(ambientLight, 1.0f) + vec4(diffuse, 1.0f) + vec4(specular, 1.0f);
 

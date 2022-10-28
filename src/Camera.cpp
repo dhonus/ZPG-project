@@ -31,7 +31,7 @@ void Camera::mouse(float x, float y) {
     lastX = x;
     lastY = y;
 
-    const float sensitivity = 0.5f;
+    const float sensitivity = 0.2f;
     xoffset *= sensitivity;
     yoffset *= sensitivity;
     yaw   += xoffset;
@@ -46,6 +46,8 @@ void Camera::mouse(float x, float y) {
     this->target.y = sin(glm::radians(pitch));
     this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     this->target = glm::normalize(target);
+
+    notify();
 }
 
 void Camera::update(Subject& subject) {
@@ -56,14 +58,13 @@ void Camera::update(Subject& subject) {
     }
 }
 
-Camera::Camera(int width, int height, Callbacks& callback, std::shared_ptr<Window> window) {
+Camera::Camera(int width, int height, Callbacks& callback) {
     this->position = glm::vec3 {0.0f, 0.0f, 3.0f};
     this->target = glm::vec3 {0.f, 0.f, -2.f};
     this->upwards = glm::vec3 {0.f, 1.f, 0.f};
     this->lastX = width/2,
     this->lastY = height/2;
     this->callback = &callback;
-    this->window = window;
     this->width = width;
     this->height = height;
     this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
@@ -71,13 +72,14 @@ Camera::Camera(int width, int height, Callbacks& callback, std::shared_ptr<Windo
     this->target.y = sin(glm::radians(pitch));
     this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     this->target = glm::normalize(target);
+
 }
 
 void Camera::move(bool front, bool back, bool left, bool right, bool up, bool down) {
     float currentFrame = glfwGetTime();
     this->deltaTime = currentFrame - this->lastFrame;
     this->lastFrame = currentFrame;
-    this->cameraSpeed = 3.5 * this->deltaTime;
+    this->cameraSpeed = 15 * this->deltaTime;
 
     if (front)
         position += cameraSpeed*target;
@@ -91,8 +93,15 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
         position += cameraSpeed*upwards;
     if (down)
         position -= cameraSpeed*upwards;
+
+    notify();
 }
 
 glm::mat4 Camera::getPerspective() {
     return this->camera;
+}
+
+void Camera::setShader(Shader* t_shader){
+    this->shader = t_shader;
+    attach(this->shader);
 }

@@ -4,6 +4,7 @@
 #include <fstream>
 Shader::Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera) {
     this->camera = camera;
+    this->camera->setShader(this);
     std::string vs = this->load(vertexShader);
     std::string fs = this->load(fragmentShader);
     this->vertex_shader = vs.c_str();
@@ -61,13 +62,12 @@ void Shader::compile() {
 }
 
 void Shader::draw(glm::mat4 t_matrix) {
-    this->projection = camera->getPerspective();
     glUseProgram(shaderProgram);
 
     glUniformMatrix4fv(model_matrix_ID, 1, GL_FALSE, &t_matrix[0][0]);
     glUniformMatrix4fv(projection_matrix_ID, 1, GL_FALSE, glm::value_ptr(projection));
-    glUniformMatrix4fv(view_matrix_ID, 1, GL_FALSE, glm::value_ptr(camera->getCamera()));
-    glUniformMatrix4fv(cameraDirection, 1, GL_FALSE, glm::value_ptr(camera->getCamera()));
+    glUniformMatrix4fv(view_matrix_ID, 1, GL_FALSE, glm::value_ptr(camMatrix));
+    glUniformMatrix4fv(cameraDirection, 1, GL_FALSE, glm::value_ptr(camMatrix));
     glUniform3fv(cameraPosition_ID, 1, glm::value_ptr(camera->getPosition()));
     glUniform3fv(lightPos, 1, glm::value_ptr(camera->getPosition()));
 }
@@ -87,5 +87,8 @@ void Shader::error_check() {
 
 
 void Shader::update(Subject& subject) {
-
+    if(&subject == camera){
+        this->projection = camera->getPerspective();
+        this->camMatrix = camera->getCamera();
+    }
 }

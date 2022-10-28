@@ -33,7 +33,7 @@ public:
     void update(Subject& subject);
 private:
     GLint model_matrix_ID,
-        ViewId, projection_matrix_ID,
+        projection_matrix_ID,
         view_matrix_ID, cameraPosition_ID,
         lightPos, cameraDirection;
     GLuint shaderProgram;
@@ -43,6 +43,7 @@ private:
     std::string output;
     Camera* camera;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
+    glm::mat4 camMatrix = glm::mat4(0.0f);
 
     const char* vertex_shader;
     const char* fragment_shader;

@@ -17,10 +17,10 @@ void main () {
 
     // diffuse
     //vec3 lightPosition = vec3(0.0, 10.0, 0.0);
-    vec3 lightColor = vec3(0.7f, 0.5f, 0.7f);
+    vec3 lightColor = vec3(0.5f, 0.5f, 0.0f);
     float distance = length(lightPos - FragPos);
-    float attenuation = 1.0 / (1.0 + 0.09f * distance +
-            0.032f * (distance * distance));
+    float attenuation = 3.0 / (2.0 + 0.09f * distance +
+            0.01f * (distance * distance));
     vec3 norm = normalize(vec3(Normal));
     vec3 lightDir = normalize(lightPos - vec3(FragPos));
     float diff = max(dot(norm, lightDir), 0.0);

@@ -17,13 +17,14 @@ class Scene {
 public:
     Scene(std::shared_ptr<Window> t_window, int width, int height);
     ~Scene();
-    std::vector<std::unique_ptr<Object>> objects;
+    std::vector<std::shared_ptr<Object>> objects;
     int render();
 private:
     Camera* camera;
     Hud* hud;
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
+    std::shared_ptr<Object> addObjectToScene(std::shared_ptr<Object> object);
 };
 
 

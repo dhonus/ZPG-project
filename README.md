@@ -1,1 +1,6 @@
-![alt text](0_screen.png)
+![alt text](0_screenshots/0uncutLight.png)
+![alt text](0_screenshots/0cutLight.png)
+![alt text](0_screenshots/phong.png)
+![alt text](0_screenshots/scene.png)
+![alt text](0_screenshots/scene2.png)
+![alt text](0_screenshots/scene3.png)

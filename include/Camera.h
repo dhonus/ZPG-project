@@ -18,14 +18,14 @@ class Shader;
 class Subject;
 class Callbacks;
 
-class Camera : public Observer {
+class Camera : public Observer, public Subject {
 private:
     glm::mat4 camera;
     glm::vec3 position;
     glm::vec3 target;
     glm::vec3 upwards;
     Callbacks* callback;
-    std::shared_ptr<Shader> shader;
+    Shader* shader;
     std::shared_ptr<Window> window;
     bool first = true;
     float cameraSpeed = 0.03f;
@@ -38,13 +38,14 @@ private:
     float deltaTime = 0.0f;	// Time between current frame and last frame
     float lastFrame = 0.0f; // Time of last frame
 public:
-    Camera(int width, int height, Callbacks& callback, std::shared_ptr<Window> window);
+    Camera(int width, int height, Callbacks& callback);
     glm::mat4 getCamera();
     glm::vec3 getPosition() const;
     glm::mat4 getPerspective();
     void move(bool front, bool back, bool left, bool right, bool up, bool down);
     void mouse(float x, float y);
     void update(Subject& subject);
+    void setShader(Shader* t_shader);
 };
 
 #endif //ZPG_CAMERA_H

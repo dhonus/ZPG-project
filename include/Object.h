@@ -20,12 +20,12 @@ class Scene;
 
 class Object {
 public:
-    Object(const std::vector<float> &vertices, const std::string &vertex_shader,
-           const std::string &fragment_shader, Camera *&camera, GLenum mode,
+    Object(const std::vector<float> &vertices, GLenum mode,
            int vertexCount, int posSize, int colSize, int colOffset, int genSize);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);
+    Object* linkShader(std::shared_ptr<Shader> shader);
 private:
     std::unique_ptr<Trans> trans;
     std::shared_ptr<Model> model;
