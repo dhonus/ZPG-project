@@ -22,6 +22,7 @@ class Object {
 public:
     Object(const std::vector<float> &vertices, GLenum mode,
            int vertexCount, int posSize, int colSize, int colOffset, int genSize);
+    Object(std::shared_ptr<Model> mod);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);

@@ -17,6 +17,11 @@ Object::Object(const std::vector<float> &vertices, GLenum mode,
     this->trans = std::make_unique<Trans>();
 }
 
+Object::Object(std::shared_ptr<Model> mod) {
+    this->model = mod;
+    this->trans = std::make_unique<Trans>();
+}
+
 Composite* Object::add(std::shared_ptr<Composite> obj){
     return this->trans->add(std::move(obj));
 }

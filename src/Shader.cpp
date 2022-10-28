@@ -27,7 +27,6 @@ std::string Shader::load(const std::string &t_shader){
     while (getline (theFile, temp))
         output += temp + "\n";
 
-    //this->vertex_shader = output.c_str();
     theFile.close();
     return output;
 }
@@ -86,7 +85,6 @@ void Shader::error_check() {
         delete[] strInfoLog;
     }
 }
-
 
 void Shader::update(Subject& subject) {
     if(&subject == camera){
