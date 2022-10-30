@@ -21,7 +21,7 @@ public:
     int render();
 private:
     Camera* camera;
-    Hud* hud;
+    std::unique_ptr<Hud> hud;
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
     std::shared_ptr<Object> addObjectToScene(std::shared_ptr<Object> object);

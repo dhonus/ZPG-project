@@ -49,6 +49,7 @@ public:
     glm::mat4 transform() const override;
 private:
     glm::vec3 moveDirection;
+    glm::mat4 mod {1.0f};
 };
 
 

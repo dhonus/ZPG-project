@@ -14,7 +14,6 @@
 int Scene::render() {
 
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LINE_SMOOTH);
     while (!glfwWindowShouldClose(window->getWindow())) {
         glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
         //glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
@@ -53,7 +52,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->callbacks->setCamera(this->camera);
     this->callbacks->attach(this->camera);
 
-
     /* TRANSFORMATIONS */
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
     std::shared_ptr<Composite> pohnoutKoulema = std::make_shared<Trans>();
@@ -65,9 +63,9 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
 
     /* SHADERS */
     std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vs", "floor.fs", camera);
-    std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("light.vs", "light.fs", camera);
-    std::shared_ptr<Shader> cutLightShader = std::make_shared<Shader>("cutLight.vs", "cutLight.fs", camera);
-    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("4_hezke_koule.vs", "4_hezke_koule.fs", camera);
+    std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("base.vs", "light.fs", camera);
+    std::shared_ptr<Shader> cutLightShader = std::make_shared<Shader>("base.vs", "cutLight.fs", camera);
+    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vs", "4_hezke_koule.fs", camera);
     std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vs", "treeShader.fs", camera);
     std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vs", "gouraud.fs", camera);
 
@@ -79,30 +77,25 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     addObjectToScene(
             std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8))
                 ->linkShader(floorShader);
-
     addObjectToScene(
             std::make_shared<Object>(sphereModel))
                 ->linkShader(cutLightShader)
                 ->add(std::make_shared<TransRotate>(true, 2.5f, -glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)));
-
     addObjectToScene(
             std::make_shared<Object>(sphereModel))
                 ->linkShader(basicLightShader)
                 ->add(baseOrbit)
                 ->add(std::make_shared<TransRotate>(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)))
                 ->add(std::make_shared<TransScale>(0.6f));
-
     addObjectToScene(
             std::make_shared<Object>(sphereModel))
                 ->linkShader(basicLightShader)
                 ->add(baseOrbit)
                 ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
                 ->add(std::make_shared<TransScale>(0.3f));
-
     addObjectToScene(
             std::make_shared<Object>(suziSmooth, GL_TRIANGLES, 2904, 3, 3, 3, 6 ))
                 ->linkShader(basicLightShader)->add(baseOrbit);
-
     addObjectToScene(
             std::make_shared<Object>(sphereModel))
                 ->linkShader(hezkeKouleShader)
@@ -123,7 +116,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->linkShader(hezkeKouleShader)
                 ->add(pohnoutKoulema)
                 ->add(std::make_shared<TransMove>(glm::vec3(0.0, -3.0, 0.0)));
-
     addObjectToScene(
             std::make_shared<Object>(gift, GL_TRIANGLES, 66624, 3, 3, 3, 6))
                 ->linkShader(gouraudShader)
@@ -136,10 +128,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 std::make_shared<Object>(treeModel))
                     ->linkShader(treeShader)
                     ->add(forestMove)
-                    ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70, 0.0, rand() % 60)));
+                    ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70, 0.0, rand() % 60)))
+                    ->add(std::make_shared<TransScale>(1.0f + (rand() % 5) * 0.08));
     }
 
-    for (size_t i = 0; i < 500; ++i){
+    for (size_t i = 0; i < 300; ++i){
         addObjectToScene(
                 std::make_shared<Object>(bushModel))
                     ->linkShader(treeShader)
@@ -148,7 +141,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
 
-    this->hud = new Hud;
+    this->hud = std::make_unique<Hud>();
 }
 
 std::shared_ptr<Object> Scene::addObjectToScene(std::shared_ptr<Object> object){
