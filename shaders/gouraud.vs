@@ -10,6 +10,8 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 cameraPosition;
+uniform vec3 u_lightColor;
+uniform vec3 u_objectColor;
 uniform mat4 normalMatrix;
 
 void main () {
@@ -18,26 +20,27 @@ void main () {
     gl_Position = projectionMatrix*viewMatrix*modelMatrix*aPos;
     worldPosition = vec3(modelMatrix * aPos);
 
+    vec3 color = u_objectColor * u_lightColor;
+
     // ambient
-    vec3 ambientColor = vec3(0.4f, 0.4f, 0.4f);
+
     float ambientStrength = 0.4f;
-    vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
-    vec3 ambientLight = (ambientStrength * ambientColor) * objectColor;
+    vec3 ambientLight = (ambientStrength * color);
 
     // diffuse
     vec3 lightPosition = vec3(15.0f, 5.0f, 10.0f);
-    vec3 lightColor = vec3(0.7f, 0.5f, 0.7f);
+
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPosition - worldPosition);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuse = diff * color;
 
     // specular
     float specularStrength = 4;
     vec3 viewDir = normalize(cameraPosition - worldPosition);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
-    vec3 specular = specularStrength * spec * lightColor;
+    vec3 specular = specularStrength * spec * color;
 
     //frag_colour = vec4(specular, 1.0f);
     LightingColor = ambientLight + diffuse + specular;

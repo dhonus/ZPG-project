@@ -3,31 +3,32 @@ out vec4 frag_colour;
 in vec3 Normal;
 in vec3 FragPos;
 in vec3 worldPosition;
+uniform vec3 u_lightColor;
+uniform vec3 u_objectColor;
 uniform vec3 cameraPosition;
 uniform mat4 cameraDirection;
 uniform vec3 lightPos;
 
 void main () {
     // ambient
-    vec3 ambientColor = vec3(0.4f, 0.4f, 0.4f);
+    vec3 color = u_objectColor * u_lightColor;
     float ambientStrength = 0.4f;
     vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
-    vec3 ambientLight = (ambientStrength * ambientColor) * objectColor;
+    vec3 ambientLight = ambientStrength * color;
 
     // diffuse
     vec3 lightPosition = vec3(0.0f, 0.0f, -5.0f);
-    vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPosition - worldPosition);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuse = diff * color;
 
     // specular
     float specularStrength = 1;
     vec3 viewDir = normalize(cameraPosition - worldPosition);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4);
-    vec3 specular = specularStrength * spec * lightColor;
+    vec3 specular = specularStrength * spec * color;
 
     if (dot(norm, lightDir) < 0.0){
         specular = vec3(0.0f, 0.0f, 0.0f);

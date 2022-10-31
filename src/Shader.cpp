@@ -2,13 +2,17 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
-Shader::Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera) {
+Shader::Shader(const std::string &vertexShader,
+               const std::string &fragmentShader,
+               Camera *&camera,
+               std::shared_ptr<Light> light) {
     this->camera = camera;
     this->camera->setShader(this);
     std::string vs = this->load(vertexShader);
     std::string fs = this->load(fragmentShader);
     this->vertex_shader = vs.c_str();
     this->fragment_shader = fs.c_str();
+    this->light = light;
     this->compile();
 }
 
@@ -51,6 +55,8 @@ void Shader::compile() {
     view_matrix_ID = glGetUniformLocation(shaderProgram, "viewMatrix");
     cameraPosition_ID = glGetUniformLocation(shaderProgram, "cameraPosition");
     lightPos = glGetUniformLocation(shaderProgram, "lightPos");
+    lightColor = glGetUniformLocation(shaderProgram, "u_lightColor");
+    objectColor = glGetUniformLocation(shaderProgram, "u_objectColor");
     cameraDirection = glGetUniformLocation(shaderProgram, "cameraDirection");
     fogToggle = glGetUniformLocation(shaderProgram, "foggy");
 
@@ -61,7 +67,7 @@ void Shader::compile() {
     error_check();
 }
 
-void Shader::draw(glm::mat4 t_matrix) {
+void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {
     glUseProgram(shaderProgram);
 
     glUniformMatrix4fv(model_matrix_ID, 1, GL_FALSE, &t_matrix[0][0]);
@@ -69,7 +75,11 @@ void Shader::draw(glm::mat4 t_matrix) {
     glUniformMatrix4fv(view_matrix_ID, 1, GL_FALSE, glm::value_ptr(camMatrix));
     glUniformMatrix4fv(cameraDirection, 1, GL_FALSE, glm::value_ptr(camMatrix));
     glUniform3fv(cameraPosition_ID, 1, glm::value_ptr(camera->getPosition()));
-    glUniform3fv(lightPos, 1, glm::value_ptr(camera->getPosition()));
+    //glUniform3fv(lightPos, 1, glm::value_ptr(camera->getPosition()));
+    glUniform3fv(lightPos, 1, glm::value_ptr(light->getPosition()));
+    glUniform3fv(lightColor, 1, glm::value_ptr(light->getColor()));
+    glUniform3fv(objectColor, 1, glm::value_ptr(t_objectColor));
+    std::cout << light->getColor().x << "\n";
     glUniform1f(fogToggle, fog);
 }
 

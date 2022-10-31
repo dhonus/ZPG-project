@@ -21,8 +21,8 @@ class Scene;
 class Object {
 public:
     Object(const std::vector<float> &vertices, GLenum mode,
-           int vertexCount, int posSize, int colSize, int colOffset, int genSize);
-    Object(std::shared_ptr<Model> mod);
+           int vertexCount, int posSize, int colSize, int colOffset, int genSize, glm::vec3 t_color);
+    Object(std::shared_ptr<Model> mod, glm::vec3 t_color);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);
@@ -34,6 +34,7 @@ private:
     glm::mat4 matrix = glm::mat4(1.0f);
     std::string vertexShader{};
     std::string fragmentShader{};
+    glm::vec3 color;
 };
 
 #endif //OGL_TST_02_OBJECT_H

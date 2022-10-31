@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Callbacks.h"
 #include "Hud.h"
+#include "Light.h"
+
 class Hud;
 class Object;
 class Callbacks;

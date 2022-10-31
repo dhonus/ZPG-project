@@ -6,18 +6,20 @@
 #include "../include/Object.h"
 
 int Object::draw() {
-    this->shader->draw(trans->getMatrix());
+    this->shader->draw(trans->getMatrix(), color);
     this->model->draw();
     return 0;
 }
 
 Object::Object(const std::vector<float> &vertices, GLenum mode,
-               int vertexCount, int posSize, int colSize, int colOffset, int genSize) {
+               int vertexCount, int posSize, int colSize, int colOffset, int genSize, glm::vec3 t_color) {
+    this->color = t_color;
     this->model = std::make_shared<Model>(vertices, mode, vertexCount, posSize, colSize, colOffset, genSize);
     this->trans = std::make_unique<Trans>();
 }
 
-Object::Object(std::shared_ptr<Model> mod) {
+Object::Object(std::shared_ptr<Model> mod, glm::vec3 t_color) {
+    this->color = t_color;
     this->model = mod;
     this->trans = std::make_unique<Trans>();
 }

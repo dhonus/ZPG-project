@@ -18,30 +18,34 @@
 #include "string"
 #include "Camera.h"
 #include "Observer.h"
+#include "Light.h"
+
 
 class Object;
 class Camera;
 class Observer;
+class Light;
 
 class Shader : public Observer{
 public:
-    Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera);
+    Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera, std::shared_ptr<Light> light);
     ~Shader() = default;
     void compile();
-    void draw(glm::mat4 t_matrix);
+    void draw(glm::mat4 t_matrix, glm::vec3 t_objectColor);
     void error_check();
     void update(Subject& subject);
 private:
     GLint model_matrix_ID,
         projection_matrix_ID,
-        view_matrix_ID, cameraPosition_ID,
-        lightPos, cameraDirection, fogToggle;
+        view_matrix_ID, cameraPosition_ID, objectColor,
+        lightPos, lightColor, cameraDirection, fogToggle;
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
     std::string load(const std::string &t_shader);
     std::string output;
     Camera* camera;
+    std::shared_ptr<Light> light;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
     glm::mat4 camMatrix = glm::mat4(0.0f);
 

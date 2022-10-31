@@ -7,7 +7,10 @@ in vec3 worldPosition;
 uniform vec3 cameraPosition;
 uniform mat4 cameraDirection;
 uniform vec3 lightPos;
+uniform vec3 u_lightColor;
+uniform vec3 u_objectColor;
 uniform float foggy;
+
 
 vec4 fog(vec4 f){
     float fog_maxdist = 90;
@@ -26,19 +29,19 @@ void main () {
     // ambient
     vec3 ambientColor = vec3(0.4f, 0.4f, 0.4f);
     float ambientStrength = 0.20f;
-    vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
-    vec3 ambientLight = (ambientStrength * ambientColor) * objectColor;
+    //vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
+    vec3 ambientLight = (ambientStrength * ambientColor) * u_objectColor;
 
     // diffuse
     //vec3 lightPosition = vec3(0.0, 10.0, 0.0);
     vec3 lightColor = vec3(0.5f, 0.5f, 0.0f);
-    float distance = length(lightPos - FragPos);
+    float distance = length(cameraPosition - FragPos);
     float attenuation = 3.0 / (2.0 + 0.09f * distance +
             0.01f * (distance * distance));
     vec3 norm = normalize(vec3(Normal));
-    vec3 lightDir = normalize(lightPos - vec3(FragPos));
+    vec3 lightDir = normalize(cameraPosition - vec3(FragPos));
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * lightColor;
+    vec3 diffuse = diff * u_lightColor;
     diffuse*= attenuation;
 
     // specular
@@ -46,7 +49,7 @@ void main () {
     vec3 viewDir = normalize(cameraPosition - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0),128);
-    vec3 specular = specularStrength * spec * lightColor;
+    vec3 specular = specularStrength * spec * u_lightColor;
     specular*=attenuation;
 
 
