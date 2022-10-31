@@ -52,7 +52,7 @@ private:
     const char* vertex_shader;
     const char* fragment_shader;
 
-    float fog = 0.0f;
+    float fog = 1.0f;
 
 };
 

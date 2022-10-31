@@ -25,6 +25,7 @@ vec4 fog(vec4 f){
 
     return mix(fog_colour, f, fog_factor);
 }
+
 void main () {
     // ambient
     vec3 ambientColor = vec3(0.4f, 0.4f, 0.4f);
@@ -51,7 +52,6 @@ void main () {
     float spec = pow(max(dot(viewDir, reflectDir), 0.0),128);
     vec3 specular = specularStrength * spec * u_lightColor;
     specular*=attenuation;
-
 
     //frag_colour = vec4(specular, 1.0f);
     frag_colour = vec4(ambientLight, 1.0f) + vec4(diffuse, 1.0f) + vec4(specular, 1.0f);

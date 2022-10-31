@@ -60,8 +60,10 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<TransMove> forestMove = std::make_shared<TransMove>(glm::vec3(20.0, -5.0, 20.0));
 
     /* LIGHTS */
-    std::shared_ptr<Light> sunLight = std::make_shared<Light>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.45f));
+    std::shared_ptr<Light> sunLight = std::make_shared<Light>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
     std::shared_ptr<Light> pureWhiteLight = std::make_shared<Light>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
+    lights.push_back(sunLight);
+    lights.push_back(pureWhiteLight);
 
     /* COLORS */
     glm::vec3 white {1.0f, 1.0f, 1.0f};
@@ -138,7 +140,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     ->linkShader(treeShader)
                     ->add(forestMove)
                     ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70, 0.0, rand() % 60)))
-                    ->add(std::make_shared<TransScale>(1.0f + (rand() % 5) * 0.08));
+                    ->add(std::make_shared<TransScale>(1.0f + (rand() % 5) * 0.08))
+                    ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
 
     for (size_t i = 0; i < 300; ++i){

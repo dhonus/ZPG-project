@@ -72,7 +72,6 @@ Camera::Camera(int width, int height, Callbacks& callback) {
     this->target.y = sin(glm::radians(pitch));
     this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     this->target = glm::normalize(target);
-
 }
 
 void Camera::move(bool front, bool back, bool left, bool right, bool up, bool down) {
@@ -81,6 +80,7 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
     this->lastFrame = currentFrame;
     this->cameraSpeed = 15 * this->deltaTime;
 
+    auto orig_pos = position;
     if (front)
         position += cameraSpeed*target;
     if (back)
@@ -94,7 +94,10 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
     if (down)
         position -= cameraSpeed*upwards;
 
-    notify();
+    if (position != orig_pos){
+        notify();
+        std::cout << "notify\n";
+    }
 }
 
 glm::mat4 Camera::getPerspective() {
