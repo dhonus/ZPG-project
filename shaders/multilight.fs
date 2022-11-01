@@ -27,13 +27,14 @@ struct lightStruct {
     vec3 specular;
 };
 
-#define MAX_LIGHTS 2
+//#define MAX_LIGHTS 16
+const int MAX_LIGHTS = 16;
 uniform lightStruct lights[MAX_LIGHTS];
 uniform int how_many_lights;
 
 vec3 point_light(lightStruct light)
 {
-    float ambientStrength = 0.0f;
+    float ambientStrength = 0.1f;
     vec3 norm = normalize(Normal);
     vec3 color = u_objectColor * light.color;
     vec3 lightDir = normalize(light.position - FragPos);
@@ -46,11 +47,39 @@ vec3 point_light(lightStruct light)
     float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
     vec3 diffuse = dot_product * color;
 
+// specular
+    float specularStrength = 1;
+    vec3 viewDir = normalize(vec3(cameraDirection));
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+    vec3 specular = specularStrength * spec * color;
+
+    if (dot(norm, lightDir) < 0.0){
+        specular = vec3(0.0f, 0.0f, 0.0f);
+    }
+    return (ambient + diffuse + specular);
+}
+
+vec3 directional_light(lightStruct light)
+{
+    vec3 lightDir = normalize(-light.direction);
+    vec3 norm = normalize(Normal);
+    vec3 color = u_objectColor * light.color;
+
+    // ambient
+    float ambientStrength = 0.1;
+    vec3 ambient = (ambientStrength * color);
+
+    // diffuse
+    float diff = max(dot(norm, lightDir), 0.0);
+    float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
+    vec3 diffuse = dot_product * color;
+
     // specular
     float specularStrength = 1;
     vec3 viewDir = normalize(cameraPosition - vec3(worldPosition));
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
     vec3 specular = specularStrength * spec * color;
 
     if (dot(norm, lightDir) < 0.0){
@@ -80,6 +109,7 @@ void main () {
 
     for(int i = 0; i < how_many_lights; i++){
         lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
+        lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
     }
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);

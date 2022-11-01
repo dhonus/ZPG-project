@@ -12,7 +12,8 @@ Window::Window(int width, int height) {
         exit(-1);
     }
 
-    this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+    //this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+    this->window = glfwCreateWindow(800, 600, "ZPG", glfwGetPrimaryMonitor(), NULL);
 
     glfwGetFramebufferSize(this->window, &width, &height);
     if (!this->window) {
@@ -23,6 +24,7 @@ Window::Window(int width, int height) {
     glfwSwapInterval(1);
     get_version_info();
     glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 }
 
 void Window::get_version_info() {

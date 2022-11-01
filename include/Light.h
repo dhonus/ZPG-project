@@ -34,7 +34,7 @@ public:
 
 class DirLight : public Light{
 public:
-    DirLight(glm::vec3 t_position, glm::vec3 t_color);
+    DirLight(glm::vec3 t_position, glm::vec3 t_color, glm::vec3 t_direction);
 };
 
 

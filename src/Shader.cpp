@@ -67,6 +67,8 @@ void Shader::compile() {
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i]->getColor()));
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i]->getPosition()));
         glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->type);
+        if (lights[i]->type == 2)
+            glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(lights[i]->direction));
     }
 
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);

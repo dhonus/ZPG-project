@@ -64,6 +64,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     auto sunLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
     auto pureWhiteLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     auto redLight = std::make_shared<PointLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.0f, 0.0f));
+    auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-0.2f, -1.0f, -0.3f));
     lights.push_back(sunLight);
     lights.push_back(pureWhiteLight);
 
@@ -80,7 +81,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vs", "4_hezke_koule.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
     std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vs", "treeShader.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
     std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vs", "gouraud.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vs", "multilight.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight, redLight});
+    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vs", "multilight.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight, redLight, dirLight});
 
     /* MODELS */
     std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
@@ -157,11 +158,9 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     }
 
     addObjectToScene(
-            std::make_shared<Object>(sphereModel, white))
+            std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
             ->linkShader(multilightShader)
             ->add(std::make_shared<TransMove>(glm::vec3(-10.0, 5.0, 0.0)));
-
-
 
     this->hud = std::make_unique<Hud>();
 }
