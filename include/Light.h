@@ -11,7 +11,6 @@
 class Light {
 public:
     Light(glm::vec3 t_position, glm::vec3 t_color);
-    Light();
     glm::vec3 getPosition();
     glm::vec3 getColor();
     int type;
@@ -28,10 +27,14 @@ public:
     glm::vec3 specular;
 };
 
-class AnotherLight : public Light{
-    int a = 10;
+class PointLight : public Light{
 public:
-    AnotherLight(glm::vec3 t_position, glm::vec3 t_color);
+    PointLight(glm::vec3 t_position, glm::vec3 t_color);
+};
+
+class DirLight : public Light{
+public:
+    DirLight(glm::vec3 t_position, glm::vec3 t_color);
 };
 
 

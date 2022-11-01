@@ -17,11 +17,14 @@ glm::vec3 Light::getColor() {
     return color;
 }
 
-Light::Light() {
-
+PointLight::PointLight(glm::vec3 t_position, glm::vec3 t_color) : Light(t_position, t_color) {
+    type = 1;
+    color = t_color;
+    position = t_position;
 }
 
-AnotherLight::AnotherLight(glm::vec3 t_position, glm::vec3 t_color) : Light(t_position, t_color) {
+DirLight::DirLight(glm::vec3 t_position, glm::vec3 t_color) : Light(t_position, t_color) {
+    type = 2;
     color = t_color;
     position = t_position;
 }

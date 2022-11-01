@@ -28,7 +28,10 @@ class Light;
 
 class Shader : public Observer{
 public:
-    Shader(const std::string &vertexShader, const std::string &fragmentShader, Camera *&camera, std::shared_ptr<Light> light);
+    Shader(const std::string &vertexShader,
+           const std::string &fragmentShader,
+           Camera *&camera,
+           const std::vector<std::shared_ptr<Light>> &lights);
     ~Shader() = default;
     void compile();
     void draw(glm::mat4 t_matrix, glm::vec3 t_objectColor);
@@ -44,7 +47,7 @@ private:
     std::string load(const std::string &t_shader);
     std::string output;
     Camera* camera;
-    std::shared_ptr<Light> light;
+    std::vector<std::shared_ptr<Light>> lights;
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 300.0f);
     glm::mat4 camMatrix = glm::mat4(0.0f);
 

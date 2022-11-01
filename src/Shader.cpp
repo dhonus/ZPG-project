@@ -5,14 +5,14 @@
 Shader::Shader(const std::string &vertexShader,
                const std::string &fragmentShader,
                Camera *&camera,
-               std::shared_ptr<Light> light) {
+               const std::vector<std::shared_ptr<Light>> &lights) {
     this->camera = camera;
     this->camera->setShader(this);
     std::string vs = this->load(vertexShader);
     std::string fs = this->load(fragmentShader);
     this->vertex_shader = vs.c_str();
     this->fragment_shader = fs.c_str();
-    this->light = light;
+    this->lights = lights;
     this->compile();
 }
 
@@ -61,16 +61,21 @@ void Shader::compile() {
 
     error_check();
 
-    glProgramUniform3fv(shaderProgram, uniformMapper("u_lightColor"), 1, glm::value_ptr(light->getColor()));
-    glProgramUniform3fv(shaderProgram, uniformMapper("lightPos"), 1, glm::value_ptr(light->getPosition()));
+    glProgramUniform1i(shaderProgram, uniformMapper("how_many_lights"), lights.size());
+    /* LIGHTS */
+    for (size_t i = 0; i < lights.size(); ++i){
+        glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i]->getColor()));
+        glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i]->getPosition()));
+        glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->type);
+    }
+
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);
 
-    /* LIGHTS */
-    glProgramUniform1i(shaderProgram, uniformMapper("how_many_lights"), 2);
-    std::unique_ptr<Light> l = std::make_unique<Light>();
-    l->color = light->color;
-    l->position = light->position;
-    glProgramUniform1f(shaderProgram, uniformMapper("lights[0].constant"), 1.0f);
+    //glProgramUniform1i(shaderProgram, uniformMapper("how_many_lights"), 2);
+    //std::unique_ptr<Light> l = std::make_unique<Light>();
+    //l->color = light->color;
+    //l->position = light->position;
+    //glProgramUniform1f(shaderProgram, uniformMapper("lights[0].constant"), 1.0f);
 
 }
 
@@ -78,7 +83,8 @@ void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(uniformMapper("modelMatrix"), 1, GL_FALSE, &t_matrix[0][0]);
     glUniform3fv(uniformMapper("u_objectColor"), 1, glm::value_ptr(t_objectColor));
-    glProgramUniform3fv(shaderProgram, uniformMapper("u_lightColor"), 1, glm::value_ptr(light->getColor()));
+    glUniform3fv(uniformMapper("lightPos"), 1, glm::value_ptr(lights[0]->getPosition()));
+    glProgramUniform3fv(shaderProgram, uniformMapper("u_lightColor"), 1, glm::value_ptr(lights[0]->getColor()));
 
 }
 

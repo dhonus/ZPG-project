@@ -16,6 +16,7 @@ struct lightStruct {
     int type;
     vec3 position;
     vec3 direction;
+    vec3 color;
 
     float constant;
     float linear;
@@ -32,10 +33,10 @@ uniform int how_many_lights;
 
 vec3 point_light(lightStruct light)
 {
-    float ambientStrength = 0.1f;
+    float ambientStrength = 0.0f;
     vec3 norm = normalize(Normal);
-    vec3 color = u_objectColor * u_lightColor;
-    vec3 lightDir = normalize(lightPos - FragPos);
+    vec3 color = u_objectColor * light.color;
+    vec3 lightDir = normalize(light.position - FragPos);
 
     // ambient
     vec3 ambient = (ambientStrength * color);
@@ -55,7 +56,7 @@ vec3 point_light(lightStruct light)
     if (dot(norm, lightDir) < 0.0){
         specular = vec3(0.0f, 0.0f, 0.0f);
     }
-    return lights[0].constant * (ambient + diffuse + specular);
+    return (ambient + diffuse + specular);
 }
 
 vec4 fog(vec4 f){
@@ -72,14 +73,14 @@ vec4 fog(vec4 f){
     return mix(fog_colour, f, fog_factor);
 }
 
-
 void main () {
     lightStruct l;
 
-    frag_colour = vec4(point_light(lights[0]), 1.0f);
-    /*for(int i = 0; i < 2; i++){
-        frag_colour += point_light(pointLights[i]);
-    }*/
+    frag_colour = vec4(0.0f);
+
+    for(int i = 0; i < how_many_lights; i++){
+        lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
+    }
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);
     }
