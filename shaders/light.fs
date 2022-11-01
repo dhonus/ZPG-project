@@ -26,7 +26,24 @@ vec4 fog(vec4 f){
     return mix(fog_colour, f, fog_factor);
 }
 
-void main () {
+struct LightStruct {
+    int type;
+    vec3 position;
+    vec3 direction;
+
+    float constant;
+    float linear;
+    float quadratic;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+#define MAX_LIGHTS 2
+uniform LightStruct pointLights[MAX_LIGHTS];
+
+vec3 point_light(LightStruct light, vec3 norm, vec3 viewDir)
+{
     // ambient
     vec3 ambientColor = vec3(0.4f, 0.4f, 0.4f);
     float ambientStrength = 0.20f;
@@ -38,8 +55,7 @@ void main () {
     vec3 lightColor = vec3(0.5f, 0.5f, 0.0f);
     float distance = length(cameraPosition - FragPos);
     float attenuation = 3.0 / (2.0 + 0.09f * distance +
-            0.01f * (distance * distance));
-    vec3 norm = normalize(vec3(Normal));
+                               0.01f * (distance * distance));
     vec3 lightDir = normalize(cameraPosition - vec3(FragPos));
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * u_lightColor;
@@ -47,14 +63,23 @@ void main () {
 
     // specular
     float specularStrength = 1;
-    vec3 viewDir = normalize(cameraPosition - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0),128);
     vec3 specular = specularStrength * spec * u_lightColor;
     specular*=attenuation;
 
+    return (ambientLight+diffuse+specular);
+}
+
+void main () {
+
+    LightStruct l;
+
     //frag_colour = vec4(specular, 1.0f);
-    frag_colour = vec4(ambientLight, 1.0f) + vec4(diffuse, 1.0f) + vec4(specular, 1.0f);
+    vec3 norm = normalize(vec3(Normal));
+    vec3 viewDir = normalize(cameraPosition - FragPos);
+
+    frag_colour = vec4(point_light(l, norm, viewDir), 1.0f);
 
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);

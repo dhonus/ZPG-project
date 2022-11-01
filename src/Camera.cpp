@@ -55,6 +55,7 @@ void Camera::update(Subject& subject) {
         this->width = callback->width;
         this->height = callback->height;
         this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
+        notify();
     }
 }
 
@@ -96,7 +97,6 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
 
     if (position != orig_pos){
         notify();
-        std::cout << "notify\n";
     }
 }
 

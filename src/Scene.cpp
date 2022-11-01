@@ -5,6 +5,7 @@
 #include "../include/Scene.h"
 #include "../models/sphere.h"
 #include "../models/suzi_smooth.h"
+#include "../models/suzi_flat.h"
 #include "../models/floor.h"
 #include "../models/tree.h"
 #include "../models/bush.h"
@@ -55,12 +56,12 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Composite> pohnoutKoulema = std::make_shared<Trans>();
     baseOrbit->add(std::make_shared<TransMove>(glm::vec3(20.0, 0.0, 20.0)));
     baseOrbit->add(std::make_shared<TransRotate>(true, 180, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-    //baseOrbit ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
+    baseOrbit ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
     pohnoutKoulema->add(std::make_shared<TransMove>(glm::vec3{15.0f, 15.0f, 0.0f}));
     std::shared_ptr<TransMove> forestMove = std::make_shared<TransMove>(glm::vec3(20.0, -5.0, 20.0));
 
     /* LIGHTS */
-    std::shared_ptr<Light> sunLight = std::make_shared<Light>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
+    std::shared_ptr<AnotherLight> sunLight = std::make_shared<AnotherLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
     std::shared_ptr<Light> pureWhiteLight = std::make_shared<Light>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     lights.push_back(sunLight);
     lights.push_back(pureWhiteLight);
@@ -78,6 +79,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vs", "4_hezke_koule.fs", camera, sunLight);
     std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vs", "treeShader.fs", camera, sunLight);
     std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vs", "gouraud.fs", camera, sunLight);
+    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vs", "multilight.fs", camera, sunLight);
 
     /* MODELS */
     std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
@@ -105,7 +107,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
                 ->add(std::make_shared<TransScale>(0.3f));
     addObjectToScene(
-            std::make_shared<Object>(suziSmooth, GL_TRIANGLES, 2904, 3, 3, 3, 6, yellow))
+            std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, yellow))
                 ->linkShader(basicLightShader)->add(baseOrbit);
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
@@ -152,6 +154,13 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70  + (rand() % 50 * 0.1), 0.0, rand() % 60  + (rand() % 50 * 0.1))))
                     ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
+
+    addObjectToScene(
+            std::make_shared<Object>(sphereModel, darkgreen))
+            ->linkShader(multilightShader)
+            ->add(std::make_shared<TransMove>(glm::vec3(-10.0, 5.0, 0.0)));
+
+
 
     this->hud = std::make_unique<Hud>();
 }

@@ -19,7 +19,7 @@
 #include "Camera.h"
 #include "Observer.h"
 #include "Light.h"
-
+#include <map>
 
 class Object;
 class Camera;
@@ -35,10 +35,9 @@ public:
     void error_check();
     void update(Subject& subject);
 private:
-    GLint model_matrix_ID,
-        projection_matrix_ID,
-        view_matrix_ID, cameraPosition_ID, objectColor,
-        lightPos, lightColor, cameraDirection, fogToggle;
+    std::map<std::string, GLint> uniforms;
+
+    GLint uniformMapper(const std::string &uniformName);
     GLuint shaderProgram;
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -52,7 +51,7 @@ private:
     const char* vertex_shader;
     const char* fragment_shader;
 
-    float fog = 1.0f;
+    float fog = 0.0f;
 
 };
 
