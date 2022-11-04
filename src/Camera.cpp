@@ -13,6 +13,11 @@ glm::vec3 Camera::getPosition() const{
     return this->position;
 }
 
+
+glm::vec3 Camera::getDirection() const{
+    return this->target;
+}
+
 void Camera::mouse(float x, float y) {
     /*
      * The pitch is the angle that depicts how much we're looking up or down as seen in the first image.

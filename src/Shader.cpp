@@ -66,17 +66,19 @@ void Shader::compile() {
     for (size_t i = 0; i < lights.size(); ++i){
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i]->getColor()));
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i]->getPosition()));
-        glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->type);
-        if (lights[i]->type == 2)
-            glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(lights[i]->direction));
+        glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->pType);
+        if (lights[i]->pType == 2 || lights[i]->pType == 3)
+            glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(lights[i]->pDirection));
+        if (lights[i]->pType == 3)
+            glProgramUniform1f(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].cutoff"), lights[i]->pCutoff);
     }
 
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);
 
     //glProgramUniform1i(shaderProgram, uniformMapper("how_many_lights"), 2);
     //std::unique_ptr<Light> l = std::make_unique<Light>();
-    //l->color = light->color;
-    //l->position = light->position;
+    //l->pColor = light->pColor;
+    //l->pPosition = light->pPosition;
     //glProgramUniform1f(shaderProgram, uniformMapper("lights[0].constant"), 1.0f);
 
 }
@@ -104,7 +106,7 @@ void Shader::error_check() {
 }
 
 void Shader::update(Subject& subject) {
-    if(&subject == camera){
+    if(&subject == camera) {
         this->projection = camera->getPerspective();
         this->camMatrix = camera->getCamera();
         std::cout << "cam change\n";
@@ -113,5 +115,12 @@ void Shader::update(Subject& subject) {
         glProgramUniformMatrix4fv(shaderProgram, uniformMapper("viewMatrix"), 1, GL_FALSE, glm::value_ptr(camMatrix));
         glProgramUniformMatrix4fv(shaderProgram, uniformMapper("cameraDirection"), 1, GL_FALSE, glm::value_ptr(camMatrix));
         glProgramUniform3fv(shaderProgram, uniformMapper("cameraPosition"), 1, glm::value_ptr(camera->getPosition()));
+        for (size_t i = 0; i < lights.size(); ++i){
+            if (lights[i]->pType == 3){
+                glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(camera->getPosition()));
+                glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(camera->getDirection()));
+
+            }
+        }
     }
 }

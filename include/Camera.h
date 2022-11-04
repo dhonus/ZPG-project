@@ -46,6 +46,8 @@ public:
     void mouse(float x, float y);
     void update(Subject& subject);
     void setShader(Shader* t_shader);
+
+    glm::vec3 getDirection() const;
 };
 
 #endif //ZPG_CAMERA_H

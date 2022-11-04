@@ -23,7 +23,7 @@ void Vbo::bind_buffer() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, this->points.size() * sizeof(float), this->points.data(), GL_STATIC_DRAW);
 
-    // position
+    // pPosition
     glVertexAttribPointer(0, positionSize, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // normals

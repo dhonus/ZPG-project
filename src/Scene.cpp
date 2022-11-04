@@ -65,6 +65,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     auto pureWhiteLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     auto redLight = std::make_shared<PointLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.0f, 0.0f));
     auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-0.2f, -1.0f, -0.3f));
+    auto spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
     lights.push_back(sunLight);
     lights.push_back(pureWhiteLight);
 
@@ -75,13 +76,13 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     glm::vec3 darkgreen {0.2f, 0.4f, 0.2f};
 
     /* SHADERS */
-    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vs", "floor.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("base.vs", "light.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> cutLightShader = std::make_shared<Shader>("base.vs", "cutLight.fs", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight});
-    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vs", "4_hezke_koule.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vs", "treeShader.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vs", "gouraud.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight});
-    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vs", "multilight.fs", camera, std::vector<std::shared_ptr<Light>>{sunLight, redLight, dirLight});
+    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight});
+    std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("base.vsh", "light.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight});
+    std::shared_ptr<Shader> cutLightShader = std::make_shared<Shader>("base.vsh", "cutLight.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight});
+    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vsh", "4_hezke_koule.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight});
+    std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vsh", "treeShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight});
+    std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight});
+    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight});
 
     /* MODELS */
     std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
@@ -141,7 +142,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     for (size_t i = 0; i < 70; ++i){
         addObjectToScene(
                 std::make_shared<Object>(treeModel, darkgreen))
-                    ->linkShader(treeShader)
+                    ->linkShader(multilightShader)
                     ->add(forestMove)
                     ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70, 0.0, rand() % 60)))
                     ->add(std::make_shared<TransScale>(1.0f + (rand() % 5) * 0.08))

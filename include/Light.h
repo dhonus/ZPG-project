@@ -10,17 +10,18 @@
 
 class Light {
 public:
-    Light(glm::vec3 t_position, glm::vec3 t_color);
+    Light(glm::vec3 position, glm::vec3 color);
     glm::vec3 getPosition();
     glm::vec3 getColor();
-    int type;
-    glm::vec3 position;
-    glm::vec3 color;
-    glm::vec3 direction;
+    int pType;
+    glm::vec3 pPosition;
+    glm::vec3 pColor;
+    glm::vec3 pDirection;
 
     float constant;
     float linear;
     float quadratic;
+    float pCutoff;
 
     glm::vec3 ambient;
     glm::vec3 diffuse;
@@ -29,12 +30,17 @@ public:
 
 class PointLight : public Light{
 public:
-    PointLight(glm::vec3 t_position, glm::vec3 t_color);
+    PointLight(glm::vec3 position, glm::vec3 color);
 };
 
 class DirLight : public Light{
 public:
-    DirLight(glm::vec3 t_position, glm::vec3 t_color, glm::vec3 t_direction);
+    DirLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction);
+};
+
+class SpotLight : public Light{
+public:
+    SpotLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float cutoff);
 };
 
 

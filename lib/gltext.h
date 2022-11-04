@@ -833,7 +833,7 @@ GLT_API void gltTerminate(void)
 static const GLchar* _gltText2DVertexShaderSource =
 "#version 330 core\n"
 "\n"
-"in vec2 position;\n"
+"in vec2 pPosition;\n"
 "in vec2 texCoord;\n"
 "\n"
 "uniform mat4 mvp;\n"
@@ -844,7 +844,7 @@ static const GLchar* _gltText2DVertexShaderSource =
 "{\n"
 "	fTexCoord = texCoord;\n"
 "	\n"
-"	gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
+"	gl_Position = mvp * vec4(pPosition, 0.0, 1.0);\n"
 "}\n";
 
 static const GLchar* _gltText2DFragmentShaderSource =
@@ -854,15 +854,15 @@ static const GLchar* _gltText2DFragmentShaderSource =
 "\n"
 "uniform sampler2D diffuse;\n"
 "\n"
-"uniform vec4 color = vec4(0.0, 0.0, 1.0, 1.0);\n"
+"uniform vec4 pColor = vec4(0.0, 0.0, 1.0, 1.0);\n"
 "\n"
 "in vec2 fTexCoord;\n"
 "\n"
 "void main()\n"
 "{\n"
 "   fragColor = texture(diffuse, fTexCoord);\n"
-"	if(fragColor.a<0.5 || length(fragColor.rgb) < 0.5){fragColor = color * 0.3;}\n"
-"   	fragColor *= color;"
+"	if(fragColor.a<0.5 || length(fragColor.rgb) < 0.5){fragColor = pColor * 0.3;}\n"
+"   	fragColor *= pColor;"
 "}\n";
 
 GLT_API GLboolean _gltCreateText2DShader(void)
@@ -956,7 +956,7 @@ GLT_API GLboolean _gltCreateText2DShader(void)
 	glAttachShader(_gltText2DShader, vertexShader);
 	glAttachShader(_gltText2DShader, fragmentShader);
 
-	glBindAttribLocation(_gltText2DShader, _GLT_TEXT2D_POSITION_LOCATION, "position");
+	glBindAttribLocation(_gltText2DShader, _GLT_TEXT2D_POSITION_LOCATION, "pPosition");
 	glBindAttribLocation(_gltText2DShader, _GLT_TEXT2D_TEXCOORD_LOCATION, "texCoord");
 
 	glBindFragDataLocation(_gltText2DShader, 0, "fragColor");
@@ -1004,7 +1004,7 @@ GLT_API GLboolean _gltCreateText2DShader(void)
 	glUseProgram(_gltText2DShader);
 
 	_gltText2DShaderMVPUniformLocation = glGetUniformLocation(_gltText2DShader, "mvp");
-	_gltText2DShaderColorUniformLocation = glGetUniformLocation(_gltText2DShader, "color");
+	_gltText2DShaderColorUniformLocation = glGetUniformLocation(_gltText2DShader, "pColor");
 
 	glUniform1i(glGetUniformLocation(_gltText2DShader, "diffuse"), 0);
 

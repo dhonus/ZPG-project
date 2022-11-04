@@ -4,28 +4,36 @@
 
 #include "../include/Light.h"
 
-Light::Light(glm::vec3 t_position, glm::vec3 t_color) {
-    color = t_color;
-    position = t_position;
+Light::Light(glm::vec3 position, glm::vec3 color) {
+    pColor = color;
+    pPosition = position;
 }
 
 glm::vec3 Light::getPosition() {
-    return position;
+    return pPosition;
 }
 
 glm::vec3 Light::getColor() {
-    return color;
+    return pColor;
 }
 
-PointLight::PointLight(glm::vec3 t_position, glm::vec3 t_color) : Light(t_position, t_color) {
-    type = 1;
-    color = t_color;
-    position = t_position;
+PointLight::PointLight(glm::vec3 position, glm::vec3 color) : Light(position, color) {
+    pType = 1;
+    pColor = color;
+    pPosition = position;
 }
 
-DirLight::DirLight(glm::vec3 t_position, glm::vec3 t_color, glm::vec3 t_direction) : Light(t_position, t_color) {
-    type = 2;
-    color = t_color;
-    position = t_position;
-    direction = t_direction;
+DirLight::DirLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction) : Light(position, color) {
+    pType = 2;
+    pColor = color;
+    pPosition = position;
+    pDirection = direction;
+}
+
+SpotLight::SpotLight(glm::vec3 position, glm::vec3 color, glm::vec3 direction, float cutoff) : Light(position, color) {
+    pType = 3;
+    pCutoff = cutoff;
+    pColor = color;
+    pPosition = position;
+    pDirection = direction;
 }
