@@ -102,9 +102,7 @@ vec3 spot_light(lightStruct light) {
 
         float distance    = length(light.position - FragPos);
         float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * (distance * distance));
-
-        float epsilon   = cos(radians(12.f)) - cos(radians(15.f));
-        float intensity = clamp((theta - cos(radians(15.f))) / epsilon, 0.0, 1.0);
+        float intensity = (1.0 - (1.0 - theta) / (1.0 - cos(radians(12.f))));
 
         // diffuse
         float diff = max(dot(norm, lightDir), 0.0);
