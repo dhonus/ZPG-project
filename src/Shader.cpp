@@ -119,7 +119,6 @@ void Shader::update(Subject& subject) {
             if (lights[i]->pType == 3){
                 glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(camera->getPosition()));
                 glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(camera->getDirection()));
-
             }
         }
     }
