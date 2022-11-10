@@ -23,7 +23,6 @@ void main () {
     vec3 color = u_objectColor * u_lightColor;
 
     // ambient
-
     float ambientStrength = 0.4f;
     vec3 ambientLight = (ambientStrength * color);
 

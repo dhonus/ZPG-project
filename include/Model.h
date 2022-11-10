@@ -11,7 +11,7 @@
 
 class Model {
 public:
-    Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int posSize, int colSize, int colOffset, int genSize);
+    Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     int draw();
 private:
     std::shared_ptr<Vbo> VBO;

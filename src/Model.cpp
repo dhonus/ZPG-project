@@ -5,8 +5,9 @@
 #include <iostream>
 #include "../include/Model.h"
 
-Model::Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int posSize, int colSize, int colOffset, int genSize) {
-    this->VBO = std::make_shared<Vbo>(vertices, posSize, colSize, colOffset, genSize);
+
+Model::Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize) {
+    this->VBO = std::make_shared<Vbo>(vertices, vertexCount, positionSize, normalsSize, normalsOffset, overallSize);
     this->VAO = std::make_shared<Vao>(VBO);
     this->VAO->bind_vertex_array();
     this->mode = mode;

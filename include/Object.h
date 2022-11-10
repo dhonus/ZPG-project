@@ -21,7 +21,7 @@ class Scene;
 class Object {
 public:
     Object(const std::vector<float> &vertices, GLenum mode,
-           int vertexCount, int posSize, int colSize, int colOffset, int genSize, glm::vec3 t_color);
+           int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize, glm::vec3 t_color);
     Object(std::shared_ptr<Model> mod, glm::vec3 t_color);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);

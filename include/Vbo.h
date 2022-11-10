@@ -19,8 +19,9 @@ private:
     int normalsSize;
     int normalsOffset;
     int overallSize;
+    int vertexCount;
 public:
-    Vbo(const std::vector<float> &t_points, int positionSize, int normalsSize, int normalsOffset, int overallSize);
+    Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     Vbo();
     void bind_buffer();
 };

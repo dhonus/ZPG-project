@@ -2,10 +2,14 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "../lib/stb_image.h"
+
 Shader::Shader(const std::string &vertexShader,
                const std::string &fragmentShader,
                Camera *&camera,
-               const std::vector<std::shared_ptr<Light>> &lights) {
+               const std::vector<std::shared_ptr<Light>> &lights, bool skybox) {
     this->camera = camera;
     this->camera->setShader(this);
     std::string vs = this->load(vertexShader);
@@ -14,6 +18,7 @@ Shader::Shader(const std::string &vertexShader,
     this->fragment_shader = fs.c_str();
     this->lights = lights;
     this->compile();
+    this->skybox = skybox;
 }
 
 std::string Shader::load(const std::string &t_shader){
@@ -75,20 +80,41 @@ void Shader::compile() {
 
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);
 
-    //glProgramUniform1i(shaderProgram, uniformMapper("how_many_lights"), 2);
-    //std::unique_ptr<Light> l = std::make_unique<Light>();
-    //l->pColor = light->pColor;
-    //l->pPosition = light->pPosition;
-    //glProgramUniform1f(shaderProgram, uniformMapper("lights[0].constant"), 1.0f);
+    glGenTextures(1, &ourTexture);
+    glBindTexture(GL_TEXTURE_2D, ourTexture);
+
+    // set the ourTexture wrapping/filtering options (on the currently bound ourTexture object)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // load and generate the ourTexture
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load("../textures/container.jpg", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load ourTexture" << std::endl;
+    }
+    glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
+    stbi_image_free(data);
 
 }
 
 void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {
     glUseProgram(shaderProgram);
+    glBindTexture(GL_TEXTURE_2D, ourTexture);
     glUniformMatrix4fv(uniformMapper("modelMatrix"), 1, GL_FALSE, &t_matrix[0][0]);
     glUniform3fv(uniformMapper("u_objectColor"), 1, glm::value_ptr(t_objectColor));
     glUniform3fv(uniformMapper("lightPos"), 1, glm::value_ptr(lights[0]->getPosition()));
     glProgramUniform3fv(shaderProgram, uniformMapper("u_lightColor"), 1, glm::value_ptr(lights[0]->getColor()));
+    glActiveTexture(GL_TEXTURE0);
 
 }
 

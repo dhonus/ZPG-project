@@ -11,7 +11,9 @@ uniform vec3 u_lightColor;
 uniform vec3 u_objectColor;
 uniform vec3 lightPos;
 uniform float foggy;
-
+uniform sampler2D ourTexture;
+in vec3 ourColor;
+in vec2 TexCoord;
 
 struct lightStruct {
     int type;
@@ -50,9 +52,9 @@ vec3 point_light(lightStruct light) {
 
     // specular
     float specularStrength = 1;
-    vec3 viewDir = normalize(vec3(cameraDirection));
+    vec3 viewDir = normalize(cameraPosition - vec3(worldPosition));
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
     vec3 specular = specularStrength * spec * color;
 
     if (dot(norm, lightDir) < 0.0){
@@ -141,16 +143,16 @@ vec4 fog(vec4 f){
 
 void main () {
     lightStruct l;
-    // vec3 three = four.xyz / four.w;
 
-    frag_colour = vec4(0.0f);
-
+    frag_colour = texture(ourTexture, TexCoord);
+/*
     for(int i = 0; i < how_many_lights; i++){
         lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
-        lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
-        lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
+    lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
+    lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
     }
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);
     }
+*/
 }

@@ -12,9 +12,9 @@ int Object::draw() {
 }
 
 Object::Object(const std::vector<float> &vertices, GLenum mode,
-               int vertexCount, int posSize, int colSize, int colOffset, int genSize, glm::vec3 t_color) {
+               int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize, glm::vec3 t_color) {
     this->color = t_color;
-    this->model = std::make_shared<Model>(vertices, mode, vertexCount, posSize, colSize, colOffset, genSize);
+    this->model = std::make_shared<Model>(vertices, mode, vertexCount, positionSize, normalsSize, normalsOffset, overallSize);
     this->trans = std::make_unique<Trans>();
 }
 
