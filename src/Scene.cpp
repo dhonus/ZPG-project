@@ -85,7 +85,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, redLight, sunLight}, false);
     //std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, false);
-    std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
+    std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("textured_light.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
 
     /* MODELS */
     std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
@@ -94,14 +94,15 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Model> cubeModel = std::make_shared<Model>(cube, GL_TRIANGLES, 36, 3, 2, 3, 5);
 
     /* OBJECTS */
-    addObjectToScene(
-            std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8, glm::vec3(0)))
-                ->linkShader(floorShader);
+    glDepthMask(GL_FALSE);
     addObjectToScene(
             std::make_shared<Object>(cubeModel, white))
             ->linkShader(skyBoxShader)
-            ->add(std::make_shared<TransMove>(glm::vec3(4.0, 4.0, 4.0)))
-            ->add(std::make_shared<TransScale>(500.0f));
+            ->add(std::make_shared<TransMove>(glm::vec3(4.0, 4.0, 4.0)));
+    glDepthMask(GL_TRUE);
+    addObjectToScene(
+            std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8, glm::vec3(0)))
+                ->linkShader(floorShader);
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
                 ->linkShader(cutLightShader)
