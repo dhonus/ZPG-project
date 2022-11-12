@@ -33,15 +33,14 @@ void main () {
     }
     if (fract(worldPosition.x / 20.0f) < 0.005 && fract(worldPosition.x / 20.0f) > -0.005){
         frag_colour = vec4(0.7f, 0.7f, 0.7f, 1.0f);
-
     }
     if (fract(worldPosition.z / 20.0f) < 0.005 && fract(worldPosition.z / 20.0f) > -0.005){
         frag_colour = vec4(0.7f, 0.7f, 0.7f, 1.0f);
     }
 
-    float distance = length(worldPosition);
+    float distance = length(worldPosition.xz - cameraPosition.xz);
     float attenuation = 100.0 / (50.0 + 0.09f * distance +
-                               0.032f * (distance * distance));
+                               0.022f * (distance * distance));
     frag_colour *= attenuation;
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);
