@@ -84,7 +84,7 @@ void Shader::compile() {
             "right.jpg",
             "left.jpg",
             "top.jpg",
-            "bottom.jpg",
+            "grimmnight_dn.tga",
             "front.jpg",
             "back.jpg"
         };
@@ -101,7 +101,7 @@ void Shader::compile() {
         int width, height, nrChannels;
         for (unsigned int i = 0; i < 6; ++i)
         {
-            std::string loc = "../textures/nicer_skybox/" + faces[i];
+            std::string loc = "../textures/night_skybox/" + faces[i];
             std::cout << loc << std::endl;
             unsigned char *data = stbi_load(loc.c_str(), &width, &height, &nrChannels, 0);
             if (data)
@@ -164,7 +164,7 @@ void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {
     glActiveTexture(GL_TEXTURE0);
 }
 
-void Shader::error_check() {
+void Shader::error_check() const {
     GLint status;
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
     if (status == GL_FALSE) {

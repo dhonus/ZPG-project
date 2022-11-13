@@ -63,10 +63,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
 
     /* LIGHTS */
     auto sunLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
+    auto moonLight = std::make_shared<PointLight>(glm::vec3(250.0f, 90.0f, 90.0f), glm::vec3(0.2f, 0.2f, 0.3f));
     auto pureWhiteLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     auto redLight = std::make_shared<PointLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.0f, 0.0f));
     auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-0.2f, -1.0f, -0.3f));
-    auto spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
+    auto spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
     lights.push_back(sunLight);
     lights.push_back(pureWhiteLight);
 
@@ -79,11 +80,10 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     /* SHADERS */
     std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("base.vsh", "light.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
-    std::shared_ptr<Shader> cutLightShader = std::make_shared<Shader>("base.vsh", "cutLight.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, false);
     std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vsh", "4_hezke_koule.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vsh", "treeShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
-    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, redLight, sunLight}, false);
+    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, moonLight}, false);
     //std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, false);
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
 
@@ -104,23 +104,19 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->linkShader(floorShader);
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
-                ->linkShader(cutLightShader)
-                ->add(std::make_shared<TransRotate>(true, 2.5f, -glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)));
-    addObjectToScene(
-            std::make_shared<Object>(sphereModel, yellow))
                 ->linkShader(basicLightShader)
                 ->add(baseOrbit)
                 ->add(std::make_shared<TransRotate>(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)))
                 ->add(std::make_shared<TransScale>(0.6f));
     addObjectToScene(
-            std::make_shared<Object>(sphereModel, yellow))
-                ->linkShader(basicLightShader)
+            std::make_shared<Object>(sphereModel, white))
+                ->linkShader(multilightShader)
                 ->add(baseOrbit)
                 ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
                 ->add(std::make_shared<TransScale>(0.3f));
     addObjectToScene(
-            std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, yellow))
-                ->linkShader(basicLightShader)->add(baseOrbit);
+            std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
+                ->linkShader(multilightShader)->add(baseOrbit);
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
                 ->linkShader(hezkeKouleShader)
@@ -133,7 +129,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->add(std::make_shared<TransMove>(glm::vec3(-3.0, 0.0, 0.0)));
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
-                ->linkShader(hezkeKouleShader)
+                ->linkShader(multilightShader)
                 ->add(pohnoutKoulema)
                 ->add(std::make_shared<TransMove>(glm::vec3(0.0, 3.0, 0.0)));
     addObjectToScene(

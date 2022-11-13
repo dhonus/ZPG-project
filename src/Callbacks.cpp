@@ -48,7 +48,6 @@ void Callbacks::init() {
             glfwSetWindowShouldClose(window, GL_TRUE);
     };
 
-
     glfwSetErrorCallback(errorCallback);
     glfwSetKeyCallback(window, keyboard);
     glfwSetCursorPosCallback(window, mouseCallback);

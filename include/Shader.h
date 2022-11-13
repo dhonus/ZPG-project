@@ -35,7 +35,7 @@ public:
     ~Shader() = default;
     void compile();
     void draw(glm::mat4 t_matrix, glm::vec3 t_objectColor);
-    void error_check();
+    void error_check() const;
     void update(Subject& subject);
 private:
     unsigned int ourTexture;
