@@ -2,6 +2,7 @@
 #include "vector"
 #include <iostream>
 #include <fstream>
+#include <assimp/types.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../lib/stb_image.h"

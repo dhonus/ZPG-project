@@ -24,7 +24,6 @@ Window::Window(int width, int height) {
     glfwSwapInterval(1);
     get_version_info();
     glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 }
 
 void Window::get_version_info() {
