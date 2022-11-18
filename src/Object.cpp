@@ -36,3 +36,9 @@ Object* Object::linkShader(std::shared_ptr<Shader> shader) {
     this->shader = shader;
     return this;
 }
+
+Object::Object(const std::string fileName, glm::vec3 t_color) {
+    this->color = t_color;
+    this->model = std::make_shared<Model>(fileName);
+    this->trans = std::make_unique<Trans>();
+}

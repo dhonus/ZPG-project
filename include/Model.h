@@ -8,16 +8,15 @@
 #include "Vbo.h"
 #include "Vao.h"
 #include <memory>
+#include "Mesh.h"
 
 class Model {
 public:
     Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
+    Model(const std::string fileName);
     int draw();
 private:
-    std::shared_ptr<Vbo> VBO;
-    std::shared_ptr<Vao> VAO;
-    GLenum mode;
-    int vertexCount;
+    std::shared_ptr<Mesh> mesh;
 };
 
 #endif //OGL_TST_02_MODEL_H

@@ -11,9 +11,21 @@
 #include <vector>
 #include <glm/vec4.hpp>
 
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include "../include/Mesh.h"
+#include "iostream"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+struct Vertex;
+
 class Vbo {
 private:
     GLuint VBO;
+    GLuint EBO;
     std::vector<float> points;
     int positionSize;
     int normalsSize;
@@ -23,6 +35,8 @@ private:
 public:
     Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     Vbo();
+    Vbo(std::vector<Vertex> vertices, std::vector<unsigned int> indices, int vertexCount);
+    Vbo(aiMesh* mesh, Vertex* pVertices, unsigned int* pIndices);
     void bind_buffer();
 };
 

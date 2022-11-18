@@ -7,15 +7,17 @@
 
 
 Model::Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize) {
-    this->VBO = std::make_shared<Vbo>(vertices, vertexCount, positionSize, normalsSize, normalsOffset, overallSize);
-    this->VAO = std::make_shared<Vao>(VBO);
-    this->VAO->bind_vertex_array();
-    this->mode = mode;
-    this->vertexCount = vertexCount;
+    this->mesh = std::make_shared<Mesh>(vertices, mode, vertexCount, positionSize, normalsSize, normalsOffset, overallSize);
+
 }
 
 int Model::draw(){
-    this->VAO->bind_vertex_array();
-    glDrawArrays(mode, 0, vertexCount);
+    this->mesh->bind_vertex_array();
+    //this->VAO->bind_vertex_array();
+    this->mesh->draw_arrays();
     return 0;
+}
+
+Model::Model(const std::string fileName) {
+    this->mesh = std::make_shared<Mesh>(fileName);
 }

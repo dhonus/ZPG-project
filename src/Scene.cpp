@@ -99,6 +99,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_shared<Object>(cubeModel, white))
             ->linkShader(skyBoxShader);
     glDepthMask(GL_TRUE);
+
+    addObjectToScene(
+            std::make_shared<Object>("model.obj", white))
+                    ->linkShader(multilightShader);
+
     addObjectToScene(
             std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8, glm::vec3(0)))
                 ->linkShader(floorShader);

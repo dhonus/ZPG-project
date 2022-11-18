@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include "Vbo.h"
 #include <memory>
+class Vbo;
+
 class Vao {
 public:
     Vao(std::shared_ptr<Vbo> vbo);
