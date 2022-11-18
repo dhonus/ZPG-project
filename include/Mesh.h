@@ -52,6 +52,9 @@ private:
     std::shared_ptr<Vao> VAO;
     GLenum mode;
     int vertexCount;
+
+    std::vector<float> data;
+    int count = 0;
 };
 
 

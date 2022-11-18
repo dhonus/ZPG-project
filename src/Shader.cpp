@@ -85,7 +85,7 @@ void Shader::compile() {
             "right.jpg",
             "left.jpg",
             "top.jpg",
-            "grimmnight_dn.tga",
+            "bottom.jpg",
             "front.jpg",
             "back.jpg"
         };
@@ -102,7 +102,7 @@ void Shader::compile() {
         int width, height, nrChannels;
         for (unsigned int i = 0; i < 6; ++i)
         {
-            std::string loc = "../textures/night_skybox/" + faces[i];
+            std::string loc = "../textures/nicer_skybox/" + faces[i];
             std::cout << loc << std::endl;
             unsigned char *data = stbi_load(loc.c_str(), &width, &height, &nrChannels, 0);
             if (data)
@@ -134,10 +134,10 @@ void Shader::compile() {
 
         // load and generate the ourTexture
         int width, height, nrChannels;
-        unsigned char *data = stbi_load("../textures/container.jpg", &width, &height, &nrChannels, 0);
+        unsigned char *data = stbi_load("../models/obj/test.png", &width, &height, &nrChannels, STBI_rgb_alpha);
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         else
