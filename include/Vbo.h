@@ -35,9 +35,10 @@ private:
 public:
     Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     Vbo();
-    Vbo(std::vector<Vertex> vertices, std::vector<unsigned int> indices, int vertexCount);
+    Vbo(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, int vertexCount);
     Vbo(aiMesh* mesh, std::vector<float> data);
     void bind_buffer();
+    void bind_buffer(bool object);
 };
 
 

@@ -10,9 +10,10 @@
 Shader::Shader(const std::string &vertexShader,
                const std::string &fragmentShader,
                Camera *&camera,
-               const std::vector<std::shared_ptr<Light>> &lights, bool skybox) {
+               const std::vector<std::shared_ptr<Light>> &lights, bool skybox, std::string fileName) {
     this->camera = camera;
     this->camera->setShader(this);
+    this->fileName = fileName;
     std::string vs = this->load(vertexShader);
     std::string fs = this->load(fragmentShader);
     this->vertex_shader = vs.c_str();
@@ -109,8 +110,7 @@ void Shader::compile() {
             {
                 glTexImage2D(
                         GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-                        0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
-                );
+                        0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
                 glGenerateMipmap(GL_TEXTURE_2D);
             }
             else
@@ -120,9 +120,12 @@ void Shader::compile() {
             stbi_image_free(data);
         }
         glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
-    }
-    else {
+    } else {
+        if (fileName == ""){
+            return;
+        }
         glGenTextures(1, &ourTexture);
+        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, ourTexture);
 
         // set the ourTexture wrapping/filtering options (on the currently bound ourTexture object)
@@ -134,7 +137,8 @@ void Shader::compile() {
 
         // load and generate the ourTexture
         int width, height, nrChannels;
-        unsigned char *data = stbi_load("../models/obj/test.png", &width, &height, &nrChannels, STBI_rgb_alpha);
+        std::string file = "../models/obj/" + fileName;
+        unsigned char *data = stbi_load(file.c_str(), &width, &height, &nrChannels, STBI_rgb_alpha);
         if (data)
         {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -147,6 +151,9 @@ void Shader::compile() {
         glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
         stbi_image_free(data);
     }
+}
+
+void Shader::addTexture(const std::string &fileName){
 }
 
 void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {

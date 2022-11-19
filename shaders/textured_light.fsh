@@ -145,14 +145,13 @@ void main () {
     lightStruct l;
 
     frag_colour = texture(ourTexture, TexCoord);
-/*
+
     for(int i = 0; i < how_many_lights; i++){
         lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
-    lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
-    lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
+        lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
+        lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
     }
     if (foggy == 1.0f){
         frag_colour = fog(frag_colour);
     }
-*/
 }

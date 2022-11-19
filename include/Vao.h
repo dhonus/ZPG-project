@@ -9,6 +9,7 @@ class Vbo;
 class Vao {
 public:
     Vao(std::shared_ptr<Vbo> vbo);
+    Vao(std::shared_ptr<Vbo> vbo, bool object);
     void bind_vertex_array();
 
 private:

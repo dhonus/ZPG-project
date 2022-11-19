@@ -5,6 +5,7 @@
 #include "../include/Mesh.h"
 int indicesCount = 0;
 
+/// unused
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
     this->vertices = vertices;
     this->indices = indices;
@@ -25,19 +26,14 @@ Mesh::Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int
     bind_vertex_array();
 }
 
-void Mesh::setup() {
-
-}
-
-void Mesh::bind_vertex_array() {
-    this->VAO->bind_vertex_array();
-}
-
-void Mesh::draw_arrays(){
-    glDrawArrays(mode, 0, vertexCount);
-}
-
 Mesh::Mesh(const std::string& fileName) {
+    this->mode = GL_TRIANGLES;
+
+    GLuint err = glGetError();
+    if (err != GL_NO_ERROR)
+    {
+        std::cout << "GL ERROR: " << err << std::endl;
+    }
     Assimp::Importer importer;
     unsigned int importOptions = aiProcess_Triangulate
                                  | aiProcess_OptimizeMeshes              // sloučení malých plošek
@@ -48,10 +44,8 @@ Mesh::Mesh(const std::string& fileName) {
     //aiProcess_GenNormals/ai_Process_GenSmoothNormals - vypocet normal s jemnych prechodem v pripade, ze objekt neobsahuje normaly
 
     std::string file = "../models/obj/" + fileName;
-    const aiScene* scene = importer.ReadFile("../models/obj/model.obj", importOptions);
+    const aiScene* scene = importer.ReadFile(file, importOptions);
     aiMesh* mesh = scene->mMeshes[0];
-
-    this->mode = GL_TRIANGLES;
 
     if (scene) {
         count = mesh->mNumFaces * 3;
@@ -70,22 +64,25 @@ Mesh::Mesh(const std::string& fileName) {
         }
     }
 
-    indicesCount = mesh->mNumFaces * 3;
     this->vertexCount = count;
 
-    this->VBO = std::make_shared<Vbo>(mesh, data);
-    this->VAO = std::make_shared<Vao>(VBO);
+    //this->VBO = std::make_shared<Vbo>(mesh, data);
+    this->VBO = std::make_shared<Vbo>(data, vertexCount, 3, 3, 3, 8);
 
-    VAO->bind_vertex_array();
+    this->VAO = std::make_shared<Vao>(VBO, true);
 
-    GLuint err = glGetError();
-    if (err != GL_NO_ERROR)
-    {
-        std::cout << "GL ERROR: " << err << std::endl;
-        return;
-    }
+    bind_vertex_array();
+}
 
 
-    glBindVertexArray(0);
+void Mesh::setup() {
 
+}
+
+void Mesh::bind_vertex_array() {
+    this->VAO->bind_vertex_array();
+}
+
+void Mesh::draw_arrays(){
+    glDrawArrays(mode, 0, vertexCount);
 }

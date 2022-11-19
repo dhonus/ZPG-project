@@ -5,7 +5,7 @@ Vbo::Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, 
     VBO = 0;
     glGenBuffers(1, &VBO); // generate the VBO
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, t_points.size() * sizeof(float), t_points.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, t_points.size() * sizeof(float), &t_points[0], GL_STATIC_DRAW);
     this->positionSize = positionSize;
     this->normalsSize = normalsSize;
     this->normalsOffset = normalsOffset;
@@ -33,43 +33,10 @@ void Vbo::bind_buffer() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void*)(overallSize - 2 * sizeof(float)));
 }
 
-// assimp
-
-Vbo::Vbo(std::vector<Vertex> vertices, std::vector<unsigned int> indices, int vertexCount){
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
+void Vbo::bind_buffer(bool object) {
+    std::cout << "obk" << std::endl;
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
-    // vertex positions
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    // vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-    // vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-
-    glBindVertexArray(0);
-}
-
-Vbo::Vbo(aiMesh* mesh, std::vector<float> data){
-    //Vertex Array Object (VAO)
-    GLuint VBO = 0;
-    glGenBuffers(1, &VBO); // generate the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(float), &data[0], GL_STATIC_DRAW);
-
-    GLuint VAO = 0;
-    glGenVertexArrays(1, &VAO); //generate the VAO
-    glBindVertexArray(VAO); //bind the VAO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, points.size()*sizeof(float), &points[0], GL_STATIC_DRAW);
 
     //enable vertex attributes
     glEnableVertexAttribArray(0);
@@ -78,5 +45,16 @@ Vbo::Vbo(aiMesh* mesh, std::vector<float> data){
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(sizeof(float) * 3));
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(sizeof(float) * 6));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(sizeof(float) * (overallSize - 2)));
+}
+
+// assimp
+
+
+Vbo::Vbo(aiMesh* mesh, std::vector<float> data){
+    // pass
+}
+
+Vbo::Vbo(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, int vertexCount) {
+
 }

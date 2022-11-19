@@ -1,0 +1,12 @@
+# Blender 3.3.1 MTL File: 'Sketchfab_2022_10_14_01_48_28.blend'
+# www.blender.org
+
+newmtl Road
+Ns 240.991745
+Ka 0.087879 0.087879 0.087879
+Kd 1.000000 1.000000 1.000000
+Ks 0.569697 0.569697 0.569697
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+illum 3
+map_d toppng.com-pathway-png-900x225.png

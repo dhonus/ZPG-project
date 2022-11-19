@@ -1,3 +1,4 @@
+![alt text](0_screenshots/0_terrain.png)
 ![alt text](0_screenshots/0uncutLight.png)
 ![alt text](0_screenshots/0cutLight.png)
 ![alt text](0_screenshots/phong.png)

@@ -65,7 +65,7 @@ void Camera::update(Subject& subject) {
 }
 
 Camera::Camera(int width, int height, Callbacks& callback) {
-    this->position = glm::vec3 {0.0f, 0.0f, 3.0f};
+    this->position = glm::vec3 {90.0f, 20.0f, 40.0f};
     this->target = glm::vec3 {0.f, 0.f, -2.f};
     this->upwards = glm::vec3 {0.f, 1.f, 0.f};
     this->lastX = width/2,

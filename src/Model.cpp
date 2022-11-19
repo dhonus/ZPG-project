@@ -8,7 +8,6 @@
 
 Model::Model(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize) {
     this->mesh = std::make_shared<Mesh>(vertices, mode, vertexCount, positionSize, normalsSize, normalsOffset, overallSize);
-
 }
 
 int Model::draw(){
