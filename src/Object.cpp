@@ -42,3 +42,10 @@ Object::Object(const std::string fileName, glm::vec3 t_color) {
     this->model = std::make_shared<Model>(fileName);
     this->trans = std::make_unique<Trans>();
 }
+
+void Object::setID(int t_id) {
+    this->id = t_id;
+}
+int Object::getID() {
+    return this->id;
+}

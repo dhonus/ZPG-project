@@ -28,6 +28,8 @@ public:
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);
     Object* linkShader(std::shared_ptr<Shader> shader);
+    void setID(int t_id);
+    int getID();
 private:
     std::unique_ptr<Trans> trans;
     std::shared_ptr<Model> model;
@@ -36,6 +38,7 @@ private:
     std::string vertexShader{};
     std::string fragmentShader{};
     glm::vec3 color;
+    int id = 0;
 };
 
 #endif //OGL_TST_02_OBJECT_H

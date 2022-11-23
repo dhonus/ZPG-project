@@ -15,16 +15,21 @@
 #include "Camera.h"
 #include "memory"
 #include "Observer.h"
+#include "Scene.h"
 
 class Camera;
+class Scene;
 
 class Callbacks : public Subject {
 public:
     Callbacks(GLFWwindow& window);
-    static void setCamera(Camera *&camera);
+    static void setCamera(Camera *&t_camera);
+    static void setScene(Scene *&t_scene);
     static float width, height;
+    glm::vec3 clickedPosition;
 private:
     static Camera* camera;
+    static Scene* scene;
     static Callbacks* callbacks;
     static Callbacks& instance();
     GLFWwindow* window;

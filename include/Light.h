@@ -18,9 +18,6 @@ public:
     glm::vec3 pColor;
     glm::vec3 pDirection;
 
-    float constant;
-    float linear;
-    float quadratic;
     float pCutoff;
 
     glm::vec3 ambient;

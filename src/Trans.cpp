@@ -67,7 +67,9 @@ void Trans::remove(std::shared_ptr<Composite> g){
     transformations.remove(g);
 }
 
-Trans::~Trans(){}
+Trans::~Trans(){
+   transformations.clear();
+}
 
 
 glm::mat4 Trans::getMatrix(){

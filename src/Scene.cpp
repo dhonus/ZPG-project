@@ -7,17 +7,17 @@
 #include "../models/suzi_smooth.h"
 #include "../models/suzi_flat.h"
 #include "../models/floor.h"
-#include "../models/tree.h"
 #include "../models/bush.h"
 #include "../models/gift.h"
 #include "../models/cube.h"
 
 int Scene::render() {
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
     while (!glfwWindowShouldClose(window->getWindow())) {
         glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
-        //glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
-        //glClearColor(0.5f, 0.7f, 0.9f, 1.0f);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -31,7 +31,10 @@ int Scene::render() {
                 glfwGetKey( window->getWindow(), GLFW_KEY_SPACE ) == GLFW_PRESS,
                 glfwGetKey( window->getWindow(), GLFW_KEY_LEFT_SHIFT ) == GLFW_PRESS );
 
-        for (auto & o : this->objects) o->draw();
+        for (auto & o : this->objects){
+            glStencilFunc(GL_ALWAYS, o->getID(), 0xFF);
+            o->draw();
+        }
 
         hud->draw(*camera);
 
@@ -51,6 +54,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     this->callbacks = new Callbacks(*this->window->getWindow());
     this->camera = new Camera(width, height, *callbacks);
     this->callbacks->setCamera(this->camera);
+    this->callbacks->attach(this);
     this->callbacks->attach(this->camera);
 
     /* TRANSFORMATIONS */
@@ -66,11 +70,12 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
 
     /* LIGHTS */
     auto sunLight = std::make_shared<PointLight>(glm::vec3(100.0f, 10.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.75f));
+    std::shared_ptr<SpotLight> spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
     auto moonLight = std::make_shared<PointLight>(glm::vec3(250.0f, 90.0f, 90.0f), glm::vec3(0.2f, 0.2f, 0.3f));
     auto pureWhiteLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     auto redLight = std::make_shared<PointLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.0f, 0.0f));
     auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-0.2f, -1.0f, -0.3f));
-    auto spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
+    auto dumbLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
     lights.push_back(sunLight);
     lights.push_back(pureWhiteLight);
 
@@ -98,9 +103,10 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true, "");
 
     std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "model.png");
-    std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "TerrainTexture.png");
+    std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "TerrainTexture_01.png");
     std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "world/toppng_com-pathway-png-900x225.png");
-    std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "world/Rock.png");
+    std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{dumbLight}, false, "world/Rock.png");
+//    std::shared_ptr<Shader> crosshairShader = std::make_shared<Shader>("crosshair.vsh", "crosshair.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, false, "target_small.png");
 
     /* MODELS */
     //std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
@@ -128,6 +134,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     addObjectToScene(
             std::make_shared<Object>(worldModel, white))
             ->linkShader(worldShader);
+
     addObjectToScene(
             std::make_shared<Object>(roadsModel, black))
             ->linkShader(roadsShader);
@@ -203,16 +210,23 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                     ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     }
 */
+    //glEnable(GL_BLEND); //Enable blending.
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     addObjectToScene(
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
             ->linkShader(multilightShader)
-            ->add(std::make_shared<TransMove>(glm::vec3(-10.0, 5.0, 0.0)));
+            ->add(std::make_shared<TransMove>(glm::vec3(-10.0, 50.0, 0.0)));
 
 
+    /*addObjectToScene(
+            std::make_shared<Object>(cubeModel, white))
+            ->linkShader(crosshairShader);
+    */
     this->hud = std::make_unique<Hud>();
 }
 
 std::shared_ptr<Object> Scene::addObjectToScene(std::shared_ptr<Object> object){
+    object->setID(object_id++);
     this->objects.push_back(object);
     return object;
 }
@@ -220,5 +234,18 @@ std::shared_ptr<Object> Scene::addObjectToScene(std::shared_ptr<Object> object){
 Scene::~Scene() {
     delete this->camera;
     delete this->callbacks;
+}
+
+void Scene::update(Subject &s) {
+    if (&s == callbacks){
+        std::shared_ptr<Shader> treesShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, lights, false, "");
+
+        auto pos = callbacks->clickedPosition;
+        std::cout << "Planting a tree at " << pos.x << " " << pos.y << " " << pos.z <<  std::endl;
+        addObjectToScene(
+                std::make_shared<Object>(std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6), glm::vec3{0.2f, 0.4f, 0.2f}))
+                ->linkShader(treesShader)
+                ->add(std::make_shared<TransMove>(pos));
+    }
 }
 

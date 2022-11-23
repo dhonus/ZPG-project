@@ -5,6 +5,7 @@
 #include "../include/Callbacks.h"
 
 Camera* Callbacks::camera = nullptr;
+Scene* Callbacks::scene = nullptr;
 Callbacks* Callbacks::callbacks = nullptr;
 
 float Callbacks::width = 0;
@@ -48,9 +49,40 @@ void Callbacks::init() {
             glfwSetWindowShouldClose(window, GL_TRUE);
     };
 
+    auto mouseClickCallback = [](GLFWwindow* window, int button, int action, int mods) {
+        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+            GLbyte color[4];
+            GLfloat depth;
+            GLuint index;
+
+            int width;
+            int height;
+            glfwGetWindowSize(window, &width, &height);
+            GLint x = (GLint)width / 2;
+            GLint y = (GLint)height / 2;
+
+            glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+            glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+            glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+            /*std::cout << "Color: " << (int)color[0] << " " << (int)color[1] << " " << (int)color[2] << " " << (int)color[3] << std::endl;
+            std::cout << "Depth: " << depth << std::endl;
+            std::cout << "Index: " << index << std::endl;*/
+            glm::vec3 screenX = glm::vec3(x, y, depth);
+            glm::mat4 view = camera->getCamera();
+            glm::mat4 projection = camera->getPerspective();
+            glm::vec3 pos = glm::unProject(screenX, view, projection, glm::vec4{0, 0, width, height});
+            std::cout << pos.x << pos.y << pos.z << std::endl;
+            instance().clickedPosition = pos;
+
+            instance().notify();
+        }
+    };
+
     glfwSetErrorCallback(errorCallback);
     glfwSetKeyCallback(window, keyboard);
     glfwSetCursorPosCallback(window, mouseCallback);
+    glfwSetMouseButtonCallback(window, mouseClickCallback);
     glfwSetWindowSizeCallback(window, windowSizeChangeCallback);
     glfwSetWindowIconifyCallback(window, windowIconifiedCallback);
     glfwSetWindowFocusCallback(window, windowFocusedCallback);
@@ -64,6 +96,9 @@ Callbacks::Callbacks(GLFWwindow& window) {
 
 void Callbacks::setCamera(Camera *&t_camera) {
     Callbacks::camera = t_camera;
+}
+void Callbacks::setScene(Scene *&t_scene) {
+    Callbacks::scene = t_scene;
 }
 
 Callbacks &Callbacks::instance() {

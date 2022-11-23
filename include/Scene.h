@@ -11,23 +11,26 @@
 #include "Callbacks.h"
 #include "Hud.h"
 #include "Light.h"
+#include "../models/tree.h"
 
 class Hud;
 class Object;
 class Callbacks;
-class Scene {
+class Scene : Observer{
 public:
     Scene(std::shared_ptr<Window> t_window, int width, int height);
     ~Scene();
     std::vector<std::shared_ptr<Object>> objects;
     int render();
+    std::shared_ptr<Object> addObjectToScene(std::shared_ptr<Object> object);
+    void update(Subject &s);
 private:
     Camera* camera;
     std::unique_ptr<Hud> hud;
     std::vector<std::shared_ptr<Light>> lights;
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
-    std::shared_ptr<Object> addObjectToScene(std::shared_ptr<Object> object);
+    int object_id = 0;
 };
 
 
