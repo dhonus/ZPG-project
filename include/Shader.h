@@ -57,7 +57,7 @@ private:
 
     bool skybox;
 
-    float fog = 0.0f;
+    float fog = 1.0f;
 
     std::string fileName;
 

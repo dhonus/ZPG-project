@@ -17,7 +17,7 @@ int Hud::draw(Camera& camera) {
     gltSetText(text, position.c_str());
 
     gltBeginDraw();
-    gltColor(1.0f, 1.0f, 1.0f, 0.0f);
+    gltColor(1.0f, 1.0f, 1.0f, 1.0f);
 
     gltDrawText2D(text, 0, 0, 1.5);
     gltEndDraw();

@@ -126,9 +126,9 @@ vec3 spot_light(lightStruct light) {
 }
 
 vec4 fog(vec4 f){
-    float fog_maxdist = 90;
-    float fog_mindist = 0.1;
-    vec4  fog_colour = vec4(0.4, 0.4, 0.4, 1.0);
+    float fog_maxdist = 180;
+    float fog_mindist = 100;
+    vec4  fog_colour = vec4(0.0, 0.0, 0.0, 0.0);
 
     // Calculate fog
     float dist = length(FragPos - cameraPosition);

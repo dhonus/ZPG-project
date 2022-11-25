@@ -15,6 +15,7 @@ int Scene::render() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_STENCIL_TEST);
     glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     while (!glfwWindowShouldClose(window->getWindow())) {
         glClearColor(0.4f, 0.4f, 0.4f, 1.0f);

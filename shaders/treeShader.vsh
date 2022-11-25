@@ -17,5 +17,4 @@ void main () {
     colors = aNormal;
     Normal = vec3(aNormal);
     FragPos = vec3(modelMatrix*aPos);
-
 }
