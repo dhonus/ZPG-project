@@ -103,7 +103,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true, "");
 
     std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "model.png");
-    std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "normal_map_box/albedo.png");
+    std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("normal_mapping.vsh", "normal_mapping.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "normal_map_box/albedo.png");
     std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "TerrainTexture_01.png");
     std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "world/toppng_com-pathway-png-900x225.png");
     std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{dumbLight}, false, "world/Rock.png");
@@ -121,24 +121,37 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Model> cliffsModel = std::make_shared<Model>("world/cliffs.obj");
     std::shared_ptr<Model> boxModel = std::make_shared<Model>("normal_map_box/model.obj");
 
+    /* TEXTURES */
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>(false, "model.png");
+    std::shared_ptr<Texture> skyTexture = std::make_shared<Texture>(true, "");
+    std::shared_ptr<Texture> worldTexture = std::make_shared<Texture>(false, "TerrainTexture_01.png");
+    std::shared_ptr<Texture> roadTexture = std::make_shared<Texture>(false, "world/toppng_com-pathway-png-900x225.png");
+    std::shared_ptr<Texture> cliffTexture = std::make_shared<Texture>(false, "world/Rock.png");
+    std::shared_ptr<Texture> normalMappingBaseTexture = std::make_shared<Texture>(false, "normal_map_box/albedo.png");
+    std::shared_ptr<Texture> normalMappingNMTexture = std::make_shared<Texture>(false, "normal_map_box/normalmap.png");
+
     /* OBJECTS */
     glDepthMask(GL_FALSE);
     addObjectToScene(
             std::make_shared<Object>(cubeModel, white))
+            ->linkTexture(skyTexture)
             ->linkShader(skyBoxShader);
     glDepthMask(GL_TRUE);
 
     addObjectToScene(
             std::make_shared<Object>(houseModel, white))
                     ->linkShader(texturedLightShader)
+                    ->linkTexture(texture)
                     ->add(std::make_shared<TransMove>(glm::vec3(31.0, 5.7, 28.0)))
                     ->add(std::make_shared<TransRotate>(true, 1.4f, -glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 30.0f, 0.0f)));
     addObjectToScene(
             std::make_shared<Object>(worldModel, white))
+            ->linkTexture(worldTexture)
             ->linkShader(worldShader);
 
     addObjectToScene(
             std::make_shared<Object>(roadsModel, black))
+            ->linkTexture(roadTexture)
             ->linkShader(roadsShader);
     addObjectToScene(
             std::make_shared<Object>(havenModel, white))
@@ -146,6 +159,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             ->add(std::make_shared<TransMove>(glm::vec3(10.0, -2, -6.0)));
     addObjectToScene(
             std::make_shared<Object>(cliffsModel, white))
+            ->linkTexture(cliffTexture)
             ->linkShader(cliffsShader);
     addObjectToScene(
             std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8, glm::vec3(0)))
@@ -193,27 +207,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->add(std::make_shared<TransMove>(glm::vec3(2.0f, 0.0f, -4.0f)))
                 ->add(std::make_shared<TransScale>(5.0f));
 
-    /*
-    for (size_t i = 0; i < 70; ++i){
-        addObjectToScene(
-                std::make_shared<Object>(treeModel, darkgreen))
-                    ->linkShader(multilightShader)
-                    ->add(forestMove)
-                    ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70, 0.0, rand() % 60)))
-                    ->add(std::make_shared<TransScale>(1.0f + (rand() % 5) * 0.08))
-                    ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-    }
-    for (size_t i = 0; i < 100; ++i){
-        addObjectToScene(
-                std::make_shared<Object>(bushModel, darkgreen))
-                    ->linkShader(treeShader)
-                    ->add(forestMove)
-                    ->add(std::make_shared<TransMove>(glm::vec3(rand() % 70  + (rand() % 50 * 0.1), 0.0, rand() % 60  + (rand() % 50 * 0.1))))
-                    ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
-    }
-*/
-    //glEnable(GL_BLEND); //Enable blending.
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     addObjectToScene(
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
             ->linkShader(multilightShader)
@@ -222,6 +216,8 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     addObjectToScene(
             std::make_shared<Object>(boxModel, white))
             ->linkShader(normalMapShader)
+            ->linkTexture(normalMappingBaseTexture)
+            ->linkTexture(normalMappingNMTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(100.0, 20.0, 40.0)));
 
 

@@ -16,9 +16,9 @@
 #include "Vao.h"
 #include <memory>
 
-#include<assimp/Importer.hpp>
-#include<assimp/scene.h>
-#include<assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 struct Vertex {
@@ -27,7 +27,7 @@ struct Vertex {
     glm::vec2 TexCoords;
     glm::vec3 tangent;
 };
-struct Texture {
+struct TextureStruct {
     unsigned int id;
     std::string type;
 };
@@ -39,8 +39,8 @@ class Mesh {
 public:
     std::vector<Vertex> vertices;
     std::vector<uint> indices;
-    std::vector<Texture> textures;
-    Mesh(std::vector<Vertex> vertices, std::vector<uint> indices, std::vector<Texture> textures);
+    std::vector<TextureStruct> textures;
+    Mesh(std::vector<Vertex> vertices, std::vector<uint> indices, std::vector<TextureStruct> textures);
     Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     Mesh(const std::string& fileName);
 

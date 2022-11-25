@@ -7,6 +7,17 @@
 
 int Object::draw() {
     this->shader->draw(trans->getMatrix(), color);
+
+    if(texture != nullptr){
+        glActiveTexture(GL_TEXTURE0);
+        texture->bind();
+    }
+
+    if(normalMappingTexture!= nullptr){
+        glActiveTexture(GL_TEXTURE1);
+        normalMappingTexture->bind();
+    }
+
     this->model->draw();
     return 0;
 }
@@ -34,6 +45,20 @@ void Object::remove(std::shared_ptr<Composite> obj){
 
 Object* Object::linkShader(std::shared_ptr<Shader> shader) {
     this->shader = shader;
+
+    return this;
+}
+Object* Object::linkTexture(std::shared_ptr<Texture> texture) {
+    if (this->texture == nullptr){
+        this->texture = texture;
+        return this;
+    }
+    if (this->normalMappingTexture == nullptr){
+        this->normalMappingTexture = texture;
+        return this;
+    }
+
+    std::cout << "No texture slot available\n" << std::flush;
     return this;
 }
 

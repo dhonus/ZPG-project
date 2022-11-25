@@ -12,9 +12,10 @@
 #include "string"
 #include "Observer.h"
 #include "Scene.h"
-
+#include "Texture.h"
 
 class Shader;
+class Texture;
 class Camera;
 class Scene;
 
@@ -28,12 +29,15 @@ public:
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);
     Object* linkShader(std::shared_ptr<Shader> shader);
+    Object* linkTexture(std::shared_ptr<Texture> texture);
     void setID(int t_id);
     int getID();
 private:
     std::unique_ptr<Trans> trans;
     std::shared_ptr<Model> model;
     std::shared_ptr<Shader> shader;
+    std::shared_ptr<Texture> texture;
+    std::shared_ptr<Texture> normalMappingTexture;
     glm::mat4 matrix = glm::mat4(1.0f);
     std::string vertexShader{};
     std::string fragmentShader{};

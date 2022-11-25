@@ -6,7 +6,7 @@
 int indicesCount = 0;
 
 /// unused
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureStruct> textures){
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
@@ -59,6 +59,9 @@ Mesh::Mesh(const std::string& fileName) {
                 data.push_back(mesh->mNormals[mesh->mFaces[i].mIndices[j]].z);
                 data.push_back(mesh->mTextureCoords[0][mesh->mFaces[i].mIndices[j]].x);
                 data.push_back(mesh->mTextureCoords[0][mesh->mFaces[i].mIndices[j]].y);
+                data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].x);
+                data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].y);
+                data.push_back(mesh->mTangents[mesh->mFaces[i].mIndices[j]].z);
             }
         }
     }

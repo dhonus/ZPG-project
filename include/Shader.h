@@ -39,7 +39,6 @@ public:
     void update(Subject& subject);
     void addTexture(const std::string &fileName);
 private:
-    unsigned int ourTexture;
     std::map<std::string, GLint> uniforms;
 
     GLint uniformMapper(const std::string &uniformName);
