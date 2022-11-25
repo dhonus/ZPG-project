@@ -103,6 +103,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true, "");
 
     std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "model.png");
+    std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "normal_map_box/albedo.png");
     std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "TerrainTexture_01.png");
     std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "world/toppng_com-pathway-png-900x225.png");
     std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{dumbLight}, false, "world/Rock.png");
@@ -118,6 +119,7 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     std::shared_ptr<Model> worldModel = std::make_shared<Model>("world/world.obj");
     std::shared_ptr<Model> havenModel = std::make_shared<Model>("world/haven.obj");
     std::shared_ptr<Model> cliffsModel = std::make_shared<Model>("world/cliffs.obj");
+    std::shared_ptr<Model> boxModel = std::make_shared<Model>("normal_map_box/model.obj");
 
     /* OBJECTS */
     glDepthMask(GL_FALSE);
@@ -216,6 +218,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
             ->linkShader(multilightShader)
             ->add(std::make_shared<TransMove>(glm::vec3(-10.0, 50.0, 0.0)));
+
+    addObjectToScene(
+            std::make_shared<Object>(boxModel, white))
+            ->linkShader(normalMapShader)
+            ->add(std::make_shared<TransMove>(glm::vec3(100.0, 20.0, 40.0)));
 
 
     /*addObjectToScene(
