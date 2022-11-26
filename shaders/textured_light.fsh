@@ -144,7 +144,10 @@ vec4 fog(vec4 f){
 void main () {
     lightStruct l;
 
-    frag_colour = texture(ourTexture, TexCoord);
+    vec4 texcolor = texture(ourTexture, TexCoord);
+    if(texcolor.a < 0.1)
+        discard;
+    frag_colour = texcolor;
 
     for(int i = 0; i < how_many_lights; i++){
         lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;

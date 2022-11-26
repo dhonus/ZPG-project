@@ -4,52 +4,46 @@
 
 #include <glm/ext/matrix_transform.hpp>
 #include "../include/Camera.h"
-
+/// compute view matrix
 glm::mat4 Camera::getCamera() {
-    return glm::lookAt(this->position, position + target, upwards);
+    auto target_pos = position + target;
+    return glm::lookAt(this->position, target_pos, upwards);
 }
 
 glm::vec3 Camera::getPosition() const{
     return this->position;
 }
 
-
 glm::vec3 Camera::getDirection() const{
     return this->target;
 }
 
 void Camera::mouse(float x, float y) {
-    /*
-     * The pitch is the angle that depicts how much we're looking up or down as seen in the first image.
-     * The second image shows the yaw value which represents the magnitude we're looking to the left or to the right.
-     * The roll represents how much we roll as mostly used in space-flight cameras. Each of the Euler angles are
-     * represented by a single value and with the combination of all 3 of them we can calculate any rotation vector in 3D.
-    */
     if (first)
     {
-        lastX = x;
-        lastY = y;
-        first = false;
+        this->lastX = x;
+        this->lastY = y;
+        this->first = false;
     }
-    float xoffset = x - lastX;
-    float yoffset = lastY - y; // reversed since y-coordinates range from bottom to top
-    lastX = x;
-    lastY = y;
+    glm::vec2 camera_offset_since_last_frame = glm::vec2(x - lastX, lastY - y); // y val reversed since y-coordinates range from bottom to top
+    this->lastX = x;
+    this->lastY = y;
 
-    const float sensitivity = 0.2f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-    yaw   += xoffset;
-    pitch += yoffset;
+    auto sensitivity = 0.20f;
+    camera_offset_since_last_frame.x *= sensitivity;
+    camera_offset_since_last_frame.y *= sensitivity;
+    sideways_angle += camera_offset_since_last_frame.x;
+    up_down_angle += camera_offset_since_last_frame.y;
 
-    if(pitch > 89.0f)
-        pitch =  89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
+    if(up_down_angle > 89.0f)
+        up_down_angle =  89.0f;
+    if(up_down_angle < -89.0f)
+        up_down_angle = -89.0f;
 
-    this->target.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    this->target.y = sin(glm::radians(pitch));
-    this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    // get the rotation vector
+    this->target.x = cos(glm::radians(sideways_angle)) * cos(glm::radians(up_down_angle));
+    this->target.y = sin(glm::radians(up_down_angle));
+    this->target.z = sin(glm::radians(sideways_angle)) * cos(glm::radians(up_down_angle));
     this->target = glm::normalize(target);
 
     notify();
@@ -59,25 +53,24 @@ void Camera::update(Subject& subject) {
     if (&subject == callback){
         this->width = callback->width;
         this->height = callback->height;
-        this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
+        // projection matrix
+        this->camera = glm::perspective(glm::radians(fov), this->width / this->height, 0.1f, 300.0f);
         notify();
     }
 }
 
 Camera::Camera(int width, int height, Callbacks& callback) {
+    this->callback = &callback;
     this->position = glm::vec3 {90.0f, 20.0f, 40.0f};
     this->target = glm::vec3 {0.f, 0.f, -2.f};
     this->upwards = glm::vec3 {0.f, 1.f, 0.f};
-    this->lastX = width/2,
-    this->lastY = height/2;
-    this->callback = &callback;
     this->width = width;
     this->height = height;
-    this->camera = glm::perspective(glm::radians(45.0f), this->width / this->height, 0.1f, 300.0f);
-    this->target.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    this->target.y = sin(glm::radians(pitch));
-    this->target.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    this->target = glm::normalize(target);
+    this->fov = 60.0f;
+    // projection matrix
+    this->camera = glm::perspective(glm::radians(fov), this->width / this->height, 0.1f, 300.0f);
+
+    notify();
 }
 
 void Camera::move(bool front, bool back, bool left, bool right, bool up, bool down) {

@@ -113,7 +113,6 @@ void Shader::update(Subject& subject) {
         this->camMatrix = camera->getCamera();
         glProgramUniformMatrix4fv(shaderProgram, uniformMapper("projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
         glProgramUniformMatrix4fv(shaderProgram, uniformMapper("viewMatrix"), 1, GL_FALSE, glm::value_ptr(camMatrix));
-        glProgramUniformMatrix4fv(shaderProgram, uniformMapper("cameraDirection"), 1, GL_FALSE, glm::value_ptr(camMatrix));
         glProgramUniform3fv(shaderProgram, uniformMapper("cameraPosition"), 1, glm::value_ptr(camera->getPosition()));
         for (size_t i = 0; i < lights.size(); ++i){
             if (lights[i]->pType == 3){

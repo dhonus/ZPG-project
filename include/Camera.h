@@ -33,10 +33,11 @@ private:
     float height = 600;
     float lastX =  800.0f / 2.0;
     float lastY =  600.0 / 2.0;
-    float yaw = -90.0f;
-    float pitch = 0.0f;
+    float sideways_angle = -90.0f;
+    float up_down_angle = 0.0f;
     float deltaTime = 0.0f;	// Time between current frame and last frame
     float lastFrame = 0.0f; // Time of last frame
+    float fov;
 public:
     Camera(int width, int height, Callbacks& callback);
     glm::mat4 getCamera();
