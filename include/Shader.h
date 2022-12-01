@@ -31,13 +31,12 @@ public:
     Shader(const std::string &vertexShader,
            const std::string &fragmentShader,
            Camera *&camera,
-           const std::vector<std::shared_ptr<Light>> &lights, bool skybox, std::string fileName);
+           const std::vector<std::shared_ptr<Light>> &lights, bool skybox);
     ~Shader() = default;
     void compile();
     void draw(glm::mat4 t_matrix, glm::vec3 t_objectColor);
     void error_check() const;
     void update(Subject& subject);
-    void addTexture(const std::string &fileName);
 private:
     std::map<std::string, GLint> uniforms;
 

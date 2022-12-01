@@ -22,9 +22,11 @@ uniform mat4 normalMatrix;
 void main () {
     //Gram-Schmidt orthonormalization -> 3 perpendicular vectors
     vec3 normal = normalize(aNormal.xyz);
-    vec3 tangent = normalize(tangents - dot(tangents, normal) * normal);
+    vec3 tangent = normalize(normalize(tangents) - dot(tangents, normal) * normal);
     vec3 bitangent = cross(normal, tangent);
 
+
+    // get rid of translation and make sure normal and transform maintain the same orientation
     mat3 normalm = transpose(inverse(mat3(modelMatrix)));
 
     vec3 T = normalize(vec3(normalm * tangent));
@@ -33,9 +35,9 @@ void main () {
     tbn = mat3(T, B, N);
 
     gl_Position = projectionMatrix*viewMatrix*modelMatrix*aPos;
+    FragPos = vec3(modelMatrix*aPos);
     colors = aNormal;
     Normal = vec3(aNormal);
-    FragPos = vec3(modelMatrix*aPos);
     ourColor = vec3(aNormal);
     TexCoord.x = aTexCoord.x;
     TexCoord.y = -aTexCoord.y;

@@ -8,10 +8,9 @@
 Shader::Shader(const std::string &vertexShader,
                const std::string &fragmentShader,
                Camera *&camera,
-               const std::vector<std::shared_ptr<Light>> &lights, bool skybox, std::string fileName) {
+               const std::vector<std::shared_ptr<Light>> &lights, bool skybox) {
     this->camera = camera;
     this->camera->setShader(this);
-    this->fileName = fileName;
     std::string vs = this->load(vertexShader);
     std::string fs = this->load(fragmentShader);
     this->vertex_shader = vs.c_str();
@@ -81,9 +80,6 @@ void Shader::compile() {
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);
     glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
 
-}
-
-void Shader::addTexture(const std::string &fileName){
 }
 
 void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {

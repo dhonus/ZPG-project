@@ -21,5 +21,6 @@ int Hud::draw(Camera& camera) {
 
     gltDrawText2D(text, 0, 0, 1.5);
     gltEndDraw();
+
     return 0;
 }

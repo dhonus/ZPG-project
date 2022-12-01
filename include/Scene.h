@@ -25,12 +25,13 @@ public:
     std::shared_ptr<Object> addObjectToScene(std::shared_ptr<Object> object);
     void update(Subject &s);
 private:
-    Camera* camera;
-    std::unique_ptr<Hud> hud;
-    std::vector<std::shared_ptr<Light>> lights;
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
     int object_id = 0;
+protected:
+    std::vector<std::shared_ptr<Light>> lights;
+    Camera* camera;
+    std::unique_ptr<Hud> hud;
 };
 
 

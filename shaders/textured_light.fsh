@@ -1,19 +1,12 @@
 #version 330
 out vec4 frag_colour;
-in vec4 colors;
 in vec3 Normal;
 in vec3 FragPos;
-in vec4 worldPosition;
-in vec3 worldNormal;
-uniform vec3 cameraPosition;
-uniform mat4 cameraDirection;
-uniform vec3 u_lightColor;
-uniform vec3 u_objectColor;
-uniform vec3 lightPos;
-uniform float foggy;
-uniform sampler2D ourTexture;
-in vec3 ourColor;
 in vec2 TexCoord;
+uniform vec3 cameraPosition;
+uniform vec3 u_objectColor;
+uniform float foggy;
+uniform sampler2D objectTexture;
 
 struct lightStruct {
     int type;
@@ -21,14 +14,7 @@ struct lightStruct {
     vec3 direction;
     vec3 color;
 
-    float constant;
-    float linear;
-    float quadratic;
     float cutoff;
-
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
 };
 
 //#define MAX_LIGHTS 16
@@ -52,7 +38,7 @@ vec3 point_light(lightStruct light) {
 
     // specular
     float specularStrength = 1;
-    vec3 viewDir = normalize(cameraPosition - vec3(worldPosition));
+    vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
     vec3 specular = specularStrength * spec * color;
@@ -79,7 +65,7 @@ vec3 directional_light(lightStruct light) {
 
     // specular
     float specularStrength = 1;
-    vec3 viewDir = normalize(cameraPosition - vec3(worldPosition));
+    vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
     vec3 specular = specularStrength * spec * color;
@@ -102,20 +88,20 @@ vec3 spot_light(lightStruct light) {
     float theta = dot(lightDir, normalize(-light.direction));
     if(theta > cos(radians(light.cutoff))){
 
-        float distance    = length(light.position - FragPos);
+        float distance = length(light.position - FragPos);
         float attenuation = 5.0 / (3.0 + 0.09 * distance + 0.032 * (distance * distance));
         float intensity = (1.0 - (1.0 - theta) / (1.0 - cos(radians(light.cutoff))));
 
         // diffuse
         float diff = max(dot(norm, lightDir), 0.0);
         float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
-        vec3 diffuse = dot_product * color * attenuation * intensity;
+        vec3 diffuse = dot_product * color * attenuation * (intensity/2);
 
         // specular
-        float specularStrength = 1;
-        vec3 viewDir = normalize(cameraPosition - vec3(worldPosition));
+        float specularStrength = 0.3;
+        vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
         vec3 reflectDir = reflect(-lightDir, norm);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
         vec3 specular = specularStrength * spec * color * attenuation * intensity;
 
         if (dot(norm, lightDir) < 0.0){
@@ -142,19 +128,16 @@ vec4 fog(vec4 f){
 }
 
 void main () {
-    lightStruct l;
-
-    vec4 texcolor = texture(ourTexture, TexCoord);
+    vec4 texcolor = texture(objectTexture, TexCoord);
     if(texcolor.a < 0.1)
         discard;
     frag_colour = texcolor;
 
-    for(int i = 0; i < how_many_lights; i++){
+    for(int i = 0; i < how_many_lights; i++) {
         lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
         lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
         lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
     }
-    if (foggy == 1.0f){
+    if (foggy == 1.0f)
         frag_colour = fog(frag_colour);
-    }
 }

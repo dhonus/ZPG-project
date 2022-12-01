@@ -3,6 +3,7 @@
 #include "../include/Window.h"
 #include "../include/Scene.h"
 #include "../include/App.h"
+#include "../include/scenes/OpenWorldScene.h"
 
 App::App() {
     this->window = std::make_shared<Window>(this->width, this->height);

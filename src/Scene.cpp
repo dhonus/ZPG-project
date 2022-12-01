@@ -61,7 +61,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     /* TRANSFORMATIONS */
     std::shared_ptr<Composite> baseOrbit = std::make_shared<Trans>();
     std::shared_ptr<Composite> pohnoutKoulema = std::make_shared<Trans>();
-    //baseOrbit->add(std::make_shared<TransMove>(glm::vec3(20.0, 0.0, 20.0)));
     baseOrbit->add(std::make_shared<TransMove>(glm::vec3(80.0, 20.0, 20.0)));
     baseOrbit->add(std::make_shared<TransRotate>(true, 180, glm::vec3(0.0f, 0.0f, .0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     baseOrbit ->add(std::make_shared<TransMove>(glm::vec3{0.0f, 2.0f, 2.0f}))->add(std::make_shared<TransRotate>(0.5f, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(2.0f, 2.0f, 0.0f)))->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(5.0f, 5.0f, 0.0f)));
@@ -95,24 +94,20 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     }
 
     /* SHADERS */
-    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false, "");
-    std::shared_ptr<Shader> basicLightShader = std::make_shared<Shader>("base.vsh", "light.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight, sunLight}, false, "");
-    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vsh", "4_hezke_koule.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false, "");
-    std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vsh", "treeShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false, "");
-    std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false, "");
-    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, moonLight}, false, "model.png");
-    std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true, "");
+    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
+    std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vsh", "4_hezke_koule.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
+    std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vsh", "treeShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
+    std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
+    std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, moonLight}, false);
+    std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
 
-    std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "model.png");
-    std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("normal_mapping.vsh", "normal_mapping.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false, "normal_map_box/albedo.png");
-    std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "TerrainTexture_01.png");
-    std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false, "world/toppng_com-pathway-png-900x225.png");
-    std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{dumbLight}, false, "world/Rock.png");
-//    std::shared_ptr<Shader> crosshairShader = std::make_shared<Shader>("crosshair.vsh", "crosshair.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, false, "target_small.png");
+    std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false);
+    std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("normal_mapping.vsh", "normal_mapping.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight, redLight }, false);
+    std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
+    std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
+    std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
 
     /* MODELS */
-    //std::shared_ptr<Model> treeModel = std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6);
-    //std::shared_ptr<Model> bushModel = std::make_shared<Model>(bush, GL_TRIANGLES, 8730, 3, 3, 3, 6);
     std::shared_ptr<Model> sphereModel = std::make_shared<Model>(sphere, GL_TRIANGLES, 2880, 3, 3, 3, 6);
     std::shared_ptr<Model> cubeModel = std::make_shared<Model>(cube, GL_TRIANGLES, 36, 3, 2, 3, 5);
     std::shared_ptr<Model> houseModel = std::make_shared<Model>("model.obj");
@@ -140,11 +135,11 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     glDepthMask(GL_TRUE);
 
     addObjectToScene(
-            std::make_shared<Object>(houseModel, white))
-                    ->linkShader(texturedLightShader)
-                    ->linkTexture(texture)
-                    ->add(std::make_shared<TransMove>(glm::vec3(31.0, 5.7, 28.0)))
-                    ->add(std::make_shared<TransRotate>(true, 1.4f, -glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 30.0f, 0.0f)));
+        std::make_shared<Object>(houseModel, white))
+            ->linkShader(texturedLightShader)
+            ->linkTexture(texture)
+            ->add(std::make_shared<TransMove>(glm::vec3(31.0, 5.7, 28.0)))
+            ->add(std::make_shared<TransRotate>(true, 1.4f, -glm::vec3(1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 30.0f, 0.0f)));
     addObjectToScene(
             std::make_shared<Object>(worldModel, white))
             ->linkTexture(worldTexture)
@@ -168,12 +163,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->add(floorMe);
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
-                ->linkShader(basicLightShader)
-                ->add(baseOrbit)
-                ->add(std::make_shared<TransRotate>(2.5f, -glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 5.0f)))
-                ->add(std::make_shared<TransScale>(0.6f));
-    addObjectToScene(
-            std::make_shared<Object>(sphereModel, white))
                 ->linkShader(multilightShader)
                 ->add(baseOrbit)
                 ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
@@ -194,8 +183,10 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
                 ->linkShader(multilightShader)
-                ->add(pohnoutKoulema)
-                ->add(std::make_shared<TransMove>(glm::vec3(0.0, 3.0, 0.0)));
+                ->add(std::make_shared<TransMove>(glm::vec3(-50.0, 120.0, 100.0)))
+                ->add(std::make_shared<TransRotate>(0.5f, -glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(5.0f, 0.0f, 5.0f)))
+                ->add(std::make_shared<TransScale>(40.0f));
+
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
                 ->linkShader(hezkeKouleShader)
@@ -207,7 +198,6 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
                 ->add(forestMove)
                 ->add(std::make_shared<TransMove>(glm::vec3(2.0f, 0.0f, -4.0f)))
                 ->add(std::make_shared<TransScale>(5.0f));
-
 
     addObjectToScene(
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
@@ -221,11 +211,13 @@ Scene::Scene(std::shared_ptr<Window> t_window, int width, int height) {
             ->linkTexture(normalMappingNMTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(100.0, 20.0, 40.0)));
 
+    addObjectToScene(
+            std::make_shared<Object>(std::make_shared<Model>("nmap/sphere/model.obj"), white))
+            ->linkShader(normalMapShader)
+            ->linkTexture(std::make_shared<Texture>(false, "nmap/sphere/albedo.png"))
+            ->linkTexture(std::make_shared<Texture>(false, "nmap/sphere/normalmap.png"))
+            ->add(std::make_shared<TransMove>(glm::vec3(100.0, 10.0, 40.0)));
 
-    /*addObjectToScene(
-            std::make_shared<Object>(cubeModel, white))
-            ->linkShader(crosshairShader);
-    */
     this->hud = std::make_unique<Hud>();
 }
 
@@ -242,13 +234,14 @@ Scene::~Scene() {
 
 void Scene::update(Subject &s) {
     if (&s == callbacks){
-        std::shared_ptr<Shader> treesShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, lights, false, "");
+        std::shared_ptr<Shader> treesShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, lights, false);
 
         auto pos = callbacks->clickedPosition;
         std::cout << "Planting a tree at " << pos.x << " " << pos.y << " " << pos.z <<  std::endl;
         addObjectToScene(
-                std::make_shared<Object>(std::make_shared<Model>(tree, GL_TRIANGLES, 92814, 3, 3, 3, 6), glm::vec3{0.2f, 0.4f, 0.2f}))
+                std::make_shared<Object>("trees/tree/tree.obj", glm::vec3{0.2f, 0.2f, 0.2f}))
                 ->linkShader(treesShader)
+                ->linkTexture(std::make_shared<Texture>(false, "trees/tree/tree.png"))
                 ->add(std::make_shared<TransMove>(pos));
     }
 }

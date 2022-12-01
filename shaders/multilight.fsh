@@ -52,7 +52,7 @@ vec3 point_light(lightStruct light) {
     float specularStrength = 1;
     vec3 viewDir = normalize(vec3(cameraDirection));
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8.0f);
     vec3 specular = specularStrength * spec * color;
 
     if (dot(norm, lightDir) < 0.0){
