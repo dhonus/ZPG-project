@@ -5,7 +5,7 @@
 #include <iostream>
 #include "../include/Hud.h"
 
-int Hud::draw(Camera& camera) {
+int Hud::draw(Camera &camera) {
     gltInit();
 
     GLTtext *text = gltCreateText();

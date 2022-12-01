@@ -47,7 +47,6 @@ public:
     void draw_arrays();
     void bind_vertex_array();
 private:
-    void setup();
     std::shared_ptr<Vbo> VBO;
     std::shared_ptr<Vao> VAO;
     GLenum mode;

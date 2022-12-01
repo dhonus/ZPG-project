@@ -3,21 +3,21 @@
 //
 
 #include "../include/Mesh.h"
+
 int indicesCount = 0;
 
 /// unused
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureStruct> textures){
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureStruct> textures) {
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
 
     this->VBO = std::make_shared<Vbo>(vertices, indices, vertexCount);
     this->VAO = std::make_shared<Vao>(VBO);
-
-    setup();
 }
 
-Mesh::Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize){
+Mesh::Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize,
+           int normalsOffset, int overallSize) {
     this->mode = mode;
     this->vertexCount = vertexCount;
 
@@ -26,31 +26,26 @@ Mesh::Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int
     bind_vertex_array();
 }
 
-Mesh::Mesh(const std::string& fileName) {
+Mesh::Mesh(const std::string &fileName) {
     this->mode = GL_TRIANGLES;
 
-    GLuint err = glGetError();
-    if (err != GL_NO_ERROR)
-    {
-        std::cout << "GL ERROR: " << err << std::endl;
-    }
     Assimp::Importer importer;
-    unsigned int importOptions =   aiProcess_OptimizeMeshes              // sloučení malých plošek
+    unsigned int importOptions = aiProcess_OptimizeMeshes              // sloučení malých plošek
                                  | aiProcess_JoinIdenticalVertices       // NUTNÉ jinak hodně duplikuje
                                  | aiProcess_Triangulate                 // prevod vsech ploch na trojuhelniky
-                                 | aiProcess_CalcTangentSpace;           // vypocet tangenty, nutny pro spravne pouziti normalove mapy
+                                 |
+                                 aiProcess_CalcTangentSpace;           // vypocet tangenty, nutny pro spravne pouziti normalove mapy
 
     //aiProcess_GenNormals/ai_Process_GenSmoothNormals - vypocet normal s jemnych prechodem v pripade, ze objekt neobsahuje normaly
 
     std::string file = "../models/obj/" + fileName;
-    const aiScene* scene = importer.ReadFile(file, importOptions);
-    aiMesh* mesh = scene->mMeshes[0];
+    const aiScene *scene = importer.ReadFile(file, importOptions);
+    aiMesh *mesh = scene->mMeshes[0];
 
     if (scene) {
         count = mesh->mNumFaces * 3;
-        for (unsigned int i = 0; i < mesh->mNumFaces; i++){
-            for (unsigned int j = 0; j < 3; j++)
-            {
+        for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
+            for (unsigned int j = 0; j < 3; j++) {
                 data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].x);
                 data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].y);
                 data.push_back(mesh->mVertices[mesh->mFaces[i].mIndices[j]].z);
@@ -68,23 +63,17 @@ Mesh::Mesh(const std::string& fileName) {
 
     this->vertexCount = count;
 
-    //this->VBO = std::make_shared<Vbo>(mesh, data);
     this->VBO = std::make_shared<Vbo>(data, vertexCount, 3, 3, 3, 8);
-
     this->VAO = std::make_shared<Vao>(VBO, true);
 
     bind_vertex_array();
-}
-
-
-void Mesh::setup() {
-
+    std::cout << "\t[->] Created mesh from file: " << fileName << std::endl;
 }
 
 void Mesh::bind_vertex_array() {
     this->VAO->bind_vertex_array();
 }
 
-void Mesh::draw_arrays(){
+void Mesh::draw_arrays() {
     glDrawArrays(mode, 0, vertexCount);
 }

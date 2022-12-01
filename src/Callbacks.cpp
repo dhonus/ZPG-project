@@ -4,9 +4,9 @@
 
 #include "../include/Callbacks.h"
 
-Camera* Callbacks::camera = nullptr;
-Scene* Callbacks::scene = nullptr;
-Callbacks* Callbacks::callbacks = nullptr;
+Camera *Callbacks::camera = nullptr;
+Scene *Callbacks::scene = nullptr;
+Callbacks *Callbacks::callbacks = nullptr;
 
 float Callbacks::width = 0;
 float Callbacks::height = 0;
@@ -21,15 +21,15 @@ void Callbacks::init() {
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 
     auto windowFocusedCallback = [](GLFWwindow *window, int focused) {
-        std::cout << "windowFocusedCallback\n";
+        std::cout << "[!!] windowFocusedCallback\n";
     };
 
     auto windowIconifiedCallback = [](GLFWwindow *window, int iconified) {
-        std::cout << "windowIconifiedCallback\n";
+        std::cout << "[!!] windowIconifiedCallback\n";
     };
 
-    auto windowSizeChangeCallback = [](GLFWwindow *window, int width, int height){
-        std::cout << "resize W: " << width << " H: " <<  height << "\n" << std::flush;
+    auto windowSizeChangeCallback = [](GLFWwindow *window, int width, int height) {
+        std::cout << "[!!] Resize W: " << width << " H: " << height << "\n" << std::flush;
         glViewport(0, 0, width, height);
         instance().width = width;
         instance().height = height;
@@ -37,19 +37,19 @@ void Callbacks::init() {
     };
 
     auto mouseCallback = [](GLFWwindow *win, double x, double y) {
-        if (!camera){
-            std::cout << "camera not bound\n" << std::flush;
+        if (!camera) {
+            std::cout << "[!!] Camera not bound\n" << std::flush;
             return;
         }
         camera->mouse(x, y);
     };
 
-    auto keyboard = [](GLFWwindow *window, int key, int scancode, int action, int mods){
+    auto keyboard = [](GLFWwindow *window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GL_TRUE);
     };
 
-    auto mouseClickCallback = [](GLFWwindow* window, int button, int action, int mods) {
+    auto mouseClickCallback = [](GLFWwindow *window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
             GLbyte color[4];
             GLfloat depth;
@@ -58,22 +58,20 @@ void Callbacks::init() {
             int width;
             int height;
             glfwGetWindowSize(window, &width, &height);
-            GLint x = (GLint)width / 2;
-            GLint y = (GLint)height / 2;
+            GLint x = (GLint) width / 2;
+            GLint y = (GLint) height / 2;
 
             glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
             glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
             glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
 
-            /*std::cout << "Color: " << (int)color[0] << " " << (int)color[1] << " " << (int)color[2] << " " << (int)color[3] << std::endl;
-            std::cout << "Depth: " << depth << std::endl;
-            std::cout << "Index: " << index << std::endl;*/
             glm::vec3 screenX = glm::vec3(x, y, depth);
             glm::mat4 view = camera->getCamera();
             glm::mat4 projection = camera->getPerspective();
             glm::vec3 pos = glm::unProject(screenX, view, projection, glm::vec4{0, 0, width, height});
-            std::cout << pos.x << pos.y << pos.z << std::endl;
+            std::cout << "[??] Mouse clicked at " << pos.x << pos.y << pos.z << std::endl;
             instance().clickedPosition = pos;
+            instance().clickedId = index;
 
             instance().notify();
         }
@@ -88,7 +86,7 @@ void Callbacks::init() {
     glfwSetWindowFocusCallback(window, windowFocusedCallback);
 }
 
-Callbacks::Callbacks(GLFWwindow& window) {
+Callbacks::Callbacks(GLFWwindow &window) {
     this->window = &window;
     this->init();
     this->callbacks = this;
@@ -97,6 +95,7 @@ Callbacks::Callbacks(GLFWwindow& window) {
 void Callbacks::setCamera(Camera *&t_camera) {
     Callbacks::camera = t_camera;
 }
+
 void Callbacks::setScene(Scene *&t_scene) {
     Callbacks::scene = t_scene;
 }

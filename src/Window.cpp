@@ -3,7 +3,7 @@
 
 Window::Window(int width, int height) {
     glfwGetVersion(&major, &minor, &revision);
-    std::cout << "Using GLFW " << major << " " << minor << " " <<  revision << "\n" << std::flush;
+    std::cout << "[??] Using GLFW " << major << " " << minor << " " << revision << "\n" << std::flush;
 
     glViewport(0, 0, width, height);
 
@@ -28,11 +28,11 @@ Window::Window(int width, int height) {
 
 void Window::get_version_info() {
     std::cout
-        << "OpenGL Version: " << glGetString(GL_VERSION)
-        << "\nUsing GLEW: " << glewGetString(GLEW_VERSION)
-        << "\nVendor: " << glGetString(GL_VENDOR)
-        << "\nScene: " << glGetString(GL_RENDERER)
-        << "\nGLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n" << std::flush;
+            << "OpenGL Version: " << glGetString(GL_VERSION)
+            << "\nUsing GLEW: " << glewGetString(GLEW_VERSION)
+            << "\nVendor: " << glGetString(GL_VENDOR)
+            << "\nScene: " << glGetString(GL_RENDERER)
+            << "\nGLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n" << std::flush;
 }
 
 Window::~Window() {
@@ -40,7 +40,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-GLFWwindow* Window::getWindow() {
+GLFWwindow *Window::getWindow() {
     return this->window;
 }
 

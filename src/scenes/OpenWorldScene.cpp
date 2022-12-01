@@ -7,7 +7,6 @@
 #include "../../models/suzi_flat.h"
 #include "../../models/floor.h"
 #include "../../models/bush.h"
-#include "../../models/gift.h"
 #include "../../models/cube.h"
 
 OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int height) : Scene(t_window, width, height) {
@@ -34,7 +33,6 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     /* COLORS */
     glm::vec3 white {1.0f, 1.0f, 1.0f};
     glm::vec3 black {0.0f, 0.0f, 0.0f};
-    glm::vec3 purple {0.7f, 0.5f, 0.7f};
     glm::vec3 yellow {1.0f, 1.0f, 0.0f};
     glm::vec3 darkgreen {0.2f, 0.4f, 0.2f};
 
@@ -49,7 +47,6 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> hezkeKouleShader = std::make_shared<Shader>("base.vsh", "4_hezke_koule.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> treeShader = std::make_shared<Shader>("treeShader.vsh", "treeShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
-    std::shared_ptr<Shader> gouraudShader = std::make_shared<Shader>("gouraud.vsh", "gouraud.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
 
@@ -145,23 +142,12 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->linkShader(hezkeKouleShader)
             ->add(pohnoutKoulema)
             ->add(std::make_shared<TransMove>(glm::vec3(0.0, -3.0, 0.0)));
-    addObjectToScene(
-            std::make_shared<Object>(gift, GL_TRIANGLES, 66624, 3, 3, 3, 6, purple))
-            ->linkShader(gouraudShader)
-            ->add(forestMove)
-            ->add(std::make_shared<TransMove>(glm::vec3(2.0f, 0.0f, -4.0f)))
-            ->add(std::make_shared<TransScale>(5.0f));
 
     addObjectToScene(
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
             ->linkShader(multilightShader)
             ->add(std::make_shared<TransMove>(glm::vec3(60.0, 20.0, 20.0)))
             ->add(std::make_shared<TransParMove>(
-                    glm::mat4(
-                            glm::vec4(-1.0, 3.0, -3.0, 1.0),
-                            glm::vec4(3.0, -6.0, 3.0, 0),
-                            glm::vec4(-3.0, 3.0, 0, 0),
-                            glm::vec4(1, 0, 0, 0)),
                     glm::mat4x3(
                             glm::vec3(0, 0, 0),
                             glm::vec3(2, 2, 0),
@@ -174,11 +160,6 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->linkShader(multilightShader)
             ->add(std::make_shared<TransMove>(glm::vec3(60.0, 20.0, 20.0)))
             ->add(std::make_shared<TransParMove>(
-                    glm::mat4(
-                            glm::vec4(-1.0, 3.0, -3.0, 1.0),
-                            glm::vec4(3.0, -6.0, 3.0, 0),
-                            glm::vec4(-3.0, 3.0, 0, 0),
-                            glm::vec4(1, 0, 0, 0)),
                     glm::mat4x3(
                             glm::vec3(0, 0, 0),
                             glm::vec3(2, 2, 0),

@@ -16,7 +16,6 @@ int App::init() {
     //this->scene = std::make_shared<BallScene>(this->window, this->width, this->height);
     this->scene = std::make_shared<OpenWorldScene>(this->window, this->width, this->height);
 
-
     this->scene->render();
 
     return 0;

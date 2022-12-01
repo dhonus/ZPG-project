@@ -27,6 +27,7 @@ public:
     static void setScene(Scene *&t_scene);
     static float width, height;
     glm::vec3 clickedPosition;
+    int clickedId;
 private:
     static Camera* camera;
     static Scene* scene;

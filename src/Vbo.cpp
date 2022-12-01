@@ -1,6 +1,7 @@
 #include "../include/Vbo.h"
 
-Vbo::Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize) {
+Vbo::Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, int normalsSize, int normalsOffset,
+         int overallSize) {
     this->points = t_points;
     VBO = 0;
     glGenBuffers(1, &VBO); // generate the VBO
@@ -12,12 +13,13 @@ Vbo::Vbo(const std::vector<float> &t_points, int vertexCount, int positionSize, 
     this->overallSize = overallSize;
 }
 
-Vbo::Vbo(){
+Vbo::Vbo() {
     VBO = 0;
     glGenBuffers(1, &VBO); // generate the VBO
 }
 
 void Vbo::bind_buffer() {
+    std::cout << "[??] Loading object from header file" << std::endl;
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, this->points.size() * sizeof(float), this->points.data(), GL_STATIC_DRAW);
 
@@ -26,17 +28,19 @@ void Vbo::bind_buffer() {
     glEnableVertexAttribArray(2);
 
     // pPosition
-    glVertexAttribPointer(0, positionSize, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, positionSize, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void *) 0);
     // normals
-    glVertexAttribPointer(1, normalsSize, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void*)(normalsOffset * sizeof(float)));
+    glVertexAttribPointer(1, normalsSize, GL_FLOAT, GL_FALSE, overallSize * sizeof(float),
+                          (void *) (normalsOffset * sizeof(float)));
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, overallSize * sizeof(float), (void*)(overallSize - 2 * sizeof(float)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, overallSize * sizeof(float),
+                          (void *) (overallSize - 2 * sizeof(float)));
 }
 
 void Vbo::bind_buffer(bool object) {
-    std::cout << "obk" << std::endl;
+    std::cout << "[??] Loading object from external type" << std::endl;
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, points.size()*sizeof(float), &points[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, points.size() * sizeof(float), &points[0], GL_STATIC_DRAW);
 
     //enable vertex attributes
     glEnableVertexAttribArray(0);
@@ -44,16 +48,16 @@ void Vbo::bind_buffer(bool object) {
     glEnableVertexAttribArray(2);
     glEnableVertexAttribArray(3);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid*)0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid*)(sizeof(float) * 3));
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid*)(sizeof(float) * (overallSize - 2)));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid *) 0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid *) (sizeof(float) * 3));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (GLvoid *) (sizeof(float) * (overallSize - 2)));
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void *) (8 * sizeof(float)));
 }
 
 // assimp
 
 
-Vbo::Vbo(aiMesh* mesh, std::vector<float> data){
+Vbo::Vbo(aiMesh *mesh, std::vector<float> data) {
     // pass
 }
 

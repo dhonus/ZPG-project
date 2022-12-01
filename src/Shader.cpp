@@ -28,7 +28,7 @@ std::string Shader::load(const std::string &t_shader){
     std::ifstream theFile(filepath);
 
     if(!theFile){
-        std::cout << "could not find shader " << filepath << "\n" << std::flush;
+        std::cout << "[CR] Could not find shader " << filepath << "\n" << std::flush;
         exit(-1);
     }
 
@@ -44,7 +44,6 @@ GLint Shader::uniformMapper(const std::string &uniformName){
         return uniforms[uniformName];
 
     uniforms[uniformName] = glGetUniformLocation(shaderProgram, uniformName.c_str());
-    std::cout << uniforms[uniformName] <<"\n";
     return uniforms[uniformName];
 }
 
@@ -70,11 +69,11 @@ void Shader::compile() {
     for (size_t i = 0; i < lights.size(); ++i){
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].color"), 1, glm::value_ptr(lights[i]->getColor()));
         glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(lights[i]->getPosition()));
-        glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->pType);
-        if (lights[i]->pType == 2 || lights[i]->pType == 3)
-            glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(lights[i]->pDirection));
-        if (lights[i]->pType == 3)
-            glProgramUniform1f(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].cutoff"), lights[i]->pCutoff);
+        glProgramUniform1i(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].type"), lights[i]->getType());
+        if (lights[i]->getType() == 2 || lights[i]->getType() == 3)
+            glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(lights[i]->getDirection()));
+        if (lights[i]->getType() == 3)
+            glProgramUniform1f(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].cutoff"), lights[i]->getCutoff());
     }
 
     glProgramUniform1f(shaderProgram, uniformMapper("foggy"), fog);
@@ -98,7 +97,7 @@ void Shader::error_check() const {
         glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
         GLchar *strInfoLog = new GLchar[infoLogLength + 1];
         glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, strInfoLog);
-        std::cout << "linker failure: " << strInfoLog;
+        std::cout << "[CR] Linker failure: " << strInfoLog;
         delete[] strInfoLog;
     }
 }
@@ -111,7 +110,7 @@ void Shader::update(Subject& subject) {
         glProgramUniformMatrix4fv(shaderProgram, uniformMapper("viewMatrix"), 1, GL_FALSE, glm::value_ptr(camMatrix));
         glProgramUniform3fv(shaderProgram, uniformMapper("cameraPosition"), 1, glm::value_ptr(camera->getPosition()));
         for (size_t i = 0; i < lights.size(); ++i){
-            if (lights[i]->pType == 3){
+            if (lights[i]->getType() == 3){
                 glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].position"), 1, glm::value_ptr(camera->getPosition()));
                 glProgramUniform3fv(shaderProgram, uniformMapper("lights[" + std::to_string(i) + "].direction"), 1, glm::value_ptr(camera->getDirection()));
             }

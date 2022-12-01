@@ -78,7 +78,6 @@ vec3 directional_light(lightStruct light, vec3 norm) {
 
 vec3 spot_light(lightStruct light, vec3 norm) {
     vec3 lightDir = normalize(light.position - FragPos);
-    //vec3 norm = normalize(Normal);
     vec3 color = u_objectColor * light.color;
 
     // ambient
@@ -115,12 +114,11 @@ vec3 spot_light(lightStruct light, vec3 norm) {
 vec4 fog(vec4 f){
     float fog_maxdist = 180;
     float fog_mindist = 100;
-    vec4  fog_colour = vec4(0.0, 0.0, 0.0, 0.0);
+    vec4 fog_colour = vec4(0.0, 0.0, 0.0, 0.0);
 
     // Calculate fog
     float dist = length(FragPos - cameraPosition);
-    float fog_factor = (fog_maxdist - dist) /
-    (fog_maxdist - fog_mindist);
+    float fog_factor = (fog_maxdist - dist) / (fog_maxdist - fog_mindist);
     fog_factor = clamp(fog_factor, 0.0, 1.0);
 
     return mix(fog_colour, f, fog_factor);

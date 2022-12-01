@@ -11,18 +11,18 @@
 class Light {
 public:
     Light(glm::vec3 position, glm::vec3 color);
-    glm::vec3 getPosition();
-    glm::vec3 getColor();
-    int pType;
-    glm::vec3 pPosition;
-    glm::vec3 pColor;
-    glm::vec3 pDirection;
+    [[nodiscard]] int getType() const;
+    [[nodiscard]] const glm::vec3 &getPosition() const;
+    [[nodiscard]] const glm::vec3 &getDirection() const;
+    [[nodiscard]] const glm::vec3 &getColor() const;
+    [[nodiscard]] float getCutoff() const;
 
-    float pCutoff;
-
-    glm::vec3 ambient;
-    glm::vec3 diffuse;
-    glm::vec3 specular;
+protected:
+    int type;
+    glm::vec3 color;
+    glm::vec3 position;
+    glm::vec3 direction;
+    float cutoff;
 };
 
 class PointLight : public Light{

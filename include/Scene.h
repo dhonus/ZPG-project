@@ -28,6 +28,7 @@ private:
     Callbacks* callbacks;
     std::shared_ptr<Window> window;
     int object_id = 0;
+    int immutable_objects = 0;
 protected:
     std::vector<std::shared_ptr<Light>> lights;
     Camera* camera;

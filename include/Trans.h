@@ -54,7 +54,7 @@ private:
 
 class TransParMove : public Composite {
 public:
-    TransParMove(glm::mat4 A, glm::mat4 B, float speed, bool curve);
+    TransParMove(glm::mat4 B, float speed, bool curve);
     glm::mat4 transform()  override;
 private:
     glm::mat4 A;
