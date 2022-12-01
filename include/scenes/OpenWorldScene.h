@@ -7,15 +7,9 @@
 
 #include "../Scene.h"
 
-
 class OpenWorldScene : public Scene {
 public:
-    OpenWorldScene(std::shared_ptr<Window> t_window, int width, int height) : Scene(t_window, width, height) {
-
-    }
-    ~OpenWorldScene();
-    int render();
-    void update(Subject &s);
+    OpenWorldScene(std::shared_ptr<Window> t_window, int width, int height);
 };
 
 #endif //ZPG_OPENWORLDSCENE_H

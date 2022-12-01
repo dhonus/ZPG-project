@@ -11,11 +11,11 @@
 #include "Callbacks.h"
 #include "Hud.h"
 #include "Light.h"
-#include "../models/tree.h"
 
 class Hud;
 class Object;
 class Callbacks;
+class Shader;
 class Scene : Observer{
 public:
     Scene(std::shared_ptr<Window> t_window, int width, int height);
@@ -32,6 +32,7 @@ protected:
     std::vector<std::shared_ptr<Light>> lights;
     Camera* camera;
     std::unique_ptr<Hud> hud;
+    std::shared_ptr<Shader> treesShader;
 };
 
 

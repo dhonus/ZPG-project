@@ -1,5 +1,7 @@
 //2904
 //glDrawArrays(GL_TRIANGLES, 0, 2904);
+#ifndef SUZI
+#define SUZI
 
 #include "vector"
 
@@ -2909,3 +2911,5 @@ const std::vector<float> suziSmooth = {
 -0.593750 , -0.125000 , -0.164062 , -0.333506 , -0.938871 , -0.085238,
 -0.773438 , -0.140625 , -0.125000 , 0.021424 , -0.683279 , 0.729820,
 };
+
+#endif

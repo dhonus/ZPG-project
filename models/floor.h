@@ -7,14 +7,14 @@
 
 #include <vector>
 
-std::vector<float> floor_model{
+const std::vector<float> floor_model{
         -200.0f, -5.0f, 200.0f, 1, 0.5f, 0.5f, 0.5f, 0.5f,
         -200.0f, -5.0f, -200.0f, 1, 0.5f, 0.5f, 0.5f, 0.5f,
         200.0f, -5.0f, -200.0f, 1, 0.5f, 0.5f, 0.5f, 0.5f,
         200.0f, -5.0f, 200.0f, 1, 0.5f, 0.5f, 0.5f, 0.5f,
 };
 
-std::vector<float> plain {
+const std::vector<float> plain {
         //vrchol, normála, uv souřadnice
         1.0f, 0.0f, 1.0f,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f,
         1.0f, 0.0f,-1.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,

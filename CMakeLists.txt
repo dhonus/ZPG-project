@@ -9,9 +9,11 @@ add_link_options(-fsanitize=address)
 # add sources
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "include/*.h")
+file(GLOB SCENES "include/scenes/*.h")
+file(GLOB SCENES_CPP "src/scenes/*.cpp")
 file(GLOB MODELS "models/*.h")
 file(GLOB LIBS "lib/*.h")
-add_executable(ZPG main.cpp ${SOURCES} ${HEADERS} ${MODELS} ${LIBS})
+add_executable(ZPG main.cpp ${SOURCES} ${HEADERS} ${MODELS} ${LIBS} ${SCENES} ${SCENES_CPP})
 
 # link libraries
 find_package(glfw3 3.3 REQUIRED)

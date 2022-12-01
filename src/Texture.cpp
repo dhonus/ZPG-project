@@ -68,11 +68,11 @@ Texture::Texture(bool skybox, std::string fileName) {
 
         // load and generate the ourTexture
         int width, height, nrChannels;
-        std::string file = "../models/obj/" + fileName;
+        std::string file = "../" + fileName;
         unsigned char *data = stbi_load(file.c_str(), &width, &height, &nrChannels, STBI_rgb_alpha);
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         else

@@ -35,8 +35,7 @@ vec3 point_light(lightStruct light, vec3 norm) {
 
     // diffuse
     float diff = max(dot(norm, lightDir), 0.0);
-    float dot_product = max(dot(lightDir, norm), 0.0);
-    vec3 diffuse = dot_product * color;
+    vec3 diffuse = diff * color;
 
     // specular
     float specularStrength = 0.3f;
@@ -62,8 +61,7 @@ vec3 directional_light(lightStruct light, vec3 norm) {
 
     // diffuse
     float diff = max(dot(norm, lightDir), 0.0);
-    float dot_product = max(dot(lightDir, norm), 0.0);
-    vec3 diffuse = dot_product * color;
+    vec3 diffuse = diff * color;
 
     // specular
     float specularStrength = 0.3f;
@@ -96,8 +94,7 @@ vec3 spot_light(lightStruct light, vec3 norm) {
 
         // diffuse
         float diff = max(dot(norm, lightDir), 0.0);
-        float dot_product = max(dot(lightDir, norm), 0.0);
-        vec3 diffuse = dot_product * color * attenuation * intensity;
+        vec3 diffuse = diff * color * attenuation * intensity;
 
         // specular
         float specularStrength = 0.2f;
@@ -131,7 +128,7 @@ vec4 fog(vec4 f){
 
 void main () {
     vec3 encoded_normal = texture(normalTexture, TexCoord).rgb;
-    encoded_normal = 2.0 * encoded_normal - 1.0;    //RGB to vector interval < -1, 1 >
+    encoded_normal = 2.0 * encoded_normal - 1.0;    // RGB to vector <0,1> -> <-1,1>
     encoded_normal = normalize(encoded_normal * vec3(1, 1, 5));
     vec3 norm = normalize(tbn * encoded_normal);
 

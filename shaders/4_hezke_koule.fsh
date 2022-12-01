@@ -15,7 +15,7 @@ void main () {
     vec3 ambientLight = (ambientStrength * ambientColor) * objectColor;
 
     // diffuse
-    vec3 lightPosition = vec3(15.0f, 15.0f, 0.0f);
+    vec3 lightPosition = lightPos;
     vec3 lightColor = vec3(0.7f, 0.5f, 0.7f);
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPosition - worldPosition);

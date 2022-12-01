@@ -17,14 +17,12 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 cameraPosition;
-uniform mat4 normalMatrix;
 
 void main () {
     //Gram-Schmidt orthonormalization -> 3 perpendicular vectors
     vec3 normal = normalize(aNormal.xyz);
-    vec3 tangent = normalize(normalize(tangents) - dot(tangents, normal) * normal);
+    vec3 tangent = normalize(normalize(tangents) - dot(normalize(tangents), normal) * normal);
     vec3 bitangent = cross(normal, tangent);
-
 
     // get rid of translation and make sure normal and transform maintain the same orientation
     mat3 normalm = transpose(inverse(mat3(modelMatrix)));
