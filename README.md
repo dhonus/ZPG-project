@@ -10,8 +10,8 @@ To install the project, you need to have the following dependencies installed:
 Arch linux:  
 `sudo pacman -S glfw glew assimp glm`
 
-Then run in the root of the project:
-`cmake .`
+Then run in the root of the project:  
+`cmake .`  
 `make`
 
 ### Legal
