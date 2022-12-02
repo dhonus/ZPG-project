@@ -1,8 +1,6 @@
 #version 330
 out vec4 frag_colour;
 in vec4 colors;
-smooth in vec3 ex_UV;
-smooth in vec3 ex_originalPosition;
 in vec3 worldPosition;
 uniform vec3 cameraPosition;
 uniform float foggy;

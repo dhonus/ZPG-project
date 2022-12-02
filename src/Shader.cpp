@@ -84,9 +84,9 @@ void Shader::compile() {
 void Shader::draw(glm::mat4 t_matrix, glm::vec3 t_objectColor) {
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(uniformMapper("modelMatrix"), 1, GL_FALSE, &t_matrix[0][0]);
-    glUniform3fv(uniformMapper("u_objectColor"), 1, glm::value_ptr(t_objectColor));
+    glUniform3fv(uniformMapper("objectColor"), 1, glm::value_ptr(t_objectColor));
     glUniform3fv(uniformMapper("lightPos"), 1, glm::value_ptr(lights[0]->getPosition()));
-    glProgramUniform3fv(shaderProgram, uniformMapper("u_lightColor"), 1, glm::value_ptr(lights[0]->getColor()));
+    glProgramUniform3fv(shaderProgram, uniformMapper("lightColor"), 1, glm::value_ptr(lights[0]->getColor()));
 }
 
 void Shader::error_check() const {

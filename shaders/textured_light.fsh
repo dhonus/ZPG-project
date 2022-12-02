@@ -2,9 +2,9 @@
 out vec4 frag_colour;
 in vec3 Normal;
 in vec3 FragPos;
-in vec2 TexCoord;
+in vec2 textureCoordinatesOut;
 uniform vec3 cameraPosition;
-uniform vec3 u_objectColor;
+uniform vec3 objectColor;
 uniform float foggy;
 uniform sampler2D objectTexture;
 
@@ -17,126 +17,117 @@ struct lightStruct {
     float cutoff;
 };
 
-//#define MAX_LIGHTS 16
 const int MAX_LIGHTS = 16;
 uniform lightStruct lights[MAX_LIGHTS];
 uniform int how_many_lights;
 
-vec3 point_light(lightStruct light) {
+vec3 point_light(lightStruct light, vec3 norm) {
     float ambientStrength = 0.1f;
-    vec3 norm = normalize(Normal);
-    vec3 color = u_objectColor * light.color;
+    vec3 computedColor = objectColor * light.color;
     vec3 lightDir = normalize(light.position - FragPos);
 
-    // ambient
-    vec3 ambient = (ambientStrength * color);
+    /* AMBIENT */
+    vec3 ambient = (ambientStrength * computedColor);
 
-    // diffuse
-    float diff = max(dot(norm, lightDir), 0.0);
-    float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
-    vec3 diffuse = dot_product * color;
+    /* DIFFUSE */
+    vec3 diffuse = max(dot(norm, lightDir), 0.0) * computedColor;
 
-    // specular
-    float specularStrength = 1;
-    vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
+    /* SPECULAR */
+    float specularStrength = 0.3f;
+    vec3 viewDir = normalize(cameraPosition - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
-    vec3 specular = specularStrength * spec * color;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8.0);
+    vec3 specular = specularStrength * spec * computedColor;
 
     if (dot(norm, lightDir) < 0.0){
         specular = vec3(0.0f, 0.0f, 0.0f);
     }
-    return (ambient + diffuse + specular);
+    return ambient + diffuse + specular;
 }
 
-vec3 directional_light(lightStruct light) {
+vec3 directional_light(lightStruct light, vec3 norm) {
+    float ambientStrength = 0.1;
+    vec3 computedColor = objectColor * light.color;
     vec3 lightDir = normalize(-light.direction);
-    vec3 norm = normalize(Normal);
-    vec3 color = u_objectColor * light.color;
 
-    // ambient
-    float ambientStrength = 0.1;
-    vec3 ambient = (ambientStrength * color);
+    /* AMBIENT */
+    vec3 ambient = (ambientStrength * computedColor);
 
-    // diffuse
-    float diff = max(dot(norm, lightDir), 0.0);
-    float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
-    vec3 diffuse = dot_product * color;
+    /* DIFFUSE */
+    vec3 diffuse = max(dot(norm, lightDir), 0.0) * computedColor;
 
-    // specular
-    float specularStrength = 1;
-    vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
+    /* SPECULAR */
+    float specularStrength = 0.3f;
+    vec3 viewDir = normalize(cameraPosition - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 1.0);
-    vec3 specular = specularStrength * spec * color;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8.0);
+    vec3 specular = specularStrength * spec * computedColor;
 
     if (dot(norm, lightDir) < 0.0){
         specular = vec3(0.0f, 0.0f, 0.0f);
     }
-    return (ambient + diffuse + specular);
+    return ambient + diffuse + specular;
 }
 
-vec3 spot_light(lightStruct light) {
-    vec3 lightDir = normalize(light.position - FragPos);
-    vec3 norm = normalize(Normal);
-    vec3 color = u_objectColor * light.color;
-
-    // ambient
+vec3 spot_light(lightStruct light, vec3 norm) {
     float ambientStrength = 0.1;
-    vec3 ambient = (ambientStrength * color);
+    vec3 computedColor = objectColor * light.color;
+    vec3 lightDir = normalize(light.position - FragPos);
+
+    /* AMBIENT */
+    vec3 ambient = (ambientStrength * computedColor);
 
     float theta = dot(lightDir, normalize(-light.direction));
     if(theta > cos(radians(light.cutoff))){
 
         float distance = length(light.position - FragPos);
-        float attenuation = 5.0 / (3.0 + 0.09 * distance + 0.032 * (distance * distance));
+        float attenuation = 5.0 / (3.0 + 0.09 * distance + 0.012 * (distance * distance));
         float intensity = (1.0 - (1.0 - theta) / (1.0 - cos(radians(light.cutoff))));
 
-        // diffuse
-        float diff = max(dot(norm, lightDir), 0.0);
-        float dot_product = max(dot(lightDir, normalize(Normal)), 0.0);
-        vec3 diffuse = dot_product * color * attenuation * (intensity/2);
+        /* DIFFUSE */
+        vec3 diffuse = max(dot(norm, lightDir), 0.0) * computedColor * attenuation * intensity;
 
-        // specular
-        float specularStrength = 0.3;
-        vec3 viewDir = normalize(cameraPosition - vec3(FragPos));
+        /* SPECULAR */
+        float specularStrength = 0.2f;
+        vec3 viewDir = normalize(cameraPosition - FragPos);
         vec3 reflectDir = reflect(-lightDir, norm);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
-        vec3 specular = specularStrength * spec * color * attenuation * intensity;
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 16.0);
+        vec3 specular = specularStrength * spec * computedColor * attenuation * intensity;
 
         if (dot(norm, lightDir) < 0.0){
             specular = vec3(0.0f, 0.0f, 0.0f);
         }
-        return (ambient + diffuse + specular);
+        return ambient + diffuse + specular;
     }
 
     return ambient;
 }
 
-vec4 fog(vec4 f){
-    float fog_maxdist = 180;
-    float fog_mindist = 100;
-    vec4  fog_colour = vec4(0.0, 0.0, 0.0, 0.0);
+vec4 fog(vec4 fragmentColor){
+    float fogMinDistance = 100;
+    float fogMaxDistance = 180;
+    vec4 fogColor = vec4(0.0, 0.0, 0.0, 0.0);
 
     // Calculate fog
-    float dist = length(FragPos - cameraPosition);
-    float fog_factor = (fog_maxdist - dist) /
-    (fog_maxdist - fog_mindist);
-    fog_factor = clamp(fog_factor, 0.0, 1.0);
+    float fogDistance = length(FragPos - cameraPosition);
+    float fogFactor = (fogMaxDistance - fogDistance) / (fogMaxDistance - fogMinDistance);
+    fogFactor = clamp(fogFactor, 0.0, 1.0);
 
-    return mix(fog_colour, f, fog_factor);
+    return mix(fogColor, fragmentColor, fogFactor);
 }
 
 void main () {
-    vec4 texcolor = texture(objectTexture, TexCoord);
-    if(texcolor.a < 0.1)
+    vec4 texColor = texture(objectTexture, textureCoordinatesOut);
+    if(texColor.a < 0.1)
         discard;
-    frag_colour = texcolor;
+    frag_colour = texColor;
 
-    for(int i = 0; i < how_many_lights; i++) {
-        lights[i].type == 1 ? frag_colour = frag_colour + vec4(point_light(lights[i]), 1.0f) : frag_colour;
-        lights[i].type == 2 ? frag_colour = frag_colour + vec4(directional_light(lights[i]), 1.0f) : frag_colour;
-        lights[i].type == 3 ? frag_colour = frag_colour + vec4(spot_light(lights[i]), 1.0f) : frag_colour;
+    vec3 norm = normalize(Normal);
+
+    for(int i = 0; i < how_many_lights; ++i) {
+        lights[i].type == 1 ? (frag_colour = frag_colour + vec4(point_light(lights[i], norm), 1.0f)) : frag_colour;
+        lights[i].type == 2 ? (frag_colour = frag_colour + vec4(directional_light(lights[i], norm), 1.0f)) : frag_colour;
+        lights[i].type == 3 ? (frag_colour = frag_colour + vec4(spot_light(lights[i], norm), 1.0f)) : frag_colour;
     }
     if (foggy == 1.0f)
         frag_colour = fog(frag_colour);

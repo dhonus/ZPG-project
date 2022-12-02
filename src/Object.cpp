@@ -66,11 +66,11 @@ Object *Object::linkTexture(std::shared_ptr<Texture> texture) {
     return this;
 }
 
-Object::Object(const std::string fileName, glm::vec3 t_color) {
+Object::Object(const std::string& file_name, glm::vec3 t_color) {
     this->color = t_color;
-    this->model = std::make_shared<Model>(fileName);
+    this->model = std::make_shared<Model>(file_name);
     this->trans = std::make_unique<Trans>();
-    std::cout << "\t[->] Created object from file: " << fileName << std::endl;
+    std::cout << "\t[->] Created object from file: " << file_name << std::endl;
 }
 
 void Object::setID(int t_id) {

@@ -68,28 +68,32 @@ Scene::~Scene() {
 
 void Scene::update(Subject &s) {
     if (&s == callbacks) {
-        auto pos = callbacks->clickedPosition;
-        auto index = callbacks->clickedId;
-        if (index > immutable_objects) {
-            // find in vector
-            for (auto &o: this->objects) {
-                if (o->getID() == index) {
-                    // remove from vector
-                    this->objects.erase(std::remove(this->objects.begin(), this->objects.end(), o),
-                                        this->objects.end());
-                    break;
+        try {
+            auto pos = callbacks->clickedPosition;
+            auto index = callbacks->clickedId;
+            if (index > immutable_objects) {
+                // find in vector
+                for (auto &o: this->objects) {
+                    if (o->getID() == index) {
+                        // remove from vector
+                        this->objects.erase(std::remove(this->objects.begin(), this->objects.end(), o), this->objects.end());
+                        break;
+                    }
                 }
+                return;
             }
-            return;
+            std::cout << "[OK] Planting a tree at " << pos.x << " " << pos.y << " " << pos.z << std::endl;
+            addObjectToScene(
+                    std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+                    ->linkShader(treesShader)
+                    ->linkTexture(treeTexture)
+                    ->add(std::make_shared<TransMove>(pos))
+                    ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f),
+                                                        glm::vec3(0.0f, 1.0f, 0.0f)))
+                    ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
+        } // catch assertion
+        catch (std::exception &e) {
+            std::cout << "[ERROR] " << e.what() << std::endl;
         }
-        std::cout << "[OK] Planting a tree at " << pos.x << " " << pos.y << " " << pos.z << std::endl;
-        addObjectToScene(
-                std::make_shared<Object>("trees/tree/tree.obj", glm::vec3{0.2f, 0.2f, 0.2f}))
-                ->linkShader(treesShader)
-                ->linkTexture(std::make_shared<Texture>(false, "textures/tree.png"))
-                ->add(std::make_shared<TransMove>(pos))
-                ->add(std::make_shared<TransRotate>(true, rand() % 120, glm::vec3(0.0f, 0.0f, .0f),
-                                                    glm::vec3(0.0f, 1.0f, 0.0f)))
-                ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
     }
 }

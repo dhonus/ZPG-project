@@ -1,9 +1,9 @@
 #version 330
 
-layout (location = 0) in vec4 aPos;
-layout (location = 1) in vec4 aNormal;
-layout (location = 2) in vec2 aTexCoord;
-out vec2 TexCoord;
+layout (location = 0) in vec4 vertexPosition;
+layout (location = 1) in vec4 modelNormals;
+layout (location = 2) in vec2 textureCoordinates;
+out vec2 textureCoordinatesOut;
 out vec3 Normal;
 out vec3 FragPos;
 uniform mat4 modelMatrix;
@@ -11,9 +11,9 @@ uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
 void main () {
-    gl_Position = projectionMatrix*viewMatrix*modelMatrix*aPos;
-    Normal = vec3(aNormal);
-    FragPos = vec3(modelMatrix*aPos);
-    TexCoord.x = aTexCoord.x;
-    TexCoord.y = -aTexCoord.y;
+    gl_Position = projectionMatrix*viewMatrix*modelMatrix*vertexPosition;
+    Normal = modelNormals.xyz / modelNormals.w;
+    FragPos = vec3(modelMatrix*vertexPosition);
+    textureCoordinatesOut.x = textureCoordinates.x;
+    textureCoordinatesOut.y = -textureCoordinates.y;
 }

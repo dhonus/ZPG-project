@@ -1,46 +1,45 @@
 #version 330
 
-layout(location=0) in vec4 aPos;
-layout(location=1) in vec4 aNormal;
+layout(location=0) in vec4 vertexPosition;
+layout(location=1) in vec4 modelNormals;
+
 out vec3 Normal;
 out vec3 worldPosition;
 out vec3 FragPos;
 out vec3 LightingColor;
+
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 cameraPosition;
-uniform vec3 u_lightColor;
-uniform vec3 u_objectColor;
-uniform mat4 normalMatrix;
+uniform vec3 lightColor;
+uniform vec3 objectColor;
 
 void main () {
-    Normal = normalize(transpose(inverse(mat3(modelMatrix))) * vec3(aNormal));
-    FragPos = vec3(modelMatrix * aPos);
-    gl_Position = projectionMatrix*viewMatrix*modelMatrix*aPos;
-    worldPosition = vec3(modelMatrix * aPos);
+    Normal = normalize(transpose(inverse(mat3(modelMatrix))) * vec3(modelNormals));
+    FragPos = vec3(modelMatrix * vertexPosition);
+    gl_Position = projectionMatrix*viewMatrix*modelMatrix* vertexPosition;
+    worldPosition = vec3(modelMatrix * vertexPosition);
 
-    vec3 color = u_objectColor * u_lightColor;
+    vec3 computedColor = objectColor * lightColor;
 
-    // ambient
-    float ambientStrength = 0.4f;
-    vec3 ambientLight = (ambientStrength * color);
+    float ambientStrength = 0.5f;
 
-    // diffuse
+    /* AMBIENT */
+    vec3 ambient = (ambientStrength * computedColor);
+
+    /* DIFFUSE */
     vec3 lightPosition = vec3(15.0f, 5.0f, 10.0f);
-
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPosition - worldPosition);
-    float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * color;
+    vec3 diffuse = max(dot(norm, lightDir), 0.0) * computedColor;
 
-    // specular
-    float specularStrength = 4;
-    vec3 viewDir = normalize(cameraPosition - worldPosition);
+    /* SPECULAR */
+    float specularStrength = 2.0f;
+    vec3 viewDir = normalize(cameraPosition - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
-    vec3 specular = specularStrength * spec * color;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4.0);
+    vec3 specular = specularStrength * spec * computedColor;
 
-    //frag_colour = vec4(specular, 1.0f);
-    LightingColor = ambientLight + diffuse + specular;
+    LightingColor = ambient + diffuse + specular;
 }

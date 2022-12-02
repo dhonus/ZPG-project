@@ -24,7 +24,7 @@ public:
     Object(const std::vector<float> &vertices, GLenum mode,
            int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize, glm::vec3 t_color);
     Object(std::shared_ptr<Model> mod, glm::vec3 t_color);
-    Object(const std::string fileName, glm::vec3 t_color);
+    Object(const std::string& file_name, glm::vec3 t_color);
     int draw();
     Composite* add(std::shared_ptr<Composite> g);
     void remove(std::shared_ptr<Composite> g);

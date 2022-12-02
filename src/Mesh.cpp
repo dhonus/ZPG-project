@@ -6,16 +6,6 @@
 
 int indicesCount = 0;
 
-/// unused
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureStruct> textures) {
-    this->vertices = vertices;
-    this->indices = indices;
-    this->textures = textures;
-
-    this->VBO = std::make_shared<Vbo>(vertices, indices, vertexCount);
-    this->VAO = std::make_shared<Vao>(VBO);
-}
-
 Mesh::Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize,
            int normalsOffset, int overallSize) {
     this->mode = mode;
@@ -62,6 +52,7 @@ Mesh::Mesh(const std::string &fileName) {
     }
 
     this->vertexCount = count;
+    // get current time in milliseconds
 
     this->VBO = std::make_shared<Vbo>(data, vertexCount, 3, 3, 3, 8);
     this->VAO = std::make_shared<Vao>(VBO, true);

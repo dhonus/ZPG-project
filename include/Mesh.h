@@ -21,12 +21,6 @@
 #include <assimp/postprocess.h>
 
 
-struct Vertex {
-    glm::vec3 Position;
-    glm::vec3 Normal;
-    glm::vec2 TexCoords;
-    glm::vec3 tangent;
-};
 struct TextureStruct {
     unsigned int id;
     std::string type;
@@ -37,10 +31,8 @@ class Vao;
 
 class Mesh {
 public:
-    std::vector<Vertex> vertices;
     std::vector<uint> indices;
     std::vector<TextureStruct> textures;
-    Mesh(std::vector<Vertex> vertices, std::vector<uint> indices, std::vector<TextureStruct> textures);
     Mesh(const std::vector<float> &vertices, GLenum mode, int vertexCount, int positionSize, int normalsSize, int normalsOffset, int overallSize);
     Mesh(const std::string& fileName);
 
