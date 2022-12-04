@@ -3,10 +3,12 @@ out vec4 frag_colour;
 in vec3 Normal;
 in vec3 FragPos;
 in vec2 textureCoordinatesOut;
+
 uniform vec3 cameraPosition;
 uniform vec3 objectColor;
 uniform float foggy;
 uniform sampler2D objectTexture;
+
 
 struct lightStruct {
     int type;
@@ -78,10 +80,12 @@ vec3 spot_light(lightStruct light, vec3 norm) {
     vec3 ambient = (ambientStrength * computedColor);
 
     float theta = dot(lightDir, normalize(-light.direction));
+
     if(theta > cos(radians(light.cutoff))){
 
         float distance = length(light.position - FragPos);
         float attenuation = 5.0 / (3.0 + 0.09 * distance + 0.012 * (distance * distance));
+        // interpolate <0, cutoff>  -->  <1, 0>
         float intensity = (1.0 - (1.0 - theta) / (1.0 - cos(radians(light.cutoff))));
 
         /* DIFFUSE */
@@ -118,8 +122,8 @@ vec4 fog(vec4 fragmentColor){
 
 void main () {
     vec4 texColor = texture(objectTexture, textureCoordinatesOut);
-    if(texColor.a < 0.1)
-        discard;
+    texColor *= vec4(0.8, 0.8, 0.8, 1.0);
+    if(texColor.a < 0.1) discard;
     frag_colour = texColor;
 
     vec3 norm = normalize(Normal);

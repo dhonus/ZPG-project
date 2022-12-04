@@ -54,9 +54,6 @@ void Vbo::bind_buffer(bool object) {
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11 * sizeof(float), (void *) (8 * sizeof(float)));
 }
 
-// assimp
-
-
 Vbo::Vbo(aiMesh *mesh, std::vector<float> data) {
     // pass
 }

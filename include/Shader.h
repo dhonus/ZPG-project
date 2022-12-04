@@ -26,7 +26,7 @@ class Camera;
 class Observer;
 class Light;
 
-class Shader : public Observer{
+class Shader : public Observer {
 public:
     Shader(const std::string &vertexShader,
            const std::string &fragmentShader,

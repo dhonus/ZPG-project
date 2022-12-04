@@ -23,9 +23,8 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     std::shared_ptr<SpotLight> spotLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(-9.0f, 5.0f, 1.0f), 12.5f);
     auto pureWhiteLight = std::make_shared<PointLight>(glm::vec3(0.0f, 200.0f, 0.0f), glm::vec3(0.8f, 0.8f, 0.8f));
     auto redLight = std::make_shared<PointLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.0f, 0.0f));
-    auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.0f), glm::vec3(-0.2f, -1.0f, -0.3f));
-    auto dumbLight = std::make_shared<SpotLight>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
-    lights.push_back(sunLight);
+    auto dirLight = std::make_shared<DirLight>(glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(-0.2f, -1.0f, -0.3f));
+
 
     /* COLORS */
     glm::vec3 white {1.0f, 1.0f, 1.0f};
@@ -41,16 +40,14 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     }
 
     /* SHADERS */
-    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
+    lights.push_back(spotLight);
+    std::shared_ptr<Shader> floorShader = std::make_shared<Shader>("floor.vsh", "floor.fsh", camera, lights, false);
     std::shared_ptr<Shader> simpleShader = std::make_shared<Shader>("simpleShader.vsh", "simpleShader.fsh", camera, std::vector<std::shared_ptr<Light>>{sunLight}, false);
     std::shared_ptr<Shader> multilightShader = std::make_shared<Shader>("multilight.vsh", "multilight.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight, sunLight, redLight}, false);
     std::shared_ptr<Shader> skyBoxShader = std::make_shared<Shader>("skybox.vsh", "skybox.fsh", camera, std::vector<std::shared_ptr<Light>>{pureWhiteLight}, true);
 
-    std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight }, false);
+    std::shared_ptr<Shader> texturedLightShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
     std::shared_ptr<Shader> normalMapShader = std::make_shared<Shader>("normal_mapping.vsh", "normal_mapping.fsh", camera, std::vector<std::shared_ptr<Light>>{ spotLight, redLight }, false);
-    std::shared_ptr<Shader> worldShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
-    std::shared_ptr<Shader> roadsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
-    std::shared_ptr<Shader> cliffsShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, std::vector<std::shared_ptr<Light>>{spotLight}, false);
     treesShader = std::make_shared<Shader>("textured_light.vsh", "textured_light.fsh", camera, lights, false);
 
     /* MODELS */
@@ -75,12 +72,10 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     treeTexture = std::make_shared<Texture>(false, "textures/tree.png");
 
     /* OBJECTS */
-    glDepthMask(GL_FALSE);
     addObjectToScene(
             std::make_shared<Object>(cubeModel, white))
             ->linkTexture(skyTexture)
             ->linkShader(skyBoxShader);
-    glDepthMask(GL_TRUE);
 
     addObjectToScene(
             std::make_shared<Object>(houseModel, white))
@@ -91,12 +86,12 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     addObjectToScene(
             std::make_shared<Object>(worldModel, white))
             ->linkTexture(worldTexture)
-            ->linkShader(worldShader);
+            ->linkShader(texturedLightShader);
 
     addObjectToScene(
-            std::make_shared<Object>(roadsModel, black))
+            std::make_shared<Object>(roadsModel, white))
             ->linkTexture(roadTexture)
-            ->linkShader(roadsShader);
+            ->linkShader(texturedLightShader);
     addObjectToScene(
             std::make_shared<Object>(havenModel, white))
             ->linkShader(simpleShader)
@@ -104,7 +99,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
     addObjectToScene(
             std::make_shared<Object>(cliffsModel, white))
             ->linkTexture(cliffTexture)
-            ->linkShader(cliffsShader);
+            ->linkShader(texturedLightShader);
     addObjectToScene(
             std::make_shared<Object>(floor_model, GL_POLYGON, 4, 4, 4, 4, 8, glm::vec3(0)))
             ->linkShader(floorShader)
@@ -131,11 +126,11 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransMove>(glm::vec3(60.0, 20.0, 20.0)))
             ->add(std::make_shared<TransParMove>(
                     glm::mat4x3(
-                            glm::vec3(0, 0, 0),
-                            glm::vec3(2, 2, 0),
-                            glm::vec3(4, 4, 0),
-                            glm::vec3(6, 0, 0)),
-                    0.5f, false));
+                            glm::vec3(-5, 0, 0),
+                            glm::vec3(-5, 0, 0),
+                            glm::vec3(5, 0, 0),
+                            glm::vec3(5, 0, 0)),
+                    0.5f));
 
     addObjectToScene(
             std::make_shared<Object>(suziFlat, GL_TRIANGLES, 2904, 3, 3, 3, 6, white))
@@ -147,7 +142,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
                             glm::vec3(2, 2, 0),
                             glm::vec3(4, 4, 0),
                             glm::vec3(6, 0, 0)),
-                    0.5f, true));
+                    0.5f));
 
     addObjectToScene(
             std::make_shared<Object>(boxModel, white))
@@ -170,7 +165,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
 
     /* TREES */
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(79.6294, 5.32925, 56.1275)))
@@ -178,7 +173,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(136.381, 4.8608, 83.7216)))
@@ -186,7 +181,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(40.0452, 8.92434, 152.126)))
@@ -194,7 +189,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(90.1752, 10.7101, 123.583)))
@@ -202,7 +197,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(136.974, 6.28513, 147.157)))
@@ -210,7 +205,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(-3.85721, 8.53752, -55.8508)))
@@ -218,7 +213,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(17.9424, 6.03525, -98.0841)))
@@ -226,7 +221,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(60.8524, 10.3012, -67.6359)))
@@ -234,7 +229,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(17.9424, 6.03525, -98.0841)))
@@ -242,7 +237,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(-3.85721, 8.53752, -55.8508)))
@@ -250,7 +245,7 @@ OpenWorldScene::OpenWorldScene(std::shared_ptr<Window> t_window, int width, int 
             ->add(std::make_shared<TransScale>(((rand() % 2 + 1) * 0.15)));
 
     addObjectToScene(
-            std::make_shared<Object>(treeModel, glm::vec3{0.2f, 0.2f, 0.2f}))
+            std::make_shared<Object>(treeModel, white))
             ->linkShader(treesShader)
             ->linkTexture(treeTexture)
             ->add(std::make_shared<TransMove>(glm::vec3(32.5689, 6.85699, -22.2211)))

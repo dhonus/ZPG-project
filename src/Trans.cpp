@@ -26,7 +26,7 @@ glm::mat4 TransRotate::transform() {
     if (stationary) {
         trans = glm::rotate(glm::mat4(1.0f), speed, axis);
     } else {
-        trans = glm::rotate(trans, (float) glfwGetTime() * speed, axis);
+        trans = glm::rotate(trans, (float) glfwGetTime() * speed, glm::normalize(axis));
     }
     trans = glm::translate(trans, position);
     return trans;
@@ -79,7 +79,7 @@ glm::mat4 Trans::getMatrix() {
     return transform();
 }
 
-TransParMove::TransParMove(glm::mat4 B, float speed, bool curve) {
+TransParMove::TransParMove(glm::mat4 B, float speed) {
     this->A = glm::mat4(
             glm::vec4(-1.0, 3.0, -3.0, 1.0),
             glm::vec4(3.0, -6.0, 3.0, 0),
@@ -87,7 +87,6 @@ TransParMove::TransParMove(glm::mat4 B, float speed, bool curve) {
             glm::vec4(1, 0, 0, 0)),
             this->B = B;
     this->speed = speed;
-    this->curve = curve;
 }
 
 glm::mat4 TransParMove::transform() {
@@ -97,20 +96,10 @@ glm::mat4 TransParMove::transform() {
 
     glm::vec4 moveDirection{1.0f, 1.0f, 1.0f, 0.0f};
     glm::mat4 mod{1.0f};
-    switch ((int) curve) {
-        case true: {
-            glm::vec4 p = glm::vec4(pow(t, 3), pow(t, 2), t, 1.0f);
-            // p * A -> bázové polynomy
-            moveDirection = moveDirection * (p * A * glm::transpose(B));
-            mod = glm::translate(mod, glm::vec3(moveDirection));
-            return mod;
-        }
-        case false: {
-            moveDirection = moveDirection * (A + (B - A) * t);
-            mod = glm::translate(mod, glm::vec3(moveDirection));
-            return mod;
-        }
-    }
+    glm::vec4 p = glm::vec4(pow(t, 3), pow(t, 2), t, 1.0f);
+    // p * A -> bázové polynomy
+    moveDirection = moveDirection * (p * A * glm::transpose(B));
+    mod = glm::translate(mod, glm::vec3(moveDirection));
     return mod;
 }
 

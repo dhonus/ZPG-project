@@ -23,8 +23,7 @@ Mesh::Mesh(const std::string &fileName) {
     unsigned int importOptions = aiProcess_OptimizeMeshes              // sloučení malých plošek
                                  | aiProcess_JoinIdenticalVertices       // NUTNÉ jinak hodně duplikuje
                                  | aiProcess_Triangulate                 // prevod vsech ploch na trojuhelniky
-                                 |
-                                 aiProcess_CalcTangentSpace;           // vypocet tangenty, nutny pro spravne pouziti normalove mapy
+                                 | aiProcess_CalcTangentSpace;           // vypocet tangenty, nutny pro spravne pouziti normalove mapy
 
     //aiProcess_GenNormals/ai_Process_GenSmoothNormals - vypocet normal s jemnych prechodem v pripade, ze objekt neobsahuje normaly
 

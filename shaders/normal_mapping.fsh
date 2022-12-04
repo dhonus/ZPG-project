@@ -83,6 +83,7 @@ vec3 spot_light(lightStruct light, vec3 norm) {
     if(theta > cos(radians(light.cutoff))){
 
         float distance = length(light.position - FragPos);
+        // <0, cutoff>  -->  <1, 0>
         float attenuation = 5.0 / (3.0 + 0.09 * distance + 0.012 * (distance * distance));
         float intensity = (1.0 - (1.0 - theta) / (1.0 - cos(radians(light.cutoff))));
 
@@ -119,14 +120,13 @@ vec4 fog(vec4 fragmentColor){
 }
 
 void main () {
-    vec3 encoded_normal = texture(normalTexture, textureCoordinatesOut).rgb;
-    encoded_normal = 2.0 * encoded_normal - 1.0;    // RGB to vector <0,1> -> <-1,1>
-    encoded_normal = normalize(encoded_normal * vec3(1, 1, 5));
-    vec3 norm = normalize(tbn * encoded_normal);
+    vec3 encodedNormal = texture(normalTexture, textureCoordinatesOut).rgb;
+    encodedNormal = 2.0 * encodedNormal - 1.0;    // RGB to vector <0,1> -> <-1,1>
+    encodedNormal = normalize(encodedNormal * vec3(1, 1, 5));
+    vec3 norm = normalize(tbn * encodedNormal);
 
     vec4 texColor = texture(objectTexture, textureCoordinatesOut);
-    if(texColor.a < 0.1)
-        discard;
+    if(texColor.a < 0.1) discard;
     frag_colour = texColor;
 
     for(int i = 0; i < how_many_lights; ++i) {

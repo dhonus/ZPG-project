@@ -7,6 +7,6 @@ uniform mat4 projectionMatrix;
 
 void main () {
     mat4 viewAdjusted = mat4(mat3(viewMatrix));
-    gl_Position = projectionMatrix* viewAdjusted *modelMatrix*vertexPosition;
+    gl_Position = projectionMatrix*viewAdjusted*vertexPosition;
     coordinates = vertexPosition.xyz / vertexPosition.w;
 }

@@ -57,6 +57,20 @@ BallScene::BallScene(std::shared_ptr<Window> t_window, int width, int height) : 
             ->add(moveMe)
             ->add(std::make_shared<TransScale>(5.0f));
 
+
+    addObjectToScene(
+            std::make_shared<Object>(sphereModel, white))
+            ->linkShader(gouraudShader)
+            ->add(pohnoutKoulema)
+            ->add(std::make_shared<TransRotate>(1.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+
+    addObjectToScene(
+            std::make_shared<Object>(sphereModel, white))
+            ->linkShader(gouraudShader)
+            ->add(pohnoutKoulema)
+            ->add(std::make_shared<TransRotate>(1.0f, glm::vec3(5.0f, 0.0f, 6.0f), glm::vec3(0.0f, 11.0f, 0.0f)))
+            ->add(std::make_shared<TransScale>(0.5f));
+
     this->hud = std::make_unique<Hud>();
 
 }
