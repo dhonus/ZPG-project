@@ -14,7 +14,7 @@ glm::vec3 Camera::getPosition() const{
     return this->position;
 }
 
-glm::vec3 Camera::getDirection() const{
+glm::vec3 Camera::getDirection() const {
     return this->target;
 }
 
@@ -98,6 +98,7 @@ void Camera::move(bool front, bool back, bool left, bool right, bool up, bool do
     }
 }
 
+/// get projection matrix
 glm::mat4 Camera::getPerspective() {
     return this->camera;
 }

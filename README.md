@@ -11,8 +11,10 @@ Arch linux:
 `sudo pacman -S glfw glew assimp glm`
 
 Then run in the root of the project:  
-`cmake .`  
-`make`
+`cmake . -Bbuild`  
+`cd build`  
+`make`  
+`./ZPG`
 
 ### Legal
 This project is licensed under the MIT license. In source contained glText (Zlib license, modified source) and stb_image (public domain).

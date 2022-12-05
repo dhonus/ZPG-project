@@ -35,7 +35,7 @@ Texture::Texture(bool skybox, std::string fileName) {
 
         int width, height, nrChannels;
         for (unsigned int i = 0; i < 6; ++i) {
-            std::string loc = "../textures/nicer_skybox/" + faces[i];
+            std::string loc = "../" + fileName + faces[i];
             std::cout << "[__] " << loc << std::endl;
             unsigned char *data = stbi_load(loc.c_str(), &width, &height, &nrChannels, 0);
             if (data) {
@@ -49,7 +49,7 @@ Texture::Texture(bool skybox, std::string fileName) {
             stbi_image_free(data);
         }
     } else {
-        if (fileName == "") {
+        if (fileName.empty()) {
             return;
         }
         glGenTextures(1, &ourTexture);

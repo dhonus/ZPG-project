@@ -57,7 +57,6 @@ BallScene::BallScene(std::shared_ptr<Window> t_window, int width, int height) : 
             ->add(moveMe)
             ->add(std::make_shared<TransScale>(5.0f));
 
-
     addObjectToScene(
             std::make_shared<Object>(sphereModel, white))
             ->linkShader(gouraudShader)

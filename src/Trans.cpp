@@ -74,7 +74,6 @@ Trans::~Trans() {
     transformations.clear();
 }
 
-
 glm::mat4 Trans::getMatrix() {
     return transform();
 }
